@@ -1,0 +1,19 @@
+! xresource
+Xft.lcdfilter:  lcddefault
+Xft.antialias: true
+Xcursor.theme: pixelfun2
+Xcursor.size: 8
+Xft.autohint: true
+Xft.hinting: true
+Xft.hintstyle:  hintlight
+
+! twobwm.border_width: 2
+! twobwm.outer_border: 0
+! twobwm.focus_color: #RRGGBB
+! twobwm.unfocus_color: #RRGGBB
+! twobwm.fixed_color: #RRGGBB
+! twobwm.unkill_color: #RRGGBB
+! twobwm.outer_border_color: #RRGGBB
+! twobwm.fixed_unkill_color: #RRGGBB
+twobwm.inverted_colors: false
+twobwm.enable_compton: true

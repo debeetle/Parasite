@@ -1,0 +1,146 @@
+#!/bin/sh
+
+swaybg -m fill -i "$( find /home/trunk/Desktop/wallpaper/ | shuf -n 1)" &
+# fcitx5 &
+
+riverctl map normal Alt+Shift P spawn spotlight
+riverctl map normal Alt+Ctrl escape spawn center
+
+# The scratchpad will live on an unused tag. Which tags are used depends on your
+# config, but rivers default uses the first 9 tags.
+# scratch_tag=$((1 << 20 ))
+scratch_tag=10
+
+# Send windows to the scratchpad with Alt+Shift+P
+riverctl set-view-tags ${scratch_tag}
+
+# Toggle the scratchpad with Alt+P
+riverctl map normal Super Space toggle-focused-tags ${scratch_tag}
+
+# Set spawn tagmask to ensure new windows don't have the scratchpad tag unless
+# explicitly set.
+# all_but_scratch_tag=$(( ((1 << 32) - 1) ^ $scratch_tag ))
+# riverctl spawn-tagmask ${all_but_scratch_tag}
+
+# Alt+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
+riverctl map normal Alt+Shift Return spawn foot
+
+riverctl map normal Alt+Shift F spwan qutebrowser
+riverctl map normal Alt+Shift G spwan emacs
+
+# Alt+Q to close the focused view
+riverctl map normal Alt+Shift Q close
+
+# Alt+Shift+E to exit river
+riverctl map normal Alt+Shift E exit
+
+# Alt+J and Alt+K to focus the next/previous view in the layout stack
+riverctl map normal Alt Tab focus-view next
+riverctl map normal Alt+Shift Tab focus-view previous
+
+# Alt+Period and Alt+Comma to focus the next/previous output
+riverctl map normal Alt Period focus-output next
+riverctl map normal Alt Comma focus-output previous
+
+# Alt+Shift+{Period,Comma} to send the focused view to the next/previous output
+riverctl map normal Alt+Shift Period send-to-output next
+riverctl map normal Alt+Shift Comma send-to-output previous
+
+# Alt+Return to bump the focused view to the top of the layout stack
+riverctl map normal Alt Z zoom
+
+# Alt + Left Mouse Button to move views
+riverctl map-pointer normal Alt BTN_LEFT move-view
+
+# Alt + Right Mouse Button to resize views
+riverctl map-pointer normal Alt BTN_RIGHT resize-view
+
+# Alt + Middle Mouse Button to toggle float
+# riverctl map-pointer normal Alt BTN_MIDDLE toggle-float
+
+for i in $(seq 1 9)
+do
+    tags=$((1 << ($i - 1)))
+
+    # Alt+[1-9] to focus tag [0-8]
+    riverctl map normal Alt $i set-focused-tags $tags
+
+    # Alt+Shift+[1-9] to tag focused view with tag [0-8]
+    riverctl map normal Alt+Shift $i set-view-tags $tags
+
+    # Alt+Ctrl+[1-9] to toggle focus of tag [0-8]
+    riverctl map normal Alt+Control $i toggle-focused-tags $tags
+
+    # Alt+Shift+Ctrl+[1-9] to toggle tag [0-8] of focused view
+    riverctl map normal Alt+Shift+Control $i toggle-view-tags $tags
+done
+
+# Alt+0 to focus all tags
+# Alt+Shift+0 to tag focused view with all tags
+all_tags=$(((1 << 32) - 1))
+riverctl map normal Alt 0 set-focused-tags $all_tags
+riverctl map normal Alt+Shift 0 set-view-tags $all_tags
+
+# Alt+Space to toggle float
+riverctl map normal Alt grave toggle-float
+
+# Alt+F to toggle fullscreen
+riverctl map normal Alt F11 toggle-fullscreen
+
+# Declare a passthrough mode. This mode has only a single mapping to return to
+# normal mode. This makes it useful for testing a nested wayland compositor
+riverctl declare-mode passthrough
+
+# Alt+F11 to enter passthrough mode
+riverctl map normal Alt+Shift F10 enter-mode passthrough
+
+# Alt+F11 to return to normal mode
+riverctl map passthrough Alt F10 enter-mode normal
+
+# Various media key mapping examples for both normal and locked mode which do
+# not have a modifier
+for mode in normal locked
+do
+    # Eject the optical drive (well if you still have one that is)
+    riverctl map $mode None XF86Eject spawn 'eject -T'
+
+    # Control pulse audio volume with pamixer (https://github.com/cdemoulins/pamixer)
+    riverctl map $mode None XF86AudioRaiseVolume  spawn 'pamixer -i 5'
+    riverctl map $mode None XF86AudioLowerVolume  spawn 'pamixer -d 5'
+    riverctl map $mode None XF86AudioMute         spawn 'pamixer --toggle-mute'
+
+    # Control MPRIS aware media players with playerctl (https://github.com/altdesktop/playerctl)
+    riverctl map $mode None XF86AudioMedia spawn 'playerctl play-pause'
+    riverctl map $mode None XF86AudioPlay  spawn 'playerctl play-pause'
+    riverctl map $mode None XF86AudioPrev  spawn 'playerctl previous'
+    riverctl map $mode None XF86AudioNext  spawn 'playerctl next'
+
+    # Control screen backlight brightness with light (https://github.com/haikarainen/light)
+    riverctl map $mode None XF86MonBrightnessUp   spawn 'light -A 5'
+    riverctl map $mode None XF86MonBrightnessDown spawn 'light -U 5'
+done
+
+# Set background and border color
+riverctl background-color 0x000000
+riverctl border-color-focused 0xfe640b
+riverctl border-color-unfocused 0x777777
+
+# Set keyboard repeat rate
+riverctl set-repeat 30 300
+
+# Make certain views start floating
+riverctl float-filter-add app-id float
+riverctl float-filter-add title "popup title with spaces"
+riverctl float-filter-add title "spotlight"
+riverctl float-filter-add title "File Operation Progress"
+riverctl rule-add -title "spotlight"
+riverctl rule-add -title "center"
+
+# Set app-ids and titles of views which should use client side decorations
+riverctl csd-filter-add app-id "gedit"
+
+# Set the default layout generator to be rivertile and start it.
+# River will send the process group of the init executable SIGTERM on exit.
+riverctl default-layout rivertile
+rivertile -view-padding 3 -outer-padding 3 &
+

@@ -1,0 +1,1 @@
+--color=bg+:#ccd0da,spinner:#dc8a78,hl:#d20f39 --color=fg:#4c4f69,header:#d20f39,info:#8839ef,pointer:#dc8a78 --color=marker:#dc8a78,fg+:#4c4f69,prompt:#8839ef,hl+:#fe640b --no-mouse --info=inline --reverse --ansi --multi --no-hscroll --no-scrollbar --preview-window=60%

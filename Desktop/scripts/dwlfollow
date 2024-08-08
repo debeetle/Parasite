@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+. ~/Desktop/scripts/sun
+
+hour=$(date +%H)
+
+if [[ "$hour" -gt 16  ||  "$hour" -lt 05 ]]; then
+    # Switch to dark mode
+	dark
+    nohup /usr/bin/swaybg -m fill -i "$(find /home/trunk/Desktop/wallpaper/dark/ -type f | sort -R | head -n 1)" > /dev/null 2>&1 &
+else
+    # Switch to light mode
+	light
+    nohup /usr/bin/swaybg -m fill -i "$(find /home/trunk/Desktop/wallpaper/light/ -type f | sort -R | head -n 1)" > /dev/null 2>&1 &
+    flock -n /tmp/scron_lock /usr/local/bin/crond -f /home/trunk/Desktop/scron/cron_file
+fi
+
+nohup /usr/bin/foot --server --log-no-syslog > /dev/null 2>&1 &
+nohup /usr/bin/fcitx5 > /dev/null 2>&1 &
+

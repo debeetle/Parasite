@@ -1,0 +1,77 @@
+# config for dae dns
+dns {
+	# ipversion_prefer: 4
+	fixed_domain_ttl {
+		home.debeetle.cn.eu.org: 7200
+	}
+	upstream {
+		# carrier: 'tcp+udp://240e:004c:4808:0000:0000:0000:0000:0001'
+        google: 'tcp+udp://2001:4860:4860:0000:0000:0000:0000:8888'
+		cloudflare: 'tcp+udp://2606:4700:4700:0000:0000:0000:0000:1111'
+		baidu: 'tcp+udp://2400:da00::6666'
+        ali: 'tcp+udp://2400:3200::1'
+
+		carrier: 'tcp+udp://192.168.1.1:53'
+		# ali: 'tcp+udp://223.5.5.5:53'
+		# google: 'tcp+udp://8.8.4.4:53'
+		# cloudflare: 'tcp+udp://1.1.1.1:53'
+
+		# alidoh: 'https://dns.alidns.com/dns-query'
+		# baidu: 'tcp+udp://180.76.76.76:53'
+        # google: 'tls://dns.google'
+		# cloudflare: 'tls://1.1.1.1'
+		# ali: 'tls://223.5.5.5'
+	}
+	# routing {
+	# 	request {
+	# 			# asis 即向收到的 DNS 请求中的目标服务器查询，请勿将其他局域网设备 DNS 服务器设为 dae:53（小心回环）。
+	# 			# 你可以使用在 upstream 中配置的 DNS 上游。
+	#
+	# 			# 可以使用: qname, qtype。DNS 查询域名（省略后缀点 '.'）。
+	# 			# qname(geosite:category-ads-all) -> reject
+	# 			qname(geosite: google@cn) -> carrier # 参考: https://github.com/v2fly/domain-list-community#attributes
+	# 			qtype(a, aaaa) -> carrier
+	# 			qtype(cname) -> google
+	#
+	# 			qname(geosite: cn) -> carrier
+	# 			qname(geosite: apple) -> carrier
+	# 			qname(suffix: raw.githubusercontent.com) -> google
+	# 			qname(geosite: github) -> google
+	#
+	# 			qname(suffix: apple.com) -> carrier
+	# 			qname(suffix: test-ipv6.com) -> carrier
+	# 			qname(suffix: debeetle.cn.eu.org) -> carrier
+	# 			qname(suffix: stackoverflow.com) -> carrier
+	#
+	# 			# fallback 意为 default。
+	# 			# 如果上面的都不匹配，使用这个 upstream。
+	# 			fallback: google
+	# 		}
+	# 		response {
+	# 			upstream(google) -> accept
+	# 			upstream(cloudflare) -> accept
+	# 			fallback: accept
+	# 		}
+	# 	}
+	# }
+
+# Use alidns for China mainland domains and googledns for others.
+  routing {
+    # According to the request of dns query, decide to use which DNS upstream.
+    # Match rules from top to bottom.
+    request {
+      # Lookup China mainland domains using alidns, otherwise googledns.
+      # qname(geosite:cn) -> carrier
+      # fallback is also called default.
+      fallback: carrier
+    }
+    response {
+      # Trusted upstream. Always accept its result.
+      upstream(google) -> accept
+      # Possibly polluted, re-lookup using googledns.
+      ip(geoip:private) && !qname(geosite:cn) -> google
+      # fallback is also called default.
+      fallback: accept
+    }
+  }
+}

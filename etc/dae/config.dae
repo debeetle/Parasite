@@ -1,0 +1,58 @@
+# config for dae
+include {
+	config.d/route.dae
+	config.d/dns.dae
+	config.d/subscription.dae
+}
+
+# node {
+# 	singbox: 'socks5://localhost:3080'
+# }
+
+# 绑定到 LAN 和/或 WAN 接口。将下述接口替换成你自己的接口名。
+global {
+tcp_check_http_method: HEAD
+	tcp_check_url: 'http://cp.cloudflare.com,1.1.1.1,2606:4700:4700::1111'
+    udp_check_dns: 'dns.google.com:53'
+    check_interval: 600s
+    check_tolerance: 50ms
+	lan_interface: enp3s0
+	wan_interface: auto # 使用 "auto" 自动侦测 WAN 接口。
+	tproxy_port: 12345
+	tproxy_port_protect: true
+	pprof_port: 0
+	dial_mode: domain
+	so_mark_from_dae: 0
+	disable_waiting_network: true
+	enable_local_tcp_fast_redirect: true
+	log_level: error
+	allow_insecure: false
+	auto_config_kernel_parameter: true
+	sniffing_timeout: 100ms
+
+	tls_implementation: utls
+	utls_imitate: chrome_auto
+}
+
+group {
+	default {
+		# filter: name(keyword: 'HK')
+		# filter: !name(keyword: '日本')
+		# policy: min_moving_avg
+		# policy: min_avg10
+		# policy: fixed(0)
+		policy: min
+	}
+	not_banned {
+		filter: !name(keyword: '香港',keyword: 'HK')
+		policy: min_avg10
+	}
+	america {
+		filter: name(keyword: '美国')
+		policy: min
+	}
+	taiwan {
+		filter: name(keyword: '台湾')
+		policy: min
+	}
+}
