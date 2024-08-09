@@ -1,37 +1,33 @@
 #!/usr/bin/env zsh
-tmp_file=/tmp/key-value.tmp
+tmp_file=/tmp/key-value
 
 footclient --log-level none -T spotlight -W 30x20 zsh -c \
-    "pmenu -p 'open ' blender emacs epiphany firefox foot inkscape qemu qutebrowser > '$tmp_file'"
+    "pmenu -p 'open ' blender emacs epiphany firefox foot inkscape rosenrot qemu qutebrowser > '$tmp_file'"
 
-app=$(cat "$tmp_file")
+app=$(cat "$tmp_file") || exit
 
-if [ -z $app ]; then
-    exit 0
-else
-    case "$app" in
-        # "")
-        #     exit 0
-        #     ;;
-        emacs)
-            nohup /usr/bin/emacsclient -a '' -c > /dev/null 2>&1 &
-            ;;
-        epiphany)
-            nohup /usr/bin/epiphany > /dev/null 2>&1 &
-            ;;
-        foot)
-            nohup /usr/bin/footclient --log-level none > /dev/null 2>&1 &
-            ;;
-        qemu) 
-            nohup /usr/bin/virt-manager > /dev/null 2>&1 &
-            ;;
-        *)
-            if which "$app" > /dev/null 2>&1 ; then
-                nohup /usr/bin/$app > /dev/null 2>&1 &
-            else
-                # firefox --new-tab --search "$app"
-                /usr/bin/qutebrowser --target auto "$app" > /dev/null 2>&1 &
-            fi
-            ;;
-    esac
-fi
+case "$app" in
+    # "")
+    #     exit 0
+    #     ;;
+    emacs)
+        nohup /usr/bin/emacsclient -a '' -c > /dev/null 2>&1 &
+        ;;
+    epiphany)
+        nohup /usr/bin/epiphany > /dev/null 2>&1 &
+        ;;
+    foot)
+        nohup /usr/bin/footclient --log-level none > /dev/null 2>&1 &
+        ;;
+    qemu) 
+        nohup /usr/bin/virt-manager > /dev/null 2>&1 &
+        ;;
+    *)
+        if which "$app" > /dev/null 2>&1 ; then
+            nohup /usr/bin/$app > /dev/null 2>&1 &
+        else
+            # firefox --new-tab --search "$app"
+            /usr/bin/qutebrowser --target auto "$app" > /dev/null 2>&1 &
+        fi
+        ;;
+esac

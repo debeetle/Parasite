@@ -36,13 +36,12 @@ if status is-login
     sun
 	exec bash -c "test -e /etc/profile && source /etc/profile;\
 	exec  fish"
-    cp ~/.config/fish/key-value /tmp/
 end
 
 function pain 
 	set -l res $(pacman --color=auto -Slq | fzf --query="$1" --exit-0 --sync --color=16 --algo=v1 --multi --height=60% --preview 'pacman -Si {1}')
 	if test -z "$res"
-		return 0
+		return
 	else
 		doas pacman --noconfirm -S $res
         echo "- cmd: doas pacman -S $res" >> ~/.local/share/fish/fish_history
@@ -53,7 +52,7 @@ end
 function parm
 	set -l res $(pacman --color=auto -Qq | fzf --query="$1" --exit-0 --sync --color=16 --algo=v1 --multi --height=60% --preview 'pacman -Qi {1}')
 	if test -z "$res"
-		return 0
+		return
 	else
 		doas pacman -Rns $res
         echo "- cmd: doas pacman -Rns $res" >> ~/.local/share/fish/fish_history

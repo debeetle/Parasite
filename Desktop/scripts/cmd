@@ -4,30 +4,26 @@ tmp_file=/tmp/key-value
 footclient --log-level none -T cmd -W 12x10 zsh -c \
     "pmenu -p '' backup brightness lock logout reboot shutdown volumn > '$tmp_file' "
 
-chioce=$(cat "$tmp_file")
+chioce=$(cat "$tmp_file") || exit
 
-if [ -z $chioce ]; then
-    exit 0
-else
-    case "$chioce" in
-        backup)
-            doas btrfs subvolume snapshot /home /.snapshots/$(date +%Y-%m-%d)
-            ;;
-        lock)
-            waylock -log-level error -fork-on-lock -ignore-empty-password -init-color 0x6277a4 -input-color 0x587539 -fail-color 0xf52a65 #&&  ##0xffb86c 
-            doas /usr/bin/systemctl -f -q suspend-then-hibernate
-            ;;
-        shutdown) 
-            doas /usr/bin/shutdown -h now 
-            ;;
-        reboot)
-            doas /usr/bin/reboot
-            ;;
-        logout)
-            pkill dwl
-            ;;
-        volumn)
-            echo volumn
-            ;;
-    esac
-fi
+case "$chioce" in
+    backup)
+        doas btrfs subvolume snapshot /home /.snapshots/$(date +%Y-%m-%d)
+        ;;
+    lock)
+        waylock -log-level error -fork-on-lock -ignore-empty-password -init-color 0x6277a4 -input-color 0x587539 -fail-color 0xf52a65 #&&  ##0xffb86c 
+        doas /usr/bin/systemctl -f -q suspend-then-hibernate
+        ;;
+    shutdown) 
+        doas /usr/bin/shutdown -h now 
+        ;;
+    reboot)
+        doas /usr/bin/reboot
+        ;;
+    logout)
+        pkill dwl
+        ;;
+    volumn)
+        echo volumn
+        ;;
+esac

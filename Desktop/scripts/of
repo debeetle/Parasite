@@ -1,29 +1,26 @@
 #!/usr/bin/env zsh
-function of {
-    local target2open
-    target2open=$(fd --hidden --follow . "$HOME" | fzf --height=60% --preview 'pv {}')
+target2open=$(fd --hidden --follow . "$HOME" | fzf --height=60% --preview 'pv {}')
 
-    if [[ -z $target2open ]]; then
-        return 0
-    elif [[ -f $target2open ]]; then
-        case "${target2open##*.}" in
-            pdf|org|el)
-                emacs "$target2open" > /dev/null 2>&1 & disown
-                ;;
-            png|jpg)
-                swayimg "$target2open" > /dev/null 2>&1 & disown
-                ;;
-            gif)
-                chafa "$target2open"
-                ;;
-            *)
-                # echo "- cmd: nvim $target2open" >> ~/.local/state/zsh/history
-                # history -n  # Update the history file
-                nvim "$target2open"
-                ;;
-        esac
-    else
-        cd "$target2open" || return
-        ls -Al --color=always
-    fi
-}
+if [[ -z $target2open ]]; then
+    exit
+elif [[ -f $target2open ]]; then
+    case "${target2open##*.}" in
+        pdf|org|el)
+            emacsclient -a '' -c "$target2open" > /dev/null 2>&1 & disown
+            ;;
+        # png|jpg)
+        #     swayimg "$target2open" > /dev/null 2>&1 & disown
+        #     ;;
+        png|jpg|gif)
+            chafa "$target2open"
+            ;;
+        *)
+            # echo "- cmd: nvim $target2open" >> ~/.local/state/zsh/history
+            # history -n  # Update the history file
+            nvim "$target2open"
+            ;;
+    esac
+else
+    cd "$target2open"
+    ls -Al --color=always
+fi

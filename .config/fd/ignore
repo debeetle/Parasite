@@ -1,9 +1,12 @@
-# fd something but these
+
+# simple pattern
+
 auto-save-list
 bark-server
 Backup
 .cargo
 containers
+ladybird
 lib
 lib64
 man
@@ -22,11 +25,14 @@ kernelbuild
 .npm
 .pki
 __pycache__
-/home/trunk/manim/bin
-/home/trunk/ml/bin
-/home/trunk/Parasite/.config/
-/home/trunk/Parasite/.local/
 \*pyc
 *.qcow2
 site-lisp
 webkitgtk
+
+# full path
+
+/home/trunk/manim/bin
+/home/trunk/ml/bin
+/home/trunk/Parasite/*
+!/home/trunk/Parasite/etc

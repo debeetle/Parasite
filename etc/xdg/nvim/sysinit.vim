@@ -102,6 +102,7 @@ let g:netrw_localcopydircmd = 'cp -r'
 hi! link netrwMarkFile Search
 hi	FloatBorder	cterm=NONE	ctermfg=11	ctermbg=15	guifg=NONE	guibg=NONE	gui=NONE
 
+autocmd BufRead,BufNewFile *.conf setlocal filetype=ini
 
 set noshowmode
 set statusline+=%0*\ %n\                                 " Buffer number
