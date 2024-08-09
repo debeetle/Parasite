@@ -5,12 +5,14 @@ function stow
 		return
 	end
 
-    # copy some files instead of symbol links
-    doas cp -u /boot/loader/loader.conf /home/trunk/Parasite/boot/loader/
-    doas cp -u /boot/loader/entries/* /home/trunk/Parasite/boot/loader/entries/
-    doas cp -u /etc/doas.conf /home/trunk/Parasite/etc/; doas chown trunk:trunk /home/trunk/Parasite/etc/doas.conf; doas chmod 660 /home/trunk/Parasite/etc/doas.conf
+    set -l backup_path /home/trunk/Parasite
 
-	cd /home/trunk/Parasite
+    # copy some files instead of symbol links
+    doas cp -u /boot/loader/loader.conf $backup_path/boot/loader/
+    doas cp -u /boot/loader/entries/* $backup_path/boot/loader/entries/
+    doas cp -u /etc/doas.conf $backup_path/etc/; doas chown trunk:trunk $backup_path/etc/doas.conf; doas chmod 660 $backup_path/etc/doas.conf
+
+	cd $backup_path
 	git add .
 	git commit -m $message
 	read -n 1 -l -P 'Push, all right? [Y/n]' confirm
