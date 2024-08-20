@@ -1,4 +1,5 @@
 #!/usr/bin/env fish
+
 set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_STATE_HOME $HOME/.local/state
 set -x XDG_CACHE_HOME $HOME/.cache
@@ -14,7 +15,7 @@ function sun
 		echo "y" | fish_config theme save Dracula
 		#set -Ux FZF_DEFAULT_OPTS "--color=fg:#f8f8f2,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --no-mouse --info=inline --reverse --ansi --multi --no-hscroll --no-scrollbar --preview-window=60%"
 	else
-		echo "y" | fish_config theme save latte
+		echo "y" | fish_config theme save Tomorrow
 		#set -Ux FZF_DEFAULT_OPTS "--color=bg+:#ccd0da,spinner:#dc8a78,hl:#d20f39 --color=fg:#4c4f69,header:#d20f39,info:#8839ef,pointer:#dc8a78 --color=marker:#dc8a78,fg+:#4c4f69,prompt:#8839ef,hl+:#fe640b --no-mouse --info=inline --reverse --ansi --multi --no-hscroll --no-scrollbar --preview-window=60%"
 	end
 end
@@ -62,22 +63,27 @@ end
 
 function desk
 	# relaunch DWl if the binary changes, otherwise bail
-	#set -l csum ""
-	#set -l new_csum (command sha1sum (command which dwl))
-	#while true
-	#	if test "$csum" != "$new_csum" 
-	#		set -l csum $new_csum
-			dbus-run-session /usr/local/bin/dwl >/dev/null 2>&1
-	#	else
-	#		exit 0
-	#	end
-	#	set -l new_csum (command sha1sum (command which dwl))
-	#	sleep 0.5
-	#end
+	# set -l csum ""
+	# set -l new_csum (command sha1sum (command which dwl))
+	# while true
+	# 	if test "$csum" != "$new_csum" 
+	# 		set -l csum $new_csum
+			/usr/local/bin/dwl > /dev/null 2>&1
+		# else
+		# 	exit 0
+		# end
+		# set -l new_csum (command sha1sum (command which dwl))
+		# sleep 0.5
+	# end
 end
 
 function su
 	command	su --shell=/usr/bin/fish $argv
+end
+
+function wifi
+    rfkill unblock wifi
+    command iwctl station wlan0 connect CMCC-7JEE_5G
 end
 
 #set -gx XDG_RUNTIME_DIR /tmp/xdg-runtime-$(id -u)

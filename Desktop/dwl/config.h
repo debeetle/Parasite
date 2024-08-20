@@ -35,9 +35,10 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       0,            1,           -1 },
 	*/
 	{ "firefox",		"Picture-in-Picture",			0,			1,           -1,      0  },
-	{ "firefox",		"notification",					0,			1,           -1,      0  },
+	{ NULL,		"Notification",					0,			1,           -1,      0  },
 	{ "swayimg",		NULL,							0,			1,			-1,			0 },
 	{ "virt-manager",	"Virtual Machine Manager",		0,			1,           -1,      0  },
+	{ NULL,	    "VirtualBox",		                    0,			1,           -1,      0  },
 	{ "footclient",     "alert",						0,            1,           -1,     0 },
 	{ "footclient",     "pad",							0,            1,           -1,     'a' },
 	{ "footclient",     "spotlight",					0,            1,           -1,     'b' },

@@ -11,13 +11,13 @@ dns {
 		baidu: 'tcp+udp://2400:da00::6666'
         ali: 'tcp+udp://2400:3200::1'
 
-		carrier: 'tcp+udp://192.168.1.1:53'
-		# ali: 'tcp+udp://223.5.5.5:53'
-		# google: 'tcp+udp://8.8.4.4:53'
-		# cloudflare: 'tcp+udp://1.1.1.1:53'
+		carrier: 'tcp+udp://192.168.2.1:53'
+		# baidu: 'tcp+udp://180.76.76.76'
+		# ali: 'tcp+udp://223.5.5.5'
+		# google: 'tcp+udp://8.8.4.4'
+		# cloudflare: 'tcp+udp://1.1.1.1'
 
 		# alidoh: 'https://dns.alidns.com/dns-query'
-		# baidu: 'tcp+udp://180.76.76.76:53'
         # google: 'tls://dns.google'
 		# cloudflare: 'tls://1.1.1.1'
 		# ali: 'tls://223.5.5.5'

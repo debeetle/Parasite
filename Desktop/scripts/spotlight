@@ -2,7 +2,7 @@
 tmp_file=/tmp/key-value
 
 footclient --log-level none -T spotlight -W 30x20 zsh -c \
-    "pmenu -p 'open ' blender emacs epiphany firefox foot inkscape rosenrot qemu qutebrowser > '$tmp_file'"
+    "pmenu -p 'open ' blender emacs epiphany firefox foot inkscape rosenrot qemu qutebrowser virtualbox > '$tmp_file'"
 
 app=$(cat "$tmp_file") || exit
 
@@ -25,9 +25,9 @@ case "$app" in
     *)
         if which "$app" > /dev/null 2>&1 ; then
             nohup /usr/bin/$app > /dev/null 2>&1 &
-        else
+        # else
             # firefox --new-tab --search "$app"
-            /usr/bin/qutebrowser --target auto "$app" > /dev/null 2>&1 &
+            # /usr/bin/qutebrowser --target auto "$app" > /dev/null 2>&1 &
         fi
         ;;
 esac

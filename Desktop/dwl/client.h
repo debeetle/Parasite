@@ -126,15 +126,14 @@ client_get_appid(Client *c)
 {
 #ifdef XWAYLAND
 	if (client_is_x11(c))
-		return c->surface.xwayland->class;
+		return c->surface.xwayland->class ? c->surface.xwayland->class : "broken";
 #endif
-	return c->surface.xdg->toplevel->app_id;
+	return c->surface.xdg->toplevel->app_id ? c->surface.xdg->toplevel->app_id : "broken";
 }
 
 static inline void
 client_get_clip(Client *c, struct wlr_box *clip)
 {
-	struct wlr_box xdg_geom = {0};
 	*clip = (struct wlr_box){
 		.x = 0,
 		.y = 0,
@@ -147,9 +146,8 @@ client_get_clip(Client *c, struct wlr_box *clip)
 		return;
 #endif
 
-	wlr_xdg_surface_get_geometry(c->surface.xdg, &xdg_geom);
-	clip->x = xdg_geom.x;
-	clip->y = xdg_geom.y;
+	clip->x = c->surface.xdg->geometry.x;
+	clip->y = c->surface.xdg->geometry.y;
 }
 
 static inline void
@@ -164,7 +162,7 @@ client_get_geometry(Client *c, struct wlr_box *geom)
 		return;
 	}
 #endif
-	wlr_xdg_surface_get_geometry(c->surface.xdg, geom);
+    *geom = c->surface.xdg->geometry;
 }
 
 static inline Client *
@@ -183,14 +181,24 @@ client_get_parent(Client *c)
 	return p;
 }
 
+static inline int
+client_has_children(Client *c)
+{
+#ifdef XWAYLAND
+    if (client_is_x11(c))
+        return !wl_list_empty(&c->surface.xwayland->children);
+#endif
+    return wl_list_length(&c->surface.xdg->link) > 1;
+}
+
 static inline const char *
 client_get_title(Client *c)
 {
 #ifdef XWAYLAND
 	if (client_is_x11(c))
-		return c->surface.xwayland->title;
+		return c->surface.xwayland->title ? c->surface.xwayland->title : "broken";
 #endif
-	return c->surface.xdg->toplevel->title;
+	return c->surface.xdg->toplevel->title ? c->surface.xdg->toplevel->title : "broken";
 }
 
 static inline int

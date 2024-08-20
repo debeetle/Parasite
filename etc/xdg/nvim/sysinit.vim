@@ -102,7 +102,8 @@ let g:netrw_localcopydircmd = 'cp -r'
 hi! link netrwMarkFile Search
 hi	FloatBorder	cterm=NONE	ctermfg=11	ctermbg=15	guifg=NONE	guibg=NONE	gui=NONE
 
-autocmd BufRead,BufNewFile *.conf setlocal filetype=ini
+autocmd BufRead,BufNewFile *.conf,*.network,*.dae,*.rules setlocal filetype=ini
+autocmd BufRead,BufNewFile *.patch setlocal filetype=diff
 
 set noshowmode
 set statusline+=%0*\ %n\                                 " Buffer number
@@ -112,5 +113,5 @@ set statusline+=%0*\ %y                                " FileType
 set statusline+=%0*\ %{''.(&fenc!=''?&fenc:&enc).''}     " Encoding
 set statusline+=\ (%{&ff})                               " FileFormat (dos/unix..)
 set statusline+=%=                                       " Right Side
-set statusline+=%0*\ colo:\%02l\                         " Colomn number
-set statusline+=%0*\ line:\%02v\ (%3p%%)\              " Line number / total lines, percentage of document
+set statusline+=%0*\ C:\%02l\                         " Colomn number
+set statusline+=%0*\ L:\%02v\ (%3p%%)\              " Line number / total lines, percentage of document

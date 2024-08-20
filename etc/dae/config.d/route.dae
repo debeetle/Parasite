@@ -40,7 +40,7 @@ routing {
 	domain(suffix: test-ipv6.com) -> direct
 	domain(suffix: debeetle.cn.eu.org) -> direct
 
-	domain(geosite: apple) -> must_direct
+	domain(geosite: apple) -> direct
 	domain(geosite: bilibili) -> direct
 	domain(suffix: stackoverflow.com) -> direct
 	domain(suffix: codepen.io) -> direct

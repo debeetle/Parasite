@@ -333,10 +333,9 @@ static void setcursor(struct wl_listener *listener, void *data);
 static void setcursorshape(struct wl_listener *listener, void *data);
 static void setfloating(Client *c, int floating);
 static void setfullscreen(Client *c, int fullscreen);
-static void setgamma(struct wl_listener *listener, void *data);
 static void setlayout(const Arg *arg);
 static void setmon(Client *c, Monitor *m, uint32_t newtags);
-static void setpsel(struct wl_listener *listener, void *data);
+// static void setpsel(struct wl_listener *listener, void *data);
 static void setsel(struct wl_listener *listener, void *data);
 static void setup(void);
 static void spawn(const Arg *arg);
@@ -348,8 +347,6 @@ static void tile(Monitor *m);
 static void togglefloating(const Arg *arg);
 static void togglefullscreen(const Arg *arg);
 static void togglescratch(const Arg *arg);
-static void focusortogglescratch(const Arg *arg);
-static void focusortogglematchingscratch(const Arg *arg);
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void unlocksession(struct wl_listener *listener, void *data);
@@ -367,7 +364,6 @@ static void xytonode(double x, double y, struct wlr_surface **psurface,
 static void zoom(const Arg *arg);
 
 /* variables */
-static const char broken[] = "broken";
 static pid_t child_pid = -1;
 static int locked;
 static void *exclusive_focus;
@@ -393,7 +389,6 @@ static struct wlr_idle_notifier_v1 *idle_notifier;
 static struct wlr_idle_inhibit_manager_v1 *idle_inhibit_mgr;
 static struct wlr_layer_shell_v1 *layer_shell;
 static struct wlr_output_manager_v1 *output_mgr;
-static struct wlr_gamma_control_manager_v1 *gamma_control_mgr;
 static struct wlr_virtual_keyboard_manager_v1 *virtual_keyboard_mgr;
 static struct wlr_virtual_pointer_manager_v1 *virtual_pointer_mgr;
 static struct wlr_cursor_shape_manager_v1 *cursor_shape_mgr;
@@ -475,10 +470,8 @@ applyrules(Client *c)
 
 	c->isfloating = client_is_float_type(c);
 	c->scratchkey = 0;
-	if (!(appid = client_get_appid(c)))
-		appid = broken;
-	if (!(title = client_get_title(c)))
-		title = broken;
+    appid = client_get_appid(c);
+    title = client_get_title(c);
 
 	for (r = rules; r < END(rules); r++) {
 		if ((!r->title || strstr(title, r->title))
@@ -677,6 +670,7 @@ buttonpress(struct wl_listener *listener, void *data)
 			/* Drop the window off on its new monitor */
 			selmon = xytomon(cursor->x, cursor->y);
 			setmon(grabc, selmon, 0);
+            grabc = NULL;
 			return;
 		} else {
 			cursor_mode = CurNormal;
@@ -2093,7 +2087,6 @@ printstatus(void)
 	Monitor *m = NULL;
 	Client *c;
 	uint32_t occ, urg, sel;
-	const char *appid, *title;
 
 	wl_list_for_each(m, &mons, link) {
 		occ = urg = 0;
@@ -2105,10 +2098,8 @@ printstatus(void)
 				urg |= c->tags;
 		}
 		if ((c = focustop(m))) {
-			title = client_get_title(c);
-			appid = client_get_appid(c);
-			printf("%s title %s\n", m->wlr_output->name, title ? title : broken);
-			printf("%s appid %s\n", m->wlr_output->name, appid ? appid : broken);
+			printf("%s title %s\n", m->wlr_output->name, client_get_title(c));
+			printf("%s appid %s\n", m->wlr_output->name, client_get_appid(c));
 			printf("%s fullscreen %d\n", m->wlr_output->name, c->isfullscreen);
 			printf("%s floating %d\n", m->wlr_output->name, c->isfloating);
 			sel = c->tags;
@@ -2159,7 +2150,6 @@ rendermon(struct wl_listener *listener, void *data)
 	Monitor *m = wl_container_of(listener, m, frame);
 	Client *c;
 	struct wlr_output_state pending = {0};
-	struct wlr_gamma_control_v1 *gamma_control;
 	struct timespec now;
 
 	/* Render if no XDG clients have an outstanding resize and are visible on
@@ -2169,32 +2159,7 @@ rendermon(struct wl_listener *listener, void *data)
 			goto skip;
 	}
 
-	/*
-	 * HACK: The "correct" way to set the gamma is to commit it together with
-	 * the rest of the state in one go, but to do that we would need to rewrite
-	 * wlr_scene_output_commit() in order to add the gamma to the pending
-	 * state before committing, instead try to commit the gamma in one frame,
-	 * and commit the rest of the state in the next one (or in the same frame if
-	 * the gamma can not be committed).
-	 */
-	if (m->gamma_lut_changed) {
-		gamma_control
-				= wlr_gamma_control_manager_v1_get_control(gamma_control_mgr, m->wlr_output);
-		m->gamma_lut_changed = 0;
-
-		if (!wlr_gamma_control_v1_apply(gamma_control, &pending))
-			goto commit;
-
-		if (!wlr_output_test_state(m->wlr_output, &pending)) {
-			wlr_gamma_control_v1_send_failed_and_destroy(gamma_control);
-			goto commit;
-		}
-		wlr_output_commit_state(m->wlr_output, &pending);
-		wlr_output_schedule_frame(m->wlr_output);
-	} else {
-commit:
-		wlr_scene_output_commit(m->scene_output, NULL);
-	}
+    wlr_scene_output_commit(m->scene_output, NULL);
 
 skip:
 	/* Let clients know a frame has been rendered */
@@ -2392,17 +2357,6 @@ setfullscreen(Client *c, int fullscreen)
 }
 
 void
-setgamma(struct wl_listener *listener, void *data)
-{
-	struct wlr_gamma_control_manager_v1_set_gamma_event *event = data;
-	Monitor *m = event->output->data;
-	if (!m)
-		return;
-	m->gamma_lut_changed = 1;
-	wlr_output_schedule_frame(m->wlr_output);
-}
-
-void
 setlayout(const Arg *arg)
 {
 	if (!selmon)
@@ -2439,16 +2393,16 @@ setmon(Client *c, Monitor *m, uint32_t newtags)
 	focusclient(focustop(selmon), 1);
 }
 
-void
-setpsel(struct wl_listener *listener, void *data)
-{
-	/* This event is raised by the seat when a client wants to set the selection,
-	 * usually when the user copies something. wlroots allows compositors to
-	 * ignore such requests if they so choose, but in dwl we always honor
-	 */
-	struct wlr_seat_request_set_primary_selection_event *event = data;
-	wlr_seat_set_primary_selection(seat, event->source, event->serial);
-}
+// void
+// setpsel(struct wl_listener *listener, void *data)
+// {
+// 	/* This event is raised by the seat when a client wants to set the selection,
+// 	 * usually when the user copies something. wlroots allows compositors to
+// 	 * ignore such requests if they so choose, but in dwl we always honor
+// 	 */
+// 	struct wlr_seat_request_set_primary_selection_event *event = data;
+// 	wlr_seat_set_primary_selection(seat, event->source, event->serial);
+// }
 
 void
 setsel(struct wl_listener *listener, void *data)
@@ -2536,7 +2490,7 @@ setup(void)
 	wlr_export_dmabuf_manager_v1_create(dpy);
 	wlr_screencopy_manager_v1_create(dpy);
 	wlr_data_control_manager_v1_create(dpy);
-	wlr_primary_selection_v1_device_manager_create(dpy);
+	// wlr_primary_selection_v1_device_manager_create(dpy);
 	wlr_viewporter_create(dpy);
 	wlr_single_pixel_buffer_manager_v1_create(dpy);
 	wlr_fractional_scale_manager_v1_create(dpy, 1);
@@ -2547,8 +2501,7 @@ setup(void)
 	activation = wlr_xdg_activation_v1_create(dpy);
 	LISTEN_STATIC(&activation->events.request_activate, urgent);
 
-	gamma_control_mgr = wlr_gamma_control_manager_v1_create(dpy);
-	LISTEN_STATIC(&gamma_control_mgr->events.set_gamma, setgamma);
+	wlr_scene_set_gamma_control_manager_v1(scene, wlr_gamma_control_manager_v1_create(dpy));
 
 	power_mgr = wlr_output_power_manager_v1_create(dpy);
 	LISTEN_STATIC(&power_mgr->events.set_mode, powermgrsetmode);
@@ -2652,7 +2605,7 @@ setup(void)
 	seat = wlr_seat_create(dpy, "seat0");
 	LISTEN_STATIC(&seat->events.request_set_cursor, setcursor);
 	LISTEN_STATIC(&seat->events.request_set_selection, setsel);
-	LISTEN_STATIC(&seat->events.request_set_primary_selection, setpsel);
+	// LISTEN_STATIC(&seat->events.request_set_primary_selection, setpsel);
 	LISTEN_STATIC(&seat->events.request_start_drag, requeststartdrag);
 	LISTEN_STATIC(&seat->events.start_drag, startdrag);
 
@@ -2811,91 +2764,6 @@ togglescratch(const Arg *arg)
 		focusclient(c->tags == 0 ? focustop(selmon) : c, 1);
 		arrange(selmon);
 	} else{
-		spawnscratch(arg);
-	}
-}
-
-void
-focusortogglescratch(const Arg *arg)
-{
-	Client *c;
-	unsigned int found = 0;
-
-	/* search for first window that matches the scratchkey */
-	wl_list_for_each(c, &clients, link)
-		if (c->scratchkey == ((char**)arg->v)[0][0]) {
-			found = 1;
-			break;
-		}
-
-	if (found) {
-		if (VISIBLEON(c, selmon)) {
-			if (focustop(selmon) == c) {
-				// hide
-				c->tags = 0;
-				focusclient(focustop(selmon), 1);
-			} else {
-				// focus
-				focusclient(c, 1);
-			}
-		} else {
-			// show
-			c->tags = selmon->tagset[selmon->seltags];
-			focusclient(c, 1);
-		}
-		arrange(selmon);
-	} else{
-		spawnscratch(arg);
-	}
-}
-
-void
-focusortogglematchingscratch(const Arg *arg)
-{
-	Client *c;
-	unsigned int found = 0;
-	unsigned int hide = 0;
-
-	wl_list_for_each(c, &clients, link) {
-		if (c->scratchkey == 0) {
-			continue;
-		}
-		if (c->scratchkey == ((char**)arg->v)[0][0]) {
-			if (VISIBLEON(c, selmon)) {
-				if (found == 1) {
-					if (hide == 1) {
-						c->tags = 0;
-						focusclient(focustop(selmon), 1);
-					}
-					continue;
-				}
-				if (focustop(selmon) == c) {
-					// hide
-					c->tags = 0;
-					focusclient(focustop(selmon), 1);
-					hide = 1;
-				} else {
-					// focus
-					focusclient(c, 1);
-				}
-			} else {
-				// show
-				c->tags = selmon->tagset[selmon->seltags];
-				// focus
-				focusclient(c, 1);
-			}
-			found = 1;
-			continue;
-		}
-		if (VISIBLEON(c, selmon)) {
-			// hide
-			c->tags = 0;
-		}
-	}
-
-	if (found) {
-		arrange(selmon);
-	} else {
 		spawnscratch(arg);
 	}
 }
@@ -3240,14 +3108,19 @@ configurex11(struct wl_listener *listener, void *data)
 {
 	Client *c = wl_container_of(listener, c, configure);
 	struct wlr_xwayland_surface_configure_event *event = data;
-	/* TODO: figure out if there is another way to do this */
-	if (!c->mon) {
+    if (!client_surface(c) || !client_surface(c)->mapped) {
 		wlr_xwayland_surface_configure(c->surface.xwayland,
 				event->x, event->y, event->width, event->height);
 		return;
 	}
-	if (c->isfloating || client_is_unmanaged(c))
-		resize(c, (struct wlr_box){.x = event->x, .y = event->y,
+	if (client_is_unmanaged(c)) {
+		wlr_scene_node_set_position(&c->scene->node, event->x, event->y);
+		wlr_xwayland_surface_configure(c->surface.xwayland,
+				event->x, event->y, event->width, event->height);
+		return;
+	}
+	if ((c->isfloating && c != grabc) || !c->mon->lt[c->mon->sellt]->arrange)
+		resize(c, (struct wlr_box){.x = event->x - c->bw, .y = event->y - c->bw,
 				.width = event->width + c->bw * 2, .height = event->height + c->bw * 2}, 0);
 	else
 		arrange(c->mon);

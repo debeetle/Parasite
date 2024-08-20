@@ -8,10 +8,13 @@ PREFIX = /usr/local
 MANDIR = $(PREFIX)/share/man
 DATADIR = $(PREFIX)/share
 
-XWAYLAND =
-XLIBS =
+WLR_INCS = `$(PKG_CONFIG) --cflags wlroots-0.19`
+WLR_LIBS = `$(PKG_CONFIG) --libs wlroots-0.19`
+
+# XWAYLAND =
+# XLIBS =
 # Uncomment to build XWayland support
-# XWAYLAND = -DXWAYLAND
-# XLIBS = xcb xcb-icccm
+XWAYLAND = -DXWAYLAND
+XLIBS = xcb xcb-icccm
 
 CC = cc
