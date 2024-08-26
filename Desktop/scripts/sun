@@ -1,13 +1,14 @@
 #!/usr/bin/env zsh
-theme='dark'
+
+theme='light'
 light() {
-	sed -i '2s/dark/light/' ~/Desktop/scripts/sun
+	sed -i '3s/dark/light/' ~/Desktop/scripts/sun ~/Parasite/etc/xdg/foot/foot.ini
 	sed -i '22s/default-dark/rose-pine/' ~/.config/fcitx5/conf/classicui.conf
-	sed -i '2s/true/false/' ~/.config/gtk-3.0/settings.ini
-	sed -i '2s/true/false/' ~/.config/gtk-4.0/settings.ini
-	sed -i '3s/dark/light/' ~/Parasite/etc/xdg/foot/foot.ini
+	sed -i '2s/true/false/' ~/.config/gtk-3.0/settings.ini ~/.config/gtk-4.0/settings.ini
+	# sed -i '2s/true/false/' ~/.config/gtk-4.0/settings.ini
+	# sed -i '3s/dark/light/' ~/Parasite/etc/xdg/foot/foot.ini
 	sed -i '20s/dracula/onehalflight/' ~/Parasite/etc/xdg/nvim/sysinit.vim
-	sed -i '8s/dark/light/;7s/frappe/latte/' ~/.config/qutebrowser/config.py
+	sed -i '5,7s/dracula/catppuccin/;8s/dark/light/' ~/.config/qutebrowser/config.py
 	#sed -i '14,45s/^#//;49,87s/^/#/' ~/.config/zathura/zathurarc
 	sed -i '2s/dracula/adwaita/' ~/.config/emacs/init.el
 	# sed -i '20s/GTK_THEME=Adwaita:dark //' ~/Desktop/scripts/spotlight
@@ -15,13 +16,13 @@ light() {
 }
 
 dark() {
-	sed -i '2s/light/dark/' ~/Desktop/scripts/sun
+	sed -i '3s/light/dark/' ~/Desktop/scripts/sun ~/Parasite/etc/xdg/foot/foot.ini
 	sed -i '22s/rose-pine/default-dark/' ~/.config/fcitx5/conf/classicui.conf
-	sed -i '2s/false/true/' ~/.config/gtk-3.0/settings.ini
-	sed -i '2s/false/true/' ~/.config/gtk-4.0/settings.ini
-	sed -i '3s/light/dark/' ~/Parasite/etc/xdg/foot/foot.ini
+	sed -i '2s/false/true/' ~/.config/gtk-3.0/settings.ini ~/.config/gtk-4.0/settings.ini
+	# sed -i '2s/false/true/' ~/.config/gtk-4.0/settings.ini
+	# sed -i '3s/light/dark/' ~/Parasite/etc/xdg/foot/foot.ini
 	sed -i '20s/onehalflight/dracula/' ~/Parasite/etc/xdg/nvim/sysinit.vim
-	sed -i '8s/light/dark/;7s/latte/frappe/' ~/.config/qutebrowser/config.py
+	sed -i '5,7s/catppuccin/dracula/;8s/light/dark/' ~/.config/qutebrowser/config.py
 	#sed -i '14,45s/^/#/;49,87s/^#//' ~/.config/zathura/zathurarc
 	sed -i '2s/adwaita/dracula/' ~/.config/emacs/init.el
 	# sed -i '20s/^\([[:space:]]*\)/\1GTK_THEME=Adwaita:dark /' ~/Desktop/scripts/spotlight

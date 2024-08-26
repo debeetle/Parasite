@@ -11,7 +11,7 @@ else
     # Switch to light mode
 	light
     nohup /usr/bin/swaybg -m fill -i "$(find /home/trunk/Desktop/wallpaper/light/ -type f | sort -R | head -n 1)" > /dev/null 2>&1 &
-    flock -n /tmp/scron_lock /usr/local/bin/crond -f /home/trunk/Desktop/scron/cron_file
+    flock -n /tmp/dwlscron_lock /usr/local/bin/crond -f /home/trunk/Desktop/scron/dwlfollow_cron
 fi
 
 nohup /usr/bin/foot --server --log-no-syslog > /dev/null 2>&1 &

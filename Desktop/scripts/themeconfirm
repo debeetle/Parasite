@@ -38,7 +38,7 @@ case "$confirm" in
 			nohup /usr/bin/swaybg -m fill -i "$(find /home/trunk/Desktop/wallpaper/light/ -type f | sort -R | head -n 1)" > /dev/null 2>&1 &
 		fi
 
-		fish -c sun
+		fish fishsun
 		pkill foot
 		nohup foot --server --log-no-syslog > /dev/null 2>&1 &
 		;;

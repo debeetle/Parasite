@@ -17,7 +17,7 @@ if &term =~ '256color'
 endif
 " if $TERM == 'xterm-256color' || $TERM == 'st-256color' || $TERM == 'foot'
 set termguicolors 
-colorscheme dracula
+colorscheme onehalflight
 " endif
 
 " Uncomment the next line to use Vim as the editor for new files by default

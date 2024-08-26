@@ -6,8 +6,10 @@
 
 config_version: 2
 settings:
+  colors.messages.warning.bg:
+    global: darkorange
   colors.webpage.darkmode.algorithm:
-    global: lightness-cielab
+    global: lightness-hsl
   colors.webpage.darkmode.enabled:
     global: false
   colors.webpage.darkmode.policy.images:

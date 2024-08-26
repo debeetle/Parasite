@@ -2,20 +2,10 @@
 # load your autoconfig, use this, if the rest of your config is empty!
 config.load_autoconfig()
 
-import theme
+import catppuccin
 
-theme.setup(c, "frappe", True)
-config.set("colors.webpage.preferred_color_scheme", "dark")
-#  import os
-#  from urllib.request import urlopen
-#
-#
-#  if not os.path.exists(config.configdir / "theme.py"):
-#      theme = "https://raw.githubusercontent.com/catppuccin/qutebrowser/main/setup.py"
-#      with urlopen(theme) as themehtml:
-#          with open(config.configdir / "theme.py", "a") as file:
-#              file.writelines(themehtml.read().decode("utf-8"))
-
+catppuccin.setup(c)
+config.set("colors.webpage.preferred_color_scheme", "light")
 
 # set content.headers.accept_language=en-US,en;q=0.5
 
@@ -24,3 +14,5 @@ config.source("qutemacs.py")
 # c.fonts.web.size.default = 14
 # c.fonts.default_family = "Ubuntu Mono"
 # c.fonts.default_size = "11pt"
+
+# dracula.blood(c, {"spacing": {"vertical": 6, "horizontal": 8}})

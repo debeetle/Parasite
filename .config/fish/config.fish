@@ -9,14 +9,12 @@ set -x GNUPGHOME $XDG_DATA_HOME/gnupg
 set -x GOPATH $XDG_DATA_HOME/go
 set -x KERAS_HOME $XDG_STATE_HOME/keras
 
-function sun
+function fishsun
 	set -l hour (date +%H)
 	if test $hour -gt 16 -o $hour -lt 05
 		echo "y" | fish_config theme save Dracula
-		#set -Ux FZF_DEFAULT_OPTS "--color=fg:#f8f8f2,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4 --no-mouse --info=inline --reverse --ansi --multi --no-hscroll --no-scrollbar --preview-window=60%"
 	else
 		echo "y" | fish_config theme save Tomorrow
-		#set -Ux FZF_DEFAULT_OPTS "--color=bg+:#ccd0da,spinner:#dc8a78,hl:#d20f39 --color=fg:#4c4f69,header:#d20f39,info:#8839ef,pointer:#dc8a78 --color=marker:#dc8a78,fg+:#4c4f69,prompt:#8839ef,hl+:#fe640b --no-mouse --info=inline --reverse --ansi --multi --no-hscroll --no-scrollbar --preview-window=60%"
 	end
 end
 
@@ -29,14 +27,18 @@ if status is-interactive
 	abbr -a grep "grep --color=auto"
 	abbr -a dir "emacs -nw ."
 	abbr -a wget "wget --hsts-file='$XDG_DATA_HOME/wget-hsts'"
+	abbr -a fixcp "echo (command wl-paste) | python /home/trunk/Desktop/scripts/no-double-col.py | wl-copy"
+    abbr -a windown "virsh shutdown win11 > /dev/null"
 	# abbr -a huan "wget -O - -q reddit.com/r/wallpaper.json | jq '.data.children[] |.data.url' | tail -6 | xargs feh --no-fehbg --bg-fill --random"
 	# abbr --add nuc 'a602@10.168.38.7'
 end
 
 if status is-login
-    sun
-	exec bash -c "test -e /etc/profile && source /etc/profile;\
-	exec  fish"
+    fishsun
+    # /usr/local/bin/crond -f /home/trunk/Desktop/scron/must_cron
+	# exec bash -c "test -e /etc/profile && source /etc/profile;\
+	# exec  fish"
+    # VBoxHeadless --startvm openwrt > /dev/null 2>&1
 end
 
 function pain 
@@ -68,7 +70,8 @@ function desk
 	# while true
 	# 	if test "$csum" != "$new_csum" 
 	# 		set -l csum $new_csum
-			/usr/local/bin/dwl > /dev/null 2>&1
+			/usr/local/bin/dwl
+			# /usr/local/bin/dwl > /dev/null 2>&1
 		# else
 		# 	exit 0
 		# end
@@ -85,6 +88,17 @@ function wifi
     rfkill unblock wifi
     command iwctl station wlan0 connect CMCC-7JEE_5G
 end
+
+# function windows
+    # if test "$argv" = "up"
+        # virsh start win11 > /dev/null
+        # nohup virt-viewer -a win11 > /dev/null 2>&1 & 
+    # else if test "$argv" = "down"
+    #     virsh shutdown win11 > /dev/null
+    # else
+    #     return 0
+    # end
+# end
 
 #set -gx XDG_RUNTIME_DIR /tmp/xdg-runtime-$(id -u)
 #mkdir -p $XDG_RUNTIME_DIR

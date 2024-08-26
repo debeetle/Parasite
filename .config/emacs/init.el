@@ -1,5 +1,5 @@
 (add-to-list 'custom-theme-load-path "/home/trunk/.config/emacs/themes")
-(load-theme 'dracula t)
+(load-theme 'adwaita t)
 
 ;; For performance
 ;(load "server")
