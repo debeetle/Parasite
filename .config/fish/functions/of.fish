@@ -8,6 +8,7 @@ function of
 		switch $(path extension $target2open)
 			case .pdf .org .el
 				command emacsclient -a '' -c $target2open > /dev/null 2>&1 & disown
+                # command emacs $target2open
 			# case .png .jpg
 			# 	command swayimg $target2open > /dev/null 2>&1 & disown
 			case .png .jpg .gif

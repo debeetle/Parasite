@@ -162,7 +162,7 @@ client_get_geometry(Client *c, struct wlr_box *geom)
 		return;
 	}
 #endif
-    *geom = c->surface.xdg->geometry;
+	*geom = c->surface.xdg->geometry;
 }
 
 static inline Client *
@@ -185,10 +185,12 @@ static inline int
 client_has_children(Client *c)
 {
 #ifdef XWAYLAND
-    if (client_is_x11(c))
-        return !wl_list_empty(&c->surface.xwayland->children);
+	if (client_is_x11(c))
+		return !wl_list_empty(&c->surface.xwayland->children);
 #endif
-    return wl_list_length(&c->surface.xdg->link) > 1;
+	/* surface.xdg->link is never empty because it always contains at least the
+	 * surface itself. */
+	return wl_list_length(&c->surface.xdg->link) > 1;
 }
 
 static inline const char *
@@ -327,6 +329,12 @@ client_set_fullscreen(Client *c, int fullscreen)
 	}
 #endif
 	wlr_xdg_toplevel_set_fullscreen(c->surface.xdg->toplevel, fullscreen);
+}
+
+static inline void
+client_set_scale(struct wlr_surface *s, float scale) {
+	wlr_fractional_scale_v1_notify_scale(s, scale);
+	wlr_surface_set_preferred_buffer_scale(s, (int32_t)ceilf(scale));
 }
 
 static inline uint32_t

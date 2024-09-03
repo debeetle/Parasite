@@ -17,4 +17,5 @@ export XDG_RUNTIME_DIR=/tmp/xdg-runtime-$(id -u)
 mkdir -p $XDG_RUNTIME_DIR
 chmod 0700 $XDG_RUNTIME_DIR
 
-export qwe=pussy
+export XDG_CONFIG_DIR=$HOME/.config
+

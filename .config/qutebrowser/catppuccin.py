@@ -250,5 +250,5 @@ def setup(c):
     # }}}
 
     # background color for webpages {{{
-    # c.colors.webpage.bg = palette["base"]
+    c.colors.webpage.bg = palette["base"]
     # }}}

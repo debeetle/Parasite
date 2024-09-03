@@ -24,7 +24,7 @@ static int log_level = WLR_ERROR;
 
 /* Autostart */
 static const char *const autostart[] = {
-        "zsh","-c","/home/trunk/Desktop/scripts/dwlfollow", NULL,
+        "zsh","-c","/home/trunk/Desktop/scripts/wmwith", NULL,
         NULL /* terminate */
 };
 
@@ -35,10 +35,10 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       0,            1,           -1 },
 	*/
 	{ "firefox",		"Picture-in-Picture",			0,			1,           -1,      0  },
-	{ NULL,		"Notification",					0,			1,           -1,      0  },
-	{ "swayimg",		NULL,							0,			1,			-1,			0 },
+	{ NULL,		        "Notification",					0,			1,           -1,      0  },
+	{ "swayimg",		NULL,							0,			1,			-1,	      0 },
 	{ "virt-manager",	"Virtual Machine Manager",		0,			1,           -1,      0  },
-	{ NULL,	    "VirtualBox",		                    0,			1,           -1,      0  },
+	{ NULL,	            "VirtualBox",		            0,			1,           -1,      0  },
 	{ "footclient",     "alert",						0,            1,           -1,     0 },
 	{ "footclient",     "pad",							0,            1,           -1,     'a' },
 	{ "footclient",     "spotlight",					0,            1,           -1,     'b' },
@@ -136,7 +136,7 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 
 /* commands */
 static const char *browser[] = { "qutebrowser", NULL };
-static const char *screengif[] = { "/home/trunk/Desktop/scripts/give_me_gif", NULL };
+static const char *screengif[] = { "/home/trunk/Desktop/scripts/gifpicker", NULL };
 static const char *capture[] = { "/home/trunk/Desktop/scripts/capture", NULL };
 static const char *leave[] = { "/home/trunk/Desktop/scripts/lock", NULL };
 
@@ -151,6 +151,8 @@ static const char *cmd[] = { "c", "/home/trunk/Desktop/scripts/cmd", NULL };
 static const Key keys[] = {
 	/* Note that Shift changes certain key codes: c -> C, 2 -> at, etc. */
 	/* modifier                  key                 function        argument */
+	// { WLR_MODIFIER_CTRL,		 XKB_KEY_space,      focusortogglescratch,  {.v = pad} },
+	// { WLR_MODIFIER_CTRL,		 XKB_KEY_space,      focusortogglematchingscratch,  {.v = pad} },
 	{ WLR_MODIFIER_CTRL,		 XKB_KEY_space,      togglescratch,  {.v = pad} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_P,          togglescratch,  {.v = spotlight} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_O,          togglescratch,  {.v = launchf} },

@@ -21,7 +21,7 @@ tcp_check_http_method: HEAD
 	tproxy_port: 12345
 	tproxy_port_protect: true
 	pprof_port: 0
-	dial_mode: domain
+	dial_mode: domain++
 	so_mark_from_dae: 0
 	disable_waiting_network: false
 	enable_local_tcp_fast_redirect: true

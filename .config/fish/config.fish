@@ -35,6 +35,8 @@ end
 
 if status is-login
     fishsun
+    # swhks > /dev/null 2>&1 &
+    # pkexec swhkd > /dev/null 2>&1 &
     # /usr/local/bin/crond -f /home/trunk/Desktop/scron/must_cron
 	# exec bash -c "test -e /etc/profile && source /etc/profile;\
 	# exec  fish"
@@ -60,7 +62,7 @@ function parm
 		doas pacman -Rns $res
         echo "- cmd: doas pacman -Rns $res" >> ~/.local/share/fish/fish_history
         history merge
-	end
+    end
 end
 
 function desk
@@ -89,16 +91,16 @@ function wifi
     command iwctl station wlan0 connect CMCC-7JEE_5G
 end
 
-# function windows
-    # if test "$argv" = "up"
-        # virsh start win11 > /dev/null
-        # nohup virt-viewer -a win11 > /dev/null 2>&1 & 
-    # else if test "$argv" = "down"
-    #     virsh shutdown win11 > /dev/null
-    # else
-    #     return 0
-    # end
-# end
+
+function windows
+    if test "$argv" = "up"
+        VBoxManage startvm "win11" > /dev/null
+    else if test "$argv" = "down"
+        VBoxManage controlvm "win11" acpipowerbutton > /dev/null
+    else
+        return 0
+    end
+end
 
 #set -gx XDG_RUNTIME_DIR /tmp/xdg-runtime-$(id -u)
 #mkdir -p $XDG_RUNTIME_DIR

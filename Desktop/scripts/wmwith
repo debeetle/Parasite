@@ -14,6 +14,8 @@ else
     flock -n /tmp/dwlscron_lock /usr/local/bin/crond -f /home/trunk/Desktop/scron/dwlfollow_cron
 fi
 
+# gammastep -l 39:116 -b 1.0:0.9 &
+
 nohup /usr/bin/foot --server --log-no-syslog > /dev/null 2>&1 &
 nohup /usr/bin/fcitx5 > /dev/null 2>&1 &
 

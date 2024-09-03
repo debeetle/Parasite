@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-theme='light'
+theme='dark'
 light() {
 	sed -i '3s/dark/light/' ~/Desktop/scripts/sun ~/Parasite/etc/xdg/foot/foot.ini
 	sed -i '22s/default-dark/rose-pine/' ~/.config/fcitx5/conf/classicui.conf

@@ -15,10 +15,12 @@ if &term =~ '256color'
     " render properly when inside 256-color tmux and GNU screen.
 	set t_ut=
 endif
-" if $TERM == 'xterm-256color' || $TERM == 'st-256color' || $TERM == 'foot'
 set termguicolors 
-colorscheme onehalflight
-" endif
+if $TERM == 'foot' || $TERM == 'st-256color' || $TERM == 'xterm-256color'
+    colorscheme dracula
+else
+    colorscheme vim
+endif
 
 " Uncomment the next line to use Vim as the editor for new files by default
 " let &editor = 'nvim'
