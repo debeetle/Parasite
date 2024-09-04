@@ -17,7 +17,7 @@ if &term =~ '256color'
 endif
 set termguicolors 
 if $TERM == 'foot' || $TERM == 'st-256color' || $TERM == 'xterm-256color'
-    colorscheme dracula
+    colorscheme onehalflight
 else
     colorscheme vim
 endif
