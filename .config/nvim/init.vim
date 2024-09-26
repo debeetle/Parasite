@@ -39,7 +39,7 @@ require "paq"{
 	{ "onsails/lspkind.nvim" },
 	-- { "yehuohan/cmp-im" },
 	-- { "stevearc/conform.nvim" },
-	{ "nvim-treesitter/nvim-treesitter"
+	{ "nvim-treesitter/nvim-treesitter",
 		-- build = ":TSUpdate",
 	},
 	{ "mfussenegger/nvim-dap" },
