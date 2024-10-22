@@ -18,7 +18,7 @@
 (global-display-line-numbers-mode 1)
 (require 'display-line-numbers)
 (defun display-line-numbers--turn-on ()
-  "Turn on `display-line-numbers-mode'."
+  "Turn on 'display-line-numbers-mode'."
   (unless (or (minibufferp) (eq major-mode 'pdf-view-mode))
     (display-line-numbers-mode)))
 (global-auto-revert-mode t) ;另一程序修改了文件时，及时刷新 Buffer
