@@ -1,5 +1,6 @@
 # conf
 routing {
+	pname(systemd-resolve) -> must_direct
 	# pname(sing-box) -> must_direct
 	# pname(ping) -> direct
 

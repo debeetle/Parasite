@@ -87,7 +87,8 @@ require("mini.surround").setup({
         update_n_lines = 'tn', -- Update `n_lines
     }
 })
-require("nvim-dap-virtual-text").setup()
+
+-- require("nvim-dap-virtual-text").setup()
 
 require("nvim-autopairs").setup({
 	check_ts = true,

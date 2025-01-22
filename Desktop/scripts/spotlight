@@ -2,7 +2,7 @@
 tmp_file=/tmp/key-value
 
 footclient --log-level none -T spotlight -W 15x15 zsh -c \
-    "pmenu -p 'open ' blender emacs epiphany firefox foot inkscape rosenrot qemu qutebrowser virtualbox windows> '$tmp_file'"
+    "pmenu -p 'open ' blender chromium emacs epiphany firefox foot inkscape rosenrot qemu qutebrowser virtualbox windows> '$tmp_file'"
 
 app=$(cat "$tmp_file") || exit
 
@@ -18,6 +18,9 @@ case "$app" in
         ;;
     foot)
         nohup /usr/bin/footclient --log-level none > /dev/null 2>&1 &
+        ;;
+    matlab)
+        nohup QT_QPA_PLATFORM=xcb /usr/local/bin/matlab > /dev/null 2>&1 &
         ;;
     qemu) 
         nohup /usr/bin/virt-manager > /dev/null 2>&1 &

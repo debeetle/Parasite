@@ -17,7 +17,7 @@ if &term =~ '256color'
 endif
 set termguicolors 
 if $TERM == 'foot' || $TERM == 'st-256color' || $TERM == 'xterm-256color'
-    colorscheme onehalflight
+    colorscheme dracula
 else
     colorscheme vim
 endif
@@ -35,7 +35,7 @@ set cursorline
 set encoding=utf-8
 set expandtab
 filetype plugin indent on
-set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,latin1
+"set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,latin1
 set foldlevelstart=2
 set hlsearch
 set inccommand=split
@@ -71,14 +71,14 @@ set splitbelow
 set splitright
 " set spell spelllang=en_us
 set tabstop=4
-set termencoding=utf-8
 set t_Co=256
 set ttyfast
 set timeoutlen=300
 set updatetime=200
 set wildmenu
 set wildmode=longest:list,full
-set nowrap
+set wrap
+set textwidth=50
 set wrapmargin=2
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
@@ -97,9 +97,9 @@ let g:netrw_banner = 0
 let g:netrw_browser_split=4
 let g:netrw_altv=1
 let g:netrw_liststyle=3
-let g:netrw_list_hide=netrw_gitignore#Hide()
-let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
-let g:netrw_localcopydircmd = 'cp -r'
+"let g:netrw_list_hide=netrw_gitignore#Hide()
+"let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+"let g:netrw_localcopydircmd = 'cp -r'
 
 hi! link netrwMarkFile Search
 hi	FloatBorder	cterm=NONE	ctermfg=11	ctermbg=15	guifg=NONE	guibg=NONE	gui=NONE

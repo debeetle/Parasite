@@ -3,8 +3,7 @@ let g:omni_sql_default_compl_type = 'syntax'
 inoremap <silent> <C-V> <Esc>l"+Pli"
 nnoremap <silent> <M-f> :lua require('fterm').toggle()<CR>
 nnoremap <silent> <C-e> :Lexplore<CR>
-nnoremap <silent> <C-n> :bnext<CR>
-nnoremap <silent> <C-p> :bprev<CR>
+nnoremap <silent> <C-n> :bnext<CR> nnoremap <silent> <C-p> :bprev<CR>
 cnoremap UP PaqUpdate<CR>
 cnoremap <silent> CV :set norelativenumber<CR> :set nonumber<CR>
 
@@ -39,8 +38,8 @@ require "paq"{
 	{ "onsails/lspkind.nvim" },
 	-- { "yehuohan/cmp-im" },
 	-- { "stevearc/conform.nvim" },
-	{ "nvim-treesitter/nvim-treesitter"
-		-- build = ":TSUpdate",
+	{ "nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
 	},
 	{ "mfussenegger/nvim-dap" },
 	{ "theHamsta/nvim-dap-virtual-text" },

@@ -1,8 +1,6 @@
 # config for dae
 include {
-	config.d/route.dae
-	config.d/dns.dae
-	config.d/subscription.dae
+	config.d/*.dae
 }
 
 # node {
@@ -11,7 +9,7 @@ include {
 
 # 绑定到 LAN 和/或 WAN 接口。将下述接口替换成你自己的接口名。
 global {
-tcp_check_http_method: HEAD
+    # tcp_check_http_method: HEAD
 	# tcp_check_url: 'http://cp.cloudflare.com,1.1.1.1,2606:4700:4700::1111'
 	#    udp_check_dns: 'dns.google.com:53'
 	#    check_interval: 600s
@@ -21,7 +19,7 @@ tcp_check_http_method: HEAD
 	tproxy_port: 12345
 	tproxy_port_protect: true
 	pprof_port: 0
-	dial_mode: domain++
+	dial_mode: ip
 	so_mark_from_dae: 0
 	disable_waiting_network: false
 	enable_local_tcp_fast_redirect: true
@@ -32,27 +30,26 @@ tcp_check_http_method: HEAD
 
 	tls_implementation: utls
 	utls_imitate: chrome_auto
+
+    check_interval: 3000s
+    mptcp: false
 }
 
 group {
 	default {
 		filter: name(keyword: '香港', keyword: 'HK')
 		# filter: !name(keyword: '日本')
-		policy: min_moving_avg
+# policy: min_moving_avg
 		# policy: min_avg10
-		# policy: fixed(0)
+		policy: fixed(0)
 		# policy: min
 	}
 	not_banned {
 		filter: !name(keyword: '香港', keyword: 'HK')
-		policy: min_avg10
+		policy: fixed(0)
 	}
 	america {
 		filter: name(keyword: '美国')
-		policy: min
-	}
-	taiwan {
-		filter: name(keyword: '台湾')
-		policy: min
+		policy: fixed(4)
 	}
 }

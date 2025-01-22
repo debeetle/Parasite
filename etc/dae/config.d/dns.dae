@@ -6,15 +6,15 @@ dns {
 	}
 	upstream {
 		# carrier: 'tcp+udp://240e:004c:4808:0000:0000:0000:0000:0001'
-        google: 'tcp+udp://2001:4860:4860:0000:0000:0000:0000:8888'
-		cloudflare: 'tcp+udp://2606:4700:4700:0000:0000:0000:0000:1111'
-		baidu: 'tcp+udp://2400:da00::6666'
-        ali: 'tcp+udp://2400:3200::1'
+        # google: 'tcp+udp://2001:4860:4860:0000:0000:0000:0000:8888'
+		# cloudflare: 'tcp+udp://2606:4700:4700:0000:0000:0000:0000:1111'
+		# baidu: 'tcp+udp://2400:da00::6666'
+		#       ali: 'tcp+udp://2400:3200::1'
 
-		carrier: 'tcp+udp://192.168.2.1:53'
+		local: 'tcp+udp://192.168.2.1'
 		# baidu: 'tcp+udp://180.76.76.76'
 		# ali: 'tcp+udp://223.5.5.5'
-		# google: 'tcp+udp://8.8.4.4'
+		google: 'tcp+udp://8.8.4.4'
 		# cloudflare: 'tcp+udp://1.1.1.1'
 
 		# alidoh: 'https://dns.alidns.com/dns-query'
@@ -63,15 +63,10 @@ dns {
       # Lookup China mainland domains using alidns, otherwise googledns.
       # qname(geosite:cn) -> carrier
       # fallback is also called default.
-      fallback: carrier
-    }
-    response {
       # Trusted upstream. Always accept its result.
-      upstream(google) -> accept
-      # Possibly polluted, re-lookup using googledns.
-      ip(geoip:private) && !qname(geosite:cn) -> google
+      qname(geosite:cn) -> local
       # fallback is also called default.
-      fallback: accept
+      fallback: google
     }
   }
 }
