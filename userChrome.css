@@ -1,7 +1,7 @@
 /* S E T T I N G S */
 
 :root {
-  --navbarWidth     : 30em; /* Set width of navbar. Use px for a fixed width
+  --navbarWidth     : 35rem; /* Set width of navbar. Use px for a fixed width
                                 or vw for a percentage of your window. */
   /* --animationSpeed  : 0.15s; */
 }
@@ -61,11 +61,6 @@
 
 /* Oneline tweak */
 
-#TabsToolbar {
-  margin-left : var(--navbarWidth) !important;
-  margin-right : 0 !important;
-}
-
 #nav-bar {
   margin-right: calc(100vw - var(--navbarWidth)) !important;
 }
@@ -75,10 +70,10 @@
 }
 
 :root[uidensity="compact"] #nav-bar {
-  margin-top  : -38px !important;
+  margin-top  : -37px !important;
   padding-top  : 0 !important;
   padding-bottom  : 0 !important;
-  height      : 38px !important;
+  height      : 35px !important;
 }
 
 
@@ -88,8 +83,9 @@
 }
 
 #TabsToolbar {
-  margin-top: 0 !important;
+  margin-top: -2px !important;
   margin-bottom: 0 !important;
+  margin-left : var(--navbarWidth) !important;
   margin-right: 0 !important;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
