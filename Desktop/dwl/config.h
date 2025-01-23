@@ -72,7 +72,8 @@ static const struct xkb_rule_names xkb_rules = {
 	.options = "ctrl:nocaps",
 	*/
 	// .options = "caps:escape_shifted_capslock,terminate:ctrl_alt_bksp"
-	.options = "caps:escape_shifted_capslock,altwin:swap_lalt_lwin,terminate:ctrl_alt_bksp,ctrl:j_down,ctrl:k_up"
+	// .options = "caps:escape_shifted_capslock,altwin:swap_lalt_lwin,terminate:ctrl_alt_bksp,ctrl:j_down,ctrl:k_up"
+	.options = "caps:escape_shifted_capslock,altwin:swap_lalt_lwin,terminate:ctrl_alt_bksp"
 };
 
 static const int repeat_rate = 25;

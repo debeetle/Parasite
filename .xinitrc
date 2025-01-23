@@ -23,7 +23,7 @@ xrdb ~/.Xresources
 # fcitx5 &
 #crond -f /home/trunk/Desktop/scron/schedule 
 
-# exec /usr/local/bin/dwm
+exec /usr/local/bin/dwm
 # exec sxhkd
 # exec /home/trunk/Desktop/scripts/restart_wm
 # 2bwm &

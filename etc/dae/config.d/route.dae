@@ -1,6 +1,7 @@
 # conf
 routing {
 	pname(systemd-resolve) -> must_direct
+	pname(systemd-resolved) -> must_direct
 	# pname(sing-box) -> must_direct
 	# pname(ping) -> direct
 
@@ -12,51 +13,50 @@ routing {
 
 	dip(geoip:private) -> direct
 	dip(geoip:cn) -> direct
-	dip(192.168.1.1, 180.76.76.76, 223.5.5.5) -> direct
+	dip(192.168.2.1, 192.168.1.1, 180.76.76.76, 223.5.5.5) -> direct
 	
 	### 以下为自定义规则
 	
 	# 禁用 h3，因为它通常消耗很多 CPU 和内存资源
 	l4proto(udp) && dport(443) -> block
-	l4proto(tcp) -> default
-	l4proto(udp) -> direct
+	# l4proto(tcp) -> default
+	# l4proto(udp) -> direct
 
-	domain(geosite: github) -> default
-	domain(geosite: google) -> default
-	domain(suffix: reddit.com) -> default
-	domain(suffix: youtube.com) -> default
-	domain(suffix: v2ex.com) -> default
-	domain(suffix: quora.com) -> default
-	domain(suffix: huggingface.co) -> default
-	domain(suffix: telegram.org) -> default
-	domain(suffix: v2raya.org) -> default
+	domain(
+            geosite: github,
+            geosite: google,
+            reddit.com,
+            youtube.com,
+            v2ex.com,
+            quora.com,
+            huggingface.co,
+            telegram.org,
+            v2raya.org) -> default
 
-	domain(suffix: openai.com) -> america
-	domain(suffix: chatgpt.com) -> america
-	domain(suffix: gemini.gooogle.com) -> not_banned
-	domain(suffix: poe.com) -> america
+	domain(
+            geosite: openai,
+            gemini.gooogle.com,
+            poe.com) -> america
 
-	domain(geosite: cloudflare) -> direct
-	domain(suffix: cloudflare.trace) -> direct
-	domain(suffix: test-ipv6.com) -> direct
-	domain(suffix: debeetle.cn.eu.org) -> direct
-
-	domain(geosite: apple) -> direct
-	domain(geosite: bilibili) -> direct
-	domain(suffix: stackoverflow.com) -> direct
-	domain(suffix: codepen.io) -> direct
-	domain(suffix: speedtest.net) -> direct
-	domain(suffix: texpage.com) -> direct
-	domain(suffix: wechat.com) -> direct
-	domain(suffix: netease.com) -> direct
-	domain(suffix: sspai.com) -> direct
-	domain(suffix: flomo.app) -> direct
+	domain(
+            geosite: apple,
+            geosite: bilibili,
+            # geosite: cloudflare,
+            test-ipv6.com,
+            debeetle.cn.eu.org,
+            stackoverflow.com,
+            codepen.io,
+            texpage.com,
+            wechat.com,
+            netease.com,
+            sspai.com,
+            flomo.app) -> direct(must)
 	# domain(suffix: qikan.cmes.org) -> direct
 	# domain(geosite:category-ads) -> block
 
 	# ipversion(6) -> direct
-	dip(8.8.8.8) && l4proto(tcp) && dport(1-1023, 8443) -> default
-	dip(1.1.1.1) && sip(10.0.0.1, 172.20.0.0/16) -> direct
+	# dip(8.8.8.8) && l4proto(tcp) && dport(1-1023, 8443) -> default
+	# dip(1.1.1.1) && sip(10.0.0.1, 172.20.0.0/16) -> direct
 
 	# BT
 	dscp(0x4) -> direct
@@ -67,16 +67,17 @@ routing {
 
 	### 源端口规则
 	sport(22) -> must_direct
-	sport(8088) -> direct
-	sport(8800) -> direct
-	sport(10080-30000) -> direct
+	# sport(8088) -> direct
+	# sport(8800) -> direct
+	# sport(10080-30000) -> direct
 
-	domain(geosite:google-scholar) -> default
-	domain(geosite:category-scholar-!cn, geosite:category-scholar-cn) -> default
-	domain(geosite:geolocation-!cn) -> default
+	# domain(geosite:google-scholar) -> default
+	domain(geosite:category-scholar-!cn, 
+            geosite:category-scholar-cn,
+            geosite:geolocation-!cn) -> default
 
 	#using fw mark for ultra fast gaming experience
 	dscp(8) -> direct(mark:0x800)
 
-	fallback: default
+	fallback: america
 }

@@ -32,12 +32,12 @@ global {
 	utls_imitate: chrome_auto
 
     check_interval: 3000s
-    mptcp: false
+    mptcp: true
 }
 
 group {
 	default {
-		filter: name(keyword: '香港', keyword: 'HK')
+		# filter: name(keyword: '香港')
 		# filter: !name(keyword: '日本')
 # policy: min_moving_avg
 		# policy: min_avg10
