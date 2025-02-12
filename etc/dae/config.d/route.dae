@@ -1,83 +1,47 @@
 # conf
 routing {
-	pname(systemd-resolve) -> must_direct
-	pname(systemd-resolved) -> must_direct
-	# pname(sing-box) -> must_direct
-	# pname(ping) -> direct
+	pname(systemd-resolve) -> direct(must)
+	# pname(systemd-resolved) -> direct(must)
+	pname(smartdns) -> direct(must)
 
-	domain(geosite:cn) -> direct
+    domain(geosite:cn) -> direct
 	ip(geoip:cn) -> direct
-
-	# Put it in the front to prevent broadcast, multicast and other packets that should be sent to the LAN from being forwarded by the proxy.
-	# dip(224.0.0.0/3, 'ff00::/8') -> direct
 
 	dip(geoip:private) -> direct
 	dip(geoip:cn) -> direct
-	dip(192.168.2.1, 192.168.1.1, 180.76.76.76, 223.5.5.5) -> direct
-	
-	### 以下为自定义规则
-	
-	# 禁用 h3，因为它通常消耗很多 CPU 和内存资源
-	l4proto(udp) && dport(443) -> block
-	# l4proto(tcp) -> default
-	# l4proto(udp) -> direct
+	dip(192.168.2.1, 192.168.1.1, 223.5.5.5) -> direct
 
-	domain(
+    l4proto(udp) && dport(443) -> block
+
+    domain(
             geosite: github,
+            raw.githubusercontent.com,
             geosite: google,
             reddit.com,
-            youtube.com,
-            v2ex.com,
-            quora.com,
-            huggingface.co,
-            telegram.org,
-            v2raya.org) -> default
+            youtube.com) -> default
 
-	domain(
+    domain(
             geosite: openai,
-            gemini.gooogle.com,
+            gemini.google.com,
             poe.com) -> america
 
-	domain(
+    domain(
             geosite: apple,
             geosite: bilibili,
-            # geosite: cloudflare,
-            test-ipv6.com,
-            debeetle.cn.eu.org,
+            chat.deepseek.com,
             stackoverflow.com,
-            codepen.io,
+            test-ipv6.com,
             texpage.com,
             wechat.com,
             netease.com,
-            sspai.com,
-            flomo.app) -> direct(must)
-	# domain(suffix: qikan.cmes.org) -> direct
-	# domain(geosite:category-ads) -> block
+            sspai.com) -> direct(must)
 
-	# ipversion(6) -> direct
-	# dip(8.8.8.8) && l4proto(tcp) && dport(1-1023, 8443) -> default
-	# dip(1.1.1.1) && sip(10.0.0.1, 172.20.0.0/16) -> direct
+    dscp(0x4) -> direct
 
-	# BT
-	dscp(0x4) -> direct
+    dport(22) -> direct(must)
+    sport(22) -> direct(must)
 
-	### 目标端口规则
-	dport(22) -> must_direct
-	# dport(10080-30000) -> direct
+    dscp(8) -> direct(mark:0x800)
 
-	### 源端口规则
-	sport(22) -> must_direct
-	# sport(8088) -> direct
-	# sport(8800) -> direct
-	# sport(10080-30000) -> direct
-
-	# domain(geosite:google-scholar) -> default
-	domain(geosite:category-scholar-!cn, 
-            geosite:category-scholar-cn,
-            geosite:geolocation-!cn) -> default
-
-	#using fw mark for ultra fast gaming experience
-	dscp(8) -> direct(mark:0x800)
-
-	fallback: america
+	fallback: default
 }
