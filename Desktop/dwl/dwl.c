@@ -79,7 +79,7 @@
 #define END(A)                  ((A) + LENGTH(A))
 #define TAGMASK                 ((1u << TAGCOUNT) - 1)
 #define LISTEN(E, L, H)         wl_signal_add((E), ((L)->notify = (H), (L)))
-#define LISTEN_STATIC(E, H)     do { static struct wl_listener _l = {.notify = (H)}; wl_signal_add((E), &_l); } while (0)
+#define LISTEN_STATIC(E, H)     do { struct wl_listener *_l = ecalloc(1, sizeof(*_l)); _l->notify = (H); wl_signal_add((E), _l); } while (0)
 
 /* enums */
 enum { CurNormal, CurPressed, CurMove, CurResize }; /* cursor */
@@ -138,7 +138,7 @@ typedef struct {
 	unsigned int bw;
 	uint32_t tags;
 	int isfloating, isurgent, isfullscreen;
-	char scratchkey;
+    char scratchkey;
 	uint32_t resize; /* configure serial of a pending resize */
 } Client;
 
@@ -198,7 +198,6 @@ struct Monitor {
 	struct wlr_box w; /* window area, layout-relative */
 	struct wl_list layers[4]; /* LayerSurface.link */
 	const Layout *lt[2];
-    int gaps;
 	unsigned int seltags;
 	unsigned int sellt;
 	uint32_t tagset[2];
@@ -230,7 +229,7 @@ typedef struct {
 	uint32_t tags;
 	int isfloating;
 	int monitor;
-	const char scratchkey;
+    const char scratchkey;
 } Rule;
 
 typedef struct {
@@ -288,14 +287,12 @@ static void destroykeyboardgroup(struct wl_listener *listener, void *data);
 static Monitor *dirtomon(enum wlr_direction dir);
 static void focusclient(Client *c, int lift);
 static void focusmon(const Arg *arg);
-// static void focusortogglematchingscratch(const Arg *arg);
-// static void focusortogglescratch(const Arg *arg);
 static void focusstack(const Arg *arg);
 static Client *focustop(Monitor *m);
 static void fullscreennotify(struct wl_listener *listener, void *data);
 static void gpureset(struct wl_listener *listener, void *data);
 static void handlesig(int signo);
-// static void incnmaster(const Arg *arg);
+/*static void incnmaster(const Arg *arg);*/
 static void inputdevice(struct wl_listener *listener, void *data);
 static int keybinding(uint32_t mods, xkb_keysym_t sym);
 static void keypress(struct wl_listener *listener, void *data);
@@ -330,7 +327,7 @@ static void setcursorshape(struct wl_listener *listener, void *data);
 static void setfloating(Client *c, int floating);
 static void setfullscreen(Client *c, int fullscreen);
 static void setlayout(const Arg *arg);
-// static void setmfact(const Arg *arg);
+/*static void setmfact(const Arg *arg);*/
 static void setmon(Client *c, Monitor *m, uint32_t newtags);
 static void setpsel(struct wl_listener *listener, void *data);
 static void setsel(struct wl_listener *listener, void *data);
@@ -485,6 +482,27 @@ applybounds(Client *c, struct wlr_box *bbox)
 }
 
 void
+autostartexec(void) {
+	const char *const *p;
+	size_t i = 0;
+
+	/* count entries */
+	for (p = autostart; *p; autostart_len++, p++)
+		while (*++p);
+
+	autostart_pids = calloc(autostart_len, sizeof(pid_t));
+	for (p = autostart; *p; i++, p++) {
+		if ((autostart_pids[i] = fork()) == 0) {
+			setsid();
+			execvp(*p, (char *const *)p);
+			die("dwl: execvp %s:", *p);
+		}
+		/* skip arguments */
+		while (*++p);
+	}
+}
+
+void
 applyrules(Client *c)
 {
 	/* rule matching */
@@ -617,27 +635,6 @@ arrangelayers(Monitor *m)
 }
 
 void
-autostartexec(void) {
-	const char *const *p;
-	size_t i = 0;
-
-	/* count entries */
-	for (p = autostart; *p; autostart_len++, p++)
-		while (*++p);
-
-	autostart_pids = calloc(autostart_len, sizeof(pid_t));
-	for (p = autostart; *p; i++, p++) {
-		if ((autostart_pids[i] = fork()) == 0) {
-			setsid();
-			execvp(*p, (char *const *)p);
-			die("dwl: execvp %s:", *p);
-		}
-		/* skip arguments */
-		while (*++p);
-	}
-}
-
-void
 axisnotify(struct wl_listener *listener, void *data)
 {
 	/* This event is forwarded by the cursor when a pointer emits an axis event,
@@ -733,9 +730,8 @@ checkidleinhibitor(struct wlr_surface *exclude)
 void
 cleanup(void)
 {
-	size_t i;
-
-    cleanuplisteners();
+    size_t i;
+	cleanuplisteners();
 #ifdef XWAYLAND
 	wlr_xwayland_destroy(xwayland);
 	xwayland = NULL;
@@ -955,6 +951,7 @@ commitpopup(struct wl_listener *listener, void *data)
 	box.y -= (type == LayerShell ? l->scene->node.y : c->geom.y);
 	wlr_xdg_popup_unconstrain_from_box(popup, &box);
 	wl_list_remove(&listener->link);
+    free(listener);
 }
 
 void
@@ -1098,7 +1095,6 @@ createmon(struct wl_listener *listener, void *data)
 		wl_list_init(&m->layers[i]);
 
 	wlr_output_state_init(&state);
-
 	/* Initialize monitor state using configured rules */
 	m->tagset[0] = m->tagset[1] = 1;
 	for (r = monrules; r < END(monrules); r++) {
@@ -1295,7 +1291,8 @@ destroydragicon(struct wl_listener *listener, void *data)
 	/* Focus enter isn't sent during drag, so refocus the focused node. */
 	focusclient(focustop(selmon), 1);
 	motionnotify(0, NULL, 0, 0, 0, 0);
-    wl_list_remove(&listener->link);
+	wl_list_remove(&listener->link);
+    free(listener);
 }
 
 void
@@ -1304,7 +1301,8 @@ destroyidleinhibitor(struct wl_listener *listener, void *data)
 	/* `data` is the wlr_surface of the idle inhibitor being destroyed,
 	 * at this point the idle inhibitor is still in the list of the manager */
 	checkidleinhibitor(wlr_surface_get_root_surface(data));
-    wl_list_remove(&listener->link);
+	wl_list_remove(&listener->link);
+    free(listener);
 }
 
 void
@@ -1526,91 +1524,6 @@ focusmon(const Arg *arg)
 	focusclient(focustop(selmon), 1);
 }
 
-// void
-// focusortogglematchingscratch(const Arg *arg)
-// {
-// 	Client *c;
-// 	unsigned int found = 0;
-// 	unsigned int hide = 0;
-//
-// 	wl_list_for_each(c, &clients, link) {
-// 		if (c->scratchkey == 0) {
-// 			continue;
-// 		}
-// 		if (c->scratchkey == ((char**)arg->v)[0][0]) {
-// 			if (VISIBLEON(c, selmon)) {
-// 				if (found == 1) {
-// 					if (hide == 1) {
-// 						c->tags = 0;
-// 						focusclient(focustop(selmon), 1);
-// 					}
-// 					continue;
-// 				}
-// 				if (focustop(selmon) == c) {
-// 					// hide
-// 					c->tags = 0;
-// 					focusclient(focustop(selmon), 1);
-// 					hide = 1;
-// 				} else {
-// 					// focus
-// 					focusclient(c, 1);
-// 				}
-// 			} else {
-// 				// show
-// 				c->tags = selmon->tagset[selmon->seltags];
-// 				// focus
-// 				focusclient(c, 1);
-// 			}
-// 			found = 1;
-// 			continue;
-// 		}
-// 		if (VISIBLEON(c, selmon)) {
-// 			// hide
-// 			c->tags = 0;
-// 		}
-// 	}
-//
-// 	if (found) {
-// 		arrange(selmon);
-// 	} else {
-// 		spawnscratch(arg);
-// 	}
-// }
-
-// void
-// focusortogglescratch(const Arg *arg)
-// {
-// 	Client *c;
-// 	unsigned int found = 0;
-//
-// 	/* search for first window that matches the scratchkey */
-// 	wl_list_for_each(c, &clients, link)
-// 		if (c->scratchkey == ((char**)arg->v)[0][0]) {
-// 			found = 1;
-// 			break;
-// 		}
-//
-// 	if (found) {
-// 		if (VISIBLEON(c, selmon)) {
-// 			if (focustop(selmon) == c) {
-// 				// hide
-// 				c->tags = 0;
-// 				focusclient(focustop(selmon), 1);
-// 			} else {
-// 				// focus
-// 				focusclient(c, 1);
-// 			}
-// 		} else {
-// 			// show
-// 			c->tags = selmon->tagset[selmon->seltags];
-// 			focusclient(c, 1);
-// 		}
-// 		arrange(selmon);
-// 	} else{
-// 		spawnscratch(arg);
-// 	}
-// }
-
 void
 focusstack(const Arg *arg)
 {
@@ -1686,35 +1599,35 @@ gpureset(struct wl_listener *listener, void *data)
 void
 handlesig(int signo)
 {
- 	if (signo == SIGCHLD) {
- 		pid_t pid, *p, *lim;
- 		while ((pid = waitpid(-1, NULL, WNOHANG)) > 0) {
- 			if (pid == child_pid)
- 				child_pid = -1;
- 			if (!(p = autostart_pids))
- 				continue;
- 			lim = &p[autostart_len];
- 
- 			for (; p < lim; p++) {
- 				if (*p == pid) {
- 					*p = -1;
- 					break;
- 				}
- 			}
- 		}
- 	} else if (signo == SIGINT || signo == SIGTERM) {
- 		quit(NULL);
- 	}
+	if (signo == SIGCHLD) {
+		pid_t pid, *p, *lim;
+		while ((pid = waitpid(-1, NULL, WNOHANG)) > 0) {
+			if (pid == child_pid)
+				child_pid = -1;
+			if (!(p = autostart_pids))
+				continue;
+			lim = &p[autostart_len];
+
+			for (; p < lim; p++) {
+				if (*p == pid) {
+					*p = -1;
+					break;
+				}
+			}
+		}
+	} else if (signo == SIGINT || signo == SIGTERM) {
+		quit(NULL);
+    }
 }
 
-// void
-// incnmaster(const Arg *arg)
-// {
-// 	if (!arg || !selmon)
-// 		return;
-// 	selmon->nmaster = MAX(selmon->nmaster + arg->i, 0);
-// 	arrange(selmon);
-// }
+/*void*/
+/*incnmaster(const Arg *arg)*/
+/*{*/
+/*	if (!arg || !selmon)*/
+/*		return;*/
+/*	selmon->nmaster = MAX(selmon->nmaster + arg->i, 0);*/
+/*	arrange(selmon);*/
+/*}*/
 
 void
 inputdevice(struct wl_listener *listener, void *data)
@@ -2283,7 +2196,7 @@ powermgrsetmode(struct wl_listener *listener, void *data)
 	wlr_output_commit_state(m->wlr_output, &state);
 
 	m->asleep = !event->mode;
-    updatemons(NULL, NULL);
+	updatemons(NULL, NULL);
 }
 
 void
@@ -2395,7 +2308,7 @@ run(char *startup_cmd)
 		die("startup: backend_start");
 
 	/* Now that the socket exists and the backend is started, run the startup command */
-	autostartexec();
+    autostartexec();
 	if (startup_cmd) {
 		int piperw[2];
 		if (pipe(piperw) < 0)
@@ -2527,19 +2440,19 @@ setlayout(const Arg *arg)
 }
 
 /* arg > 1.0 will set mfact absolutely */
-// void
-// setmfact(const Arg *arg)
-// {
-// 	float f;
-//
-// 	if (!arg || !selmon || !selmon->lt[selmon->sellt]->arrange)
-// 		return;
-// 	f = arg->f < 1.0f ? arg->f + selmon->mfact : arg->f - 1.0f;
-// 	if (f < 0.1 || f > 0.9)
-// 		return;
-// 	selmon->mfact = f;
-// 	arrange(selmon);
-// }
+/*void*/
+/*setmfact(const Arg *arg)*/
+/*{*/
+/*	float f;*/
+/**/
+/*	if (!arg || !selmon || !selmon->lt[selmon->sellt]->arrange)*/
+/*		return;*/
+/*	f = arg->f < 1.0f ? arg->f + selmon->mfact : arg->f - 1.0f;*/
+/*	if (f < 0.1 || f > 0.9)*/
+/*		return;*/
+/*	selmon->mfact = f;*/
+/*	arrange(selmon);*/
+/*}*/
 
 void
 setmon(Client *c, Monitor *m, uint32_t newtags)
@@ -2640,7 +2553,7 @@ setup(void)
 	}
 
 	if ((drm_fd = wlr_renderer_get_drm_fd(drw)) >= 0 && drw->features.timeline
-            && backend->features.timeline)
+			&& backend->features.timeline)
 		wlr_linux_drm_syncobj_manager_v1_create(dpy, 1, drm_fd);
 
 	/* Autocreates an allocator for us.
@@ -2773,8 +2686,8 @@ setup(void)
 	wl_signal_add(&virtual_keyboard_mgr->events.new_virtual_keyboard,
 			&new_virtual_keyboard);
 	virtual_pointer_mgr = wlr_virtual_pointer_manager_v1_create(dpy);
-	wl_signal_add(&virtual_pointer_mgr->events.new_virtual_pointer,
-        &new_virtual_pointer);
+    wl_signal_add(&virtual_pointer_mgr->events.new_virtual_pointer,
+            &new_virtual_pointer);
 
 	seat = wlr_seat_create(dpy, "seat0");
 	wl_signal_add(&seat->events.request_set_cursor, &request_cursor);
@@ -2886,14 +2799,14 @@ tile(Monitor *m)
 		if (!VISIBLEON(c, m) || c->isfloating || c->isfullscreen)
 			continue;
 		if (i < m->nmaster) {
-            r = MIN(n, m->nmaster) - i;
-            h = (m->w.height - my - gappx - gappx * (r-1)) / r;
-			resize(c, (struct wlr_box){.x = m->w.x + gappx, .y = m->w.y + my, .width = mw - 2*gappx,
-				.height = h}, 0);
+			r = MIN(n, m->nmaster) - i;
+			h = (m->w.height - my - gappx - gappx * (r - 1)) / r;
+			resize(c, (struct wlr_box){.x = m->w.x + gappx, .y = m->w.y + my,
+				.width = mw - 2*gappx, .height = h}, 0);
 			my += c->geom.height + gappx;
 		} else {
-            r = n - i;
-            h = (m->w.height - ty - gappx - gappx * (r-1)) / r;
+			r = n - i;
+			h = (m->w.height - ty - gappx - gappx * (r - 1)) / r;
 			resize(c, (struct wlr_box){.x = m->w.x + mw, .y = m->w.y + ty,
 				.width = m->w.width - mw - gappx, .height = h}, 0);
 			ty += c->geom.height + gappx;
@@ -3362,7 +3275,6 @@ xwaylandready(struct wl_listener *listener, void *data)
 				xcursor->images[0]->buffer, xcursor->images[0]->width * 4,
 				xcursor->images[0]->width, xcursor->images[0]->height,
 				xcursor->images[0]->hotspot_x, xcursor->images[0]->hotspot_y);
-
 }
 #endif
 

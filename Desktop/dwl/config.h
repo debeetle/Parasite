@@ -24,7 +24,7 @@ static int log_level = WLR_ERROR;
 
 /* Autostart */
 static const char *const autostart[] = {
-        "zsh","-c","/home/chaos/garden/scripts/wmwith", NULL,
+        "/home/chaos/garden/scripts/wmwith", NULL,
         NULL /* terminate */
 };
 
@@ -39,11 +39,11 @@ static const Rule rules[] = {
 	{ "swayimg",		NULL,							0,			1,			-1,	      0 },
 	{ "virt-manager",	"Virtual Machine Manager",		0,			1,           -1,      0  },
 	{ NULL,	            "VirtualBox",		            0,			1,           -1,      0  },
-	{ "footclient",     "alert",						0,            1,           -1,     0 },
-	{ "footclient",     "pad",							0,            1,           -1,     'a' },
-	{ "footclient",     "spotlight",					0,            1,           -1,     'b' },
-	{ "footclient",     "cmd",							0,            1,           -1,     'c' },
-	{ "footclient",     "launchf",						0,            1,           -1,     's' },
+	{ NULL,     "alert",						0,            1,           -1,     0 },
+	{ NULL,     "pad",							0,            1,           -1,     'a' },
+	{ NULL,     "spotlight",					0,            1,           -1,     'b' },
+	{ NULL,     "action",							0,            1,           -1,     'c' },
+	{ NULL,     "launchf",						0,            1,           -1,     's' },
 };
 
 /* layout(s) */
@@ -77,7 +77,7 @@ static const struct xkb_rule_names xkb_rules = {
 };
 
 static const int repeat_rate = 25;
-static const int repeat_delay = 550;
+static const int repeat_delay = 500;
 
 /* Trackpad */
 static const int tap_to_click = 1;
@@ -133,7 +133,7 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 	{ MODKEY|WLR_MODIFIER_CTRL|WLR_MODIFIER_SHIFT,SKEY,toggletag, {.ui = 1 << TAG} }
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/zsh", "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/usr/bin/bash", "-c", cmd, NULL } }
 
 /* commands */
 static const char *browser[] = { "qutebrowser", NULL };
@@ -145,8 +145,8 @@ static const char *leave[] = { "/home/chaos/garden/scripts/lock", NULL };
 /*static const char *pad[] = { "a", "havoc", "-i", "pad", NULL };*/
 static const char *pad[] = { "a", "footclient", "--log-level", "none", "-T", "pad", NULL };
 static const char *launchf[] = { "s", "havoc", "-i", "launchf", "/home/chaos/garden/scripts/launchf", NULL};
-static const char *spotlight[] = { "b", "/home/chaos/garden/scripts/spotlight", NULL };
-static const char *cmd[] = { "c", "/home/chaos/garden/scripts/cmd", NULL };
+static const char *spotlight[] = { "b", "footclient", "--log-level", "none", "-T", "spotlight", "-W", "15x15", "/home/chaos/garden/scripts/spotlight", NULL };
+static const char *action[] = { "c", "footclient", "--log-level", "none", "-T", "action", "-W", "12x10", "/home/chaos/garden/scripts/action", NULL };
 
 
 static const Key keys[] = {
@@ -155,10 +155,10 @@ static const Key keys[] = {
 	// { WLR_MODIFIER_CTRL,		 XKB_KEY_space,      focusortogglescratch,  {.v = pad} },
 	// { WLR_MODIFIER_CTRL,		 XKB_KEY_space,      focusortogglematchingscratch,  {.v = pad} },
 	{ WLR_MODIFIER_CTRL,		 XKB_KEY_space,      togglescratch,  {.v = pad} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_P,          togglescratch,  {.v = spotlight} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_F,          togglescratch,  {.v = spotlight} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_O,          togglescratch,  {.v = launchf} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Escape,     togglescratch,  {.v = cmd} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_F,			 spawn,          {.v = browser} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Escape,     togglescratch,  {.v = action} },
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_B,			 spawn,          {.v = browser} },
 	{ MODKEY,					 XKB_KEY_Print,		 spawn,          {.v = screengif} },
 	{ WLR_MODIFIER_CTRL,		 XKB_KEY_Print,		 spawn,          {.v = capture} },
 	{ MODKEY|WLR_MODIFIER_CTRL,	 XKB_KEY_l,			spawn,          {.v = leave} },
@@ -174,7 +174,7 @@ static const Key keys[] = {
 	/*{ MODKEY,                    XKB_KEY_space,      setlayout,      {0} },*/
 	{ MODKEY,					 XKB_KEY_grave,      togglefloating, {0} },
 	{ MODKEY,                    XKB_KEY_F11,        togglefullscreen, {0} },
-	{ MODKEY,                    XKB_KEY_0,          view,           {.ui = ~0} },
+	{ MODKEY,                    XKB_KEY_o,          view,           {.ui = ~0} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_parenright, tag,            {.ui = ~0} },
 	{ MODKEY,                    XKB_KEY_comma,      focusmon,       {.i = WLR_DIRECTION_LEFT} },
 	{ MODKEY,                    XKB_KEY_period,     focusmon,       {.i = WLR_DIRECTION_RIGHT} },
