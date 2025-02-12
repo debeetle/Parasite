@@ -1,5 +1,5 @@
-(add-to-list 'custom-theme-load-path "/home/trunk/.config/emacs/themes")
-(load-theme 'adwaita t)
+(add-to-list 'custom-theme-load-path "/home/chaos/.config/emacs/themes")
+(load-theme 'dracula t)
 
 ;; For performance
 ;(load "server")
@@ -7,7 +7,7 @@
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 
-(add-hook 'after-init-hook #'(lambda ()
+(add-hook 'emacs-startup-hook #'(lambda ()
                                ;; restore after startup
                                (setq gc-cons-threshold 800000)))
 (menu-bar-mode -1)
@@ -21,8 +21,6 @@
   "Turn on `display-line-numbers-mode'."
   (unless (or (minibufferp) (eq major-mode 'pdf-view-mode))
     (display-line-numbers-mode)))
-(global-auto-revert-mode t) ;另一程序修改了文件时，及时刷新 Buffer
-(delete-selection-mode t) ;选中文本后输入文本会替换文本
 (display-time)
 (setq make-backup-files -1) ;关闭文件自动备份
 (setq inhibit-startup-screen t)           ; Disable startup screen
@@ -72,7 +70,7 @@
  '(enable-recursive-minibuffers t)
  '(minibuffer-depth-indicate-mode t)
  '(package-selected-packages
-   '(auctex tree-sitter flymake-lua flymake-css flymake-yaml flymake-shell flymake-ruff corfu))
+   '(tree-sitter corfu))
  '(select-enable-clipboard t))
 
 ;; (add-hook 'prog-mode-hook #'show-paren-mode) ;高亮另一个括号
@@ -81,19 +79,19 @@
 (add-hook 'prog-mode-hook #'hs-minor-mode) ;编程模式下，可以折叠代码块
 
 (global-set-key (kbd "C-;") 'comment-line)
-(setq font-lock-maxium-decoration t)
+(setq font-lock-maximum-decoration t)
 (setq scroll-margin 5
       scroll-conservatively 10000)
 (transient-mark-mode t)
 (setq kill-ring-max 30)
-(setq default-frame-alist '((font . "Operator Mono-12:weight=Medium:slant=Normal")))
+(setq default-frame-alist '((font . "Source Code Pro-10:weight=medium:slant=normal")))
 
-(custom-set-faces
+;(custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ ;)
 ;(provide 'init)
 ;;(add-to-list 'load-path "~/.config/emacs/site-lisp/emacs-application-framework/")
 ;;(require 'eaf)

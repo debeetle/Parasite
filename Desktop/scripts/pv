@@ -41,7 +41,7 @@ else
 
         doc)
             # Preview as text conversion
-            clp "${FILE_PATH}" && exit 0
+            bat "${FILE_PATH}" && exit 0
             exit 1;;
         docx)
             # Preview as text conversion
@@ -51,7 +51,7 @@ else
         # HTML
         htm|html|xhtml)
             # Preview as text conversion
-            clp "${FILE_PATH}" && exit 0
+            bat "${FILE_PATH}" && exit 0
             ;; # Continue with next handler on failure
 
         [jJ][pP][gG]|[jJ][pP][eE][gG]|[gG][iI][fF]|[bB][mM][pP]|webp|[pP][nN][gG]|\
@@ -65,7 +65,7 @@ else
             #     echo "$FILE_MIME" 
             #     hexyl -n 4kB "$FILE_PATH" && exit 0
             # else
-                clp "${FILE_PATH}" && exit 0
+                bat "${FILE_PATH}" && exit 0
             # fi
             exit 1;;
     esac

@@ -1,4 +1,4 @@
 #!/bin/bash
-0 17 * * * /home/trunk/Desktop/scripts/themeconfirm
-# */5 * * * * ~/Desktop/scripts/duckdns >/dev/null 2>&1
+# 0 17 * * * /home/chaos/garden/scripts/themeconfirm
+# */5 * * * * ~/garden/scripts/duckdns >/dev/null 2>&1
 

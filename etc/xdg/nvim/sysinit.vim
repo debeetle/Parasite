@@ -1,5 +1,5 @@
 " This line makes pacman-installed global Arch Linux vim packages work.
-" source /usr/share/nvim/archlinux.vim
+source /usr/share/nvim/archlinux.lua
 "
 " All system-wide defaults are set in $VIMRUNTIME/archlinux.vim (usually just
 " /usr/share/vim/vimfiles/archlinux.vim) and sourced by the call to :runtime
@@ -17,7 +17,7 @@ if &term =~ '256color'
 endif
 set termguicolors 
 if $TERM == 'foot' || $TERM == 'st-256color' || $TERM == 'xterm-256color'
-    colorscheme dracula
+    colorscheme onehalflight
 else
     colorscheme vim
 endif
@@ -73,12 +73,12 @@ set splitright
 set tabstop=4
 set t_Co=256
 set ttyfast
-set timeoutlen=300
-set updatetime=200
+"set timeoutlen=300
+"set updatetime=200
 set wildmenu
 set wildmode=longest:list,full
 set wrap
-set textwidth=50
+set textwidth=500
 set wrapmargin=2
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()

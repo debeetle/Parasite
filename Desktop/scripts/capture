@@ -1,5 +1,5 @@
 #!/bin/env zsh
-DefaultSaveDir="$HOME/Desktop/picture"
+DefaultSaveDir="$HOME/capture"
 
 coordinate=$(slurp) || exit
 grim -l 0 -g "$coordinate" || exit

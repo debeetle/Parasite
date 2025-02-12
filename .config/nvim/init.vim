@@ -46,6 +46,7 @@ require "paq"{
 	-- {"folke/twilight.nvim"},
 	{ "JoosepAlviste/nvim-ts-context-commentstring" },
 	{ "nvim-treesitter/nvim-treesitter-context" },
+    { "chomosuke/typst-preview.nvim" },
 }
 
 require('plug')

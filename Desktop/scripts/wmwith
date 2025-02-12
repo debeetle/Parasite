@@ -1,21 +1,22 @@
-#!/usr/bin/env zsh
-. ~/Desktop/scripts/sun
+#!/usr/bin/bash
+. ~/garden/scripts/sun
 
 hour=$(date +%H)
 
 if [[ "$hour" -gt 16  ||  "$hour" -lt 05 ]]; then
     # Switch to dark mode
 	dark
-    nohup /usr/bin/swaybg -m fill -i "$(find /home/trunk/Desktop/wallpaper/dark/ -type f | sort -R | head -n 1)" > /dev/null 2>&1 &
+    nohup /usr/bin/swaybg -m fill -i "$(find /home/chaos/garden/wallpaper/dark/ -type f | sort -R | head -n 1)" > /dev/null 2>&1 &
 else
     # Switch to light mode
 	light
-    nohup /usr/bin/swaybg -m fill -i "$(find /home/trunk/Desktop/wallpaper/light/ -type f | sort -R | head -n 1)" > /dev/null 2>&1 &
-    flock -n /tmp/dwlscron_lock /usr/local/bin/crond -f /home/trunk/Desktop/scron/dwlfollow_cron
+    nohup /usr/bin/swaybg -m fill -i "$(find /home/chaos/garden/wallpaper/light/ -type f | sort -R | head -n 1)" > /dev/null 2>&1 &
+    flock -n /tmp/wmscron_lock /usr/local/bin/crond -f /home/chaos/garden/scron/wmfollow_cron
 fi
 
 # gammastep -l 39:116 -b 1.0:0.9 &
 
-nohup /usr/bin/foot --server --log-no-syslog > /dev/null 2>&1 &
-nohup /usr/bin/fcitx5 > /dev/null 2>&1 &
+nohup /usr/bin/foot --server --log-no-syslog &
+# nohup /usr/bin/fcitx5 > /dev/null 2>&1 &
 
+# dbus-update-activation-environment DISPLAY XAUTHORITY WAYLAND_DISPLAY

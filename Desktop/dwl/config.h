@@ -24,7 +24,7 @@ static int log_level = WLR_ERROR;
 
 /* Autostart */
 static const char *const autostart[] = {
-        "zsh","-c","/home/trunk/Desktop/scripts/wmwith", NULL,
+        "zsh","-c","/home/chaos/garden/scripts/wmwith", NULL,
         NULL /* terminate */
 };
 
@@ -137,16 +137,16 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 
 /* commands */
 static const char *browser[] = { "qutebrowser", NULL };
-static const char *screengif[] = { "/home/trunk/Desktop/scripts/gifpicker", NULL };
-static const char *capture[] = { "/home/trunk/Desktop/scripts/capture", NULL };
-static const char *leave[] = { "/home/trunk/Desktop/scripts/lock", NULL };
+static const char *screengif[] = { "/home/chaos/garden/scripts/gifpicker", NULL };
+static const char *capture[] = { "/home/chaos/garden/scripts/capture", NULL };
+static const char *leave[] = { "/home/chaos/garden/scripts/lock", NULL };
 
 /* named scratchpads - First arg only serves to match against key in rules*/
 /*static const char *pad[] = { "a", "havoc", "-i", "pad", NULL };*/
 static const char *pad[] = { "a", "footclient", "--log-level", "none", "-T", "pad", NULL };
-static const char *launchf[] = { "s", "havoc", "-i", "launchf", "/home/trunk/Desktop/scripts/launchf", NULL};
-static const char *spotlight[] = { "b", "/home/trunk/Desktop/scripts/spotlight", NULL };
-static const char *cmd[] = { "c", "/home/trunk/Desktop/scripts/cmd", NULL };
+static const char *launchf[] = { "s", "havoc", "-i", "launchf", "/home/chaos/garden/scripts/launchf", NULL};
+static const char *spotlight[] = { "b", "/home/chaos/garden/scripts/spotlight", NULL };
+static const char *cmd[] = { "c", "/home/chaos/garden/scripts/cmd", NULL };
 
 
 static const Key keys[] = {

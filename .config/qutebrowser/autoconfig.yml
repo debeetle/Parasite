@@ -50,8 +50,32 @@ settings:
     - '{file}'
     - -c
     - normal {line}G{column0}l
+  fileselect.folder.command:
+    global:
+    - foot
+    - -e
+    - yazi
+    - --choosedir={}
+  fileselect.multiple_files.command:
+    global:
+    - foot
+    - -e
+    - yazi
+    - --choosefiles={}
+  fileselect.single_file.command:
+    global:
+    - foot
+    - -e
+    - yazi
+    - --choosefile={}
   fonts.default_size:
     global: 10pt
+  fonts.web.family.fixed:
+    global: null
+  fonts.web.family.sans_serif:
+    global: null
+  fonts.web.family.serif:
+    global: null
   fonts.web.size.default:
     global: 16
   fonts.web.size.default_fixed:
@@ -122,7 +146,7 @@ settings:
   tabs.undo_stack_size:
     global: 50
   url.default_page:
-    global: file:///home/trunk/Desktop/web/startpage/index.html
+    global: file:///home/chaos/garden/startpage.html
   url.searchengines:
     global:
       DEFAULT: https://google.com/search?q={}
@@ -131,7 +155,7 @@ settings:
       gh: https://github.com/search?q={}
       wiki: http://wikipedia.com/search?q={}
   url.start_pages:
-    global: file:///home/trunk/Desktop/web/startpage/index.html
+    global: file:///home/chaos/garden/startpage.html
   window.hide_decoration:
     global: true
   window.title_format:

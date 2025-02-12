@@ -1,37 +1,32 @@
-#!/usr/bin/env zsh
-tmp_file=/tmp/key-value
+#!/usr/bin/bash
+set -eu -o pipefail
 
-footclient --log-level none -T spotlight -W 15x15 zsh -c \
-    "pmenu -p 'open ' blender chromium emacs epiphany firefox foot inkscape matlab rosenrot pcmanfm qemu qutebrowser virtualbox windows> '$tmp_file'"
-
-app=$(cat "$tmp_file") || exit
+app=$(pmenu -p 'open ' audacity blender chromium emacs epiphany firefox foot gimp inkscape matlab rosenrot pcmanfm qemu qutebrowser virtualbox)
+# app=$(echo "audacity\nblender\nchromium\nemacs\nepiphany\nfirefox\nfoot\ngimp\ninkscape\nmatlab\nrosenrot\npcmanfm\nqemu\nqutebrowser\nvirtualbox\nwindows" | fzy -p 'open ' )
 
 case "$app" in
     # "")
     #     exit 0
     #     ;;
     emacs)
-        nohup /usr/bin/emacsclient -a '' -c > /dev/null 2>&1 &
-        ;;
-    epiphany)
-        nohup /usr/bin/epiphany > /dev/null 2>&1 &
+        exec setsid /usr/bin/emacsclient -a '' -c > /dev/null 2>&1
         ;;
     foot)
-        nohup /usr/bin/footclient --log-level none > /dev/null 2>&1 &
+        exec setsid /usr/bin/footclient --log-level none > /dev/null 2>&1
         ;;
     matlab)
-        nohup QT_QPA_PLATFORM=xcb /usr/local/bin/matlab > /dev/null &
+        exec setsid QT_QPA_PLATFORM=xcb /usr/local/bin/matlab > /dev/null 2>&1
         ;;
     qemu) 
-        nohup /usr/bin/virt-manager > /dev/null 2>&1 &
+        exec setsid /usr/bin/virt-manager > /dev/null 2>&1
         ;;
     windows)
-        nohup virt-viewer -a win11 > /dev/null 2>&1 &
-        virsh start win11 > /dev/null
+        exec setsid virt-viewer -a win11 > /dev/null 2>&1
+        virsh start win11 > /dev/null 2>&1
         ;;
     *)
-        if which "$app" > /dev/null 2>&1 ; then
-            nohup /usr/bin/$app > /dev/null 2>&1 &
+        if which "$app" > /dev/null; then
+            exec setsid /usr/bin/$app > /dev/null 2>&1
         # else
             # firefox --new-tab --search "$app"
             # /usr/bin/qutebrowser --target auto "$app" > /dev/null 2>&1 &
