@@ -1,0 +1,13 @@
+#!/usr/bin/dash
+
+logfile="/var/log/pacman.log"
+
+# 找到最近一次系统升级的起始行
+last_upgrade_start=$(grep -n -E 'starting full system upgrade|starting package upgrade' "$logfile" | tail -1 | cut -d: -f1)
+
+# 提取从最近一次升级开始到下一个结束行之间的所有日志
+upgrade_info=$(sed -n "$last_upgrade_start,/ending transaction/p" "$logfile")
+
+# 提取详细的升级包信息
+echo "$upgrade_info" | grep -E '\[ALPM\] upgraded' | awk '{print $4, $5 " -> " $7}'
+

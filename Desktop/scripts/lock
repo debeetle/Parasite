@@ -1,3 +1,0 @@
-#!/usr/bin/env dash
-nohup waylock -log-level error -fork-on-lock -ignore-empty-password -init-color 0x6277a4 -input-color 0x587539 -fail-color 0xf52a65 &  ##0xffb86c 
-doas /usr/bin/systemctl -f -q suspend
