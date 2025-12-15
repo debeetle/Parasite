@@ -1,0 +1,113 @@
+vim.lsp.enable({
+-- "lua_ls",
+-- "html",
+-- "cssls",
+-- "jsonls",
+-- "tinymist",
+-- "arduino_language_server",
+-- "clangd",
+-- "eslint",
+-- "ts_ls",
+-- "pyright",
+-- "fish_lsp",
+"bashls",
+-- "gopls",
+-- "ruff",
+-- "jedi_language_server",
+})
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- -- vim.lsp.config("*", { capabilities = capabilities })
+-- vim.lsp.config("*", { capabilities = require("mini.completion").get_lsp_capabilities() })
+
+-- vim.lsp.config("pyright", {
+-- 	settings = {
+-- 		pyright = {
+-- 			-- Using Ruff's import organizer
+-- 			disableOrganizeImports = true,
+-- 		},
+-- 		python = {
+-- 			analysis = {
+-- 				-- Ignore all files for analysis to exclusively use Ruff for linting
+-- 				ignore = { "*" },
+-- 			},
+-- 		},
+-- 	},
+-- })
+
+-- vim.lsp.config("clangd", {
+-- 	capabilities = {
+-- 		offsetEncoding = { "utf-16" },
+-- 		textDocument = {
+-- 			completion = {
+-- 				editsNearCursor = true,
+-- 			},
+-- 		},
+-- 	},
+-- 	-- init_options = {
+-- 	-- 	fallbackFlags = { "-std=c99" },
+-- 	-- },
+-- })
+--
+-- vim.lsp.config("cssls", {
+-- 	init_options = {
+-- 		provideFormatter = false,
+-- 	},
+-- 	settings = {
+-- 		css = {
+-- 			validate = true,
+-- 		},
+-- 		less = {
+-- 			validate = true,
+-- 		},
+-- 		scss = {
+-- 			validate = true,
+-- 		},
+-- 	},
+-- })
+--
+-- vim.lsp.config("html", {
+-- 	-- settings = {
+-- 	-- autoClosingTags = true,
+-- 	-- format = {
+-- 	-- 	wrapLineLength = 80,
+-- 	-- },
+-- 	init_options = {
+-- 		provideFormatter = false,
+-- 		-- 	["html.format.wrapLineLength"] = 0, -- 设置你的行宽限制，例如 80
+-- 		-- 	["html.format.wrapAttributes"] = "preserve", -- 属性换行方式
+-- 		-- 	["html.format.unformatted"] = "pre,code,textarea", -- 不格式化的标签
+-- 		-- 	["html.format.preserveNewLines"] = true, -- 保留现有换行
+-- 		-- 	["html.format.indentInnerHtml"] = true, -- 是否缩进内部HTML
+-- 	},
+-- })
+--
+-- vim.lsp.config("jsonls", {
+-- 	init_options = {
+-- 		provideFormatter = false,
+-- 	},
+-- })
+--
+-- -- vim.lsp.config("lua_ls", {
+-- -- 	settings = {
+-- -- 		Lua = {
+-- -- 			diagnostics = {
+-- -- 				globals = {
+-- -- 					"vim",
+-- -- 				},
+-- -- 			},
+-- -- 		},
+-- -- 	},
+-- -- })
+--
+-- vim.lsp.config("tinymist", {
+-- 	cmd = { "tinymist" },
+-- 	filetypes = { "typst" },
+-- 	settings = {
+-- 		formatterMode = "typstyle",
+-- 		exportPdf = "onSave",
+-- 		-- exportPdf = "onDocumentHasTitle",
+-- 		outputPath = "/home/chaos/typdf/$name",
+-- 		semanticTokens = "disable",
+-- 	},
+-- })

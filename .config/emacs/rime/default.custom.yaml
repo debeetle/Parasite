@@ -1,0 +1,28 @@
+patch:
+  schema_list:
+    - schema: double_pinyin_flypy
+  menu/page_size: 3
+  # switches:
+  #   - name: simplification
+  #     reset: 0
+  switcher:
+    caption: 方案
+    hotkeys:
+      - "F4"
+  ascii_composer: # 设置caps、shift、control等键的作用
+    good_old_caps_lock: false # 若为true，caps只切换大小写
+    switch_key:
+      Shift_L: inline_ascii
+      Shift_R: noop
+      Control_L: noop
+      Control_R: noop
+      Caps_Lock: noop
+      Eisu_toggle: clear
+  translator/preedit_format: []
+  key_binder/bindings:
+    # - { when: composing, accept: Tab, send: Page_Up } # Tab 翻页
+    - { when: composing, accept: Tab, send: Down } # Tab 移动光标向右
+    # - { when: composing, accept: Shift+Tab, send: Page }
+    - { when: paging, accept: minus, send: Page_Up }
+    - { when: composing, accept: equal, send: Page_Down }
+    - { when: always, accept: "Shift+space", toggle: Return }

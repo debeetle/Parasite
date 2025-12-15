@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/env bash
 
-swaybg -m fill -i "$( find /home/trunk/Desktop/wallpaper/ | shuf -n 1)" &
-# fcitx5 &
+swaybg -m fill -i "$( find /home/chaos/garden/wallpaper/ | shuf -n 1)" &
+fcitx5 > /dev/null 2>&1 &
 
 riverctl map normal Alt+Shift P spawn spotlight
 riverctl map normal Alt+Ctrl escape spawn center
@@ -15,7 +15,8 @@ scratch_tag=10
 riverctl set-view-tags ${scratch_tag}
 
 # Toggle the scratchpad with Alt+P
-riverctl map normal Super Space toggle-focused-tags ${scratch_tag}
+# riverctl map normal Super Space toggle-focused-tags ${scratch_tag}
+riverctl map normal Super Space spawn ~/.config/river/scratchpad
 
 # Set spawn tagmask to ensure new windows don't have the scratchpad tag unless
 # explicitly set.
@@ -54,9 +55,6 @@ riverctl map-pointer normal Alt BTN_LEFT move-view
 
 # Alt + Right Mouse Button to resize views
 riverctl map-pointer normal Alt BTN_RIGHT resize-view
-
-# Alt + Middle Mouse Button to toggle float
-# riverctl map-pointer normal Alt BTN_MIDDLE toggle-float
 
 for i in $(seq 1 9)
 do
@@ -129,12 +127,15 @@ riverctl border-color-unfocused 0x777777
 riverctl set-repeat 30 300
 
 # Make certain views start floating
-riverctl float-filter-add app-id float
-riverctl float-filter-add title "popup title with spaces"
-riverctl float-filter-add title "spotlight"
-riverctl float-filter-add title "File Operation Progress"
-riverctl rule-add -title "spotlight"
-riverctl rule-add -title "center"
+# riverctl float-filter-add app-id float
+# riverctl float-filter-add title "popup title with spaces"
+# riverctl float-filter-add title "spotlight"
+# riverctl float-filter-add title "center"
+# riverctl float-filter-add title "File Operation Progress"
+riverctl rule-add -app-id "foot" -title "spotlight" tags ${scratch_tag}
+riverctl rule-add -app-id "foot" -title "center" tags ${scratch_tag}
+riverctl rule-add -app-id "foot" -title "spotlight" float
+riverctl rule-add -app-id "foot" -title "center" float
 
 # Set app-ids and titles of views which should use client side decorations
 riverctl csd-filter-add app-id "gedit"

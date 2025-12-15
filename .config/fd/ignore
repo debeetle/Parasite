@@ -5,6 +5,7 @@ auto-save-list
 bark-server
 Backup
 .cargo
+.cmake
 containers
 ladybird
 lib
@@ -19,20 +20,32 @@ elpa
 .gitignore
 .gnupg
 go
+.hplip
 .icons
 kernelbuild
 .mozilla
+.matlab
+.MATLABConnector
+.MathWorks
+matlab24a
 .npm
+.nv
+pyvenv
 .pki
+.pyenv
 __pycache__
 \*pyc
 *.qcow2
 site-lisp
+.steam*
+Steam
+torch
+llmgguf
 webkitgtk
 
 # full path
 
-/home/trunk/manim/bin
-/home/trunk/ml/bin
-/home/trunk/Parasite/*
-!/home/trunk/Parasite/etc
+/home/chaos/Parasite/*
+!/home/chaos/Parasite/etc
+/home/chaos/.local/share/nvim
+/home/chaos/MATLAB/addon

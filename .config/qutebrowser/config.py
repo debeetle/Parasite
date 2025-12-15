@@ -2,10 +2,10 @@
 # load your autoconfig, use this, if the rest of your config is empty!
 config.load_autoconfig()
 
-import catppuccin
+import dracula
 
-catppuccin.setup(c)
-config.set("colors.webpage.preferred_color_scheme", "light")
+dracula.setup(c)
+# config.set("colors.webpage.preferred_color_scheme", "auto")
 
 # set content.headers.accept_language=en-US,en;q=0.5
 

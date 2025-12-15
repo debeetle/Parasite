@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+
 def setup(c):
     palette = {
         "background": "#282a36",
@@ -273,4 +274,4 @@ def setup(c):
     # ## Type: QtColor
     c.colors.tabs.selected.odd.fg = palette["foreground"]
 
-    c.colors.webpage.bg = palette["background"]
+    # c.colors.webpage.bg = palette["background"]

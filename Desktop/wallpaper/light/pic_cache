@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+WALLPAPER_LIGHT_DIR="/opt/fasthome/Parasite/Desktop/wallpaper/light"
+
+light_list=$(printf "%s\n" "$WALLPAPER_LIGHT_DIR"/*.jpg "$WALLPAPER_LIGHT_DIR"/*.png "$WALLPAPER_LIGHT_DIR"/*.svg "$WALLPAPER_LIGHT_DIR"/*.jpeg "$WALLPAPER_LIGHT_DIR"/*.heic 2>/dev/null )
+if [ -n "$light_list" ]; then
+    echo "$light_list" > "./piclist"
+fi

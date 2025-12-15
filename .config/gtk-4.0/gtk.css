@@ -13,7 +13,6 @@ headerbar.default-decoration {
 }
 
 /* rm -rf window shadows */
-window.csd,             /* gtk4? */
-window.csd decoration { /* gtk3 */
-  box-shadow: none;
-}
+/*window.csd, window.csd decoration { */
+/*  box-shadow: none;*/
+/*}*/

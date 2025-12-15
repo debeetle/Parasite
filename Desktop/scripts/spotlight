@@ -1,35 +1,35 @@
-#!/usr/bin/bash
-set -eu -o pipefail
+#!/usr/bin/dash
+# set -eu -o pipefail
 
-app=$(pmenu -p 'open ' audacity blender chromium emacs epiphany firefox foot gimp inkscape matlab rosenrot pcmanfm qemu qutebrowser virtualbox)
-# app=$(echo "audacity\nblender\nchromium\nemacs\nepiphany\nfirefox\nfoot\ngimp\ninkscape\nmatlab\nrosenrot\npcmanfm\nqemu\nqutebrowser\nvirtualbox\nwindows" | fzy -p 'open ' )
+# app=$(pmenu -p 'open ' abiword audacity blender chromium emacs epiphany firefox foot freecad gimp inkscape matlab rosenrot steam pcmanfm qemu qutebrowser virtualbox zathura)
+app=$(printf "abiword\naudacity\nblender\nchromium\nemacs\nfirefox\nfoot\nfreecad\ngimp\ninkscape\nmatlab\noctave\nrosenrot\nsteam-native\nqutebrowser\nvirtualbox\nzathura" | fzy -p 'open ' )
 
 case "$app" in
-    # "")
-    #     exit 0
-    #     ;;
+    chromium)
+        exec setsid dash -c "chromium --gtk-version=4 <&-"
+        # exec setsid dash -c "chromium --gtk-version=4 > /dev/null 2>&1 &"
+		;;
     emacs)
-        exec setsid /usr/bin/emacsclient -a '' -c > /dev/null 2>&1
+        exec setsid dash -c "emacsclient -a '' -c <&-"
         ;;
+	# firefox)
+	#        exec setsid dash -c "firefox <&-"
+	#        ;;
     foot)
-        exec setsid /usr/bin/footclient --log-level none > /dev/null 2>&1
+        exec setsid dash -c "footclient --log-level none <&-"
         ;;
-    matlab)
-        exec setsid QT_QPA_PLATFORM=xcb /usr/local/bin/matlab > /dev/null 2>&1
-        ;;
-    qemu) 
-        exec setsid /usr/bin/virt-manager > /dev/null 2>&1
-        ;;
-    windows)
-        exec setsid virt-viewer -a win11 > /dev/null 2>&1
-        virsh start win11 > /dev/null 2>&1
-        ;;
+	matlab)
+		setsid dash -c "env LD_PRELOAD=/lib64/libstdc++.so LD_LIBRARY_PATH=/usr/lib/xorg/modules/dri/ LD_PRELOAD=/lib64/libfreetype.so _JAVA_AWT_WM_NONREPARENTING=1 QT_QPA_PLATFORM=xcb matlab -desktop -nosoftwareopengl & disown"
+		;;
+	octave)
+		exec setsid dash -c "octave --gui <&-"
+		;;
     *)
-        if which "$app" > /dev/null; then
-            exec setsid /usr/bin/$app > /dev/null 2>&1
+        # if which "$app" > /dev/null; then
+		exec setsid dash -c "$app <&-"
         # else
             # firefox --new-tab --search "$app"
             # /usr/bin/qutebrowser --target auto "$app" > /dev/null 2>&1 &
-        fi
+        # fi
         ;;
 esac

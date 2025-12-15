@@ -1,4 +1,4 @@
-#!/bin/env zsh
+#!/bin/env dash
 
 # Kill existing wf-recorder processes for the current user
 pkill --euid "$USER" --signal SIGINT wf-recorder && exit

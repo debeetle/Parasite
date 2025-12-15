@@ -11,11 +11,9 @@
 
 set background=light
 highlight clear
-"syntax reset
+syntax reset
 
 let g:colors_name="onehalflight"
-let colors_name="onehalflight"
-
 
 let s:black       = { "gui": "#383a42", "cterm": "237" }
 let s:red         = { "gui": "#e45649", "cterm": "167" }
@@ -34,21 +32,21 @@ let s:gutter_bg   = { "gui": "#fafafa", "cterm": "231" }
 let s:gutter_fg   = { "gui": "#d4d4d4", "cterm": "252" }
 let s:non_text    = { "gui": "#e5e5e5", "cterm": "252" }
 
-let s:cursor_line = { "gui": "#f0f0f0", "cterm": "255" }
+let s:cursor_line = { "gui": "#dddddd", "cterm": "255" }
 let s:color_col   = { "gui": "#f0f0f0", "cterm": "255" }
 
 let s:selection   = { "gui": "#bfceff", "cterm": "153" }
 let s:vertsplit   = { "gui": "#f0f0f0", "cterm": "255" }
 
 
-function! s:h(group, fg, bg, attr)
-  if type(a:fg) == type({})
-    exec "hi " . a:group . " guifg=" . a:fg.gui . " ctermfg=" . a:fg.cterm
+function! s:h(group, fc, bc, attr)
+  if type(a:fc) == type({})
+    exec "hi " . a:group . " guifg=" . a:fc.gui . " ctermfg=" . a:fc.cterm
   else
     exec "hi " . a:group . " guifg=NONE cterm=NONE"
   endif
-  if type(a:bg) == type({})
-    exec "hi " . a:group . " guibg=" . a:bg.gui . " ctermbg=" . a:bg.cterm
+  if type(a:bc) == type({})
+    exec "hi " . a:group . " guibg=" . a:bc.gui . " ctermbg=" . a:bc.cterm
   else
     exec "hi " . a:group . " guibg=NONE ctermbg=NONE"
   endif
@@ -61,13 +59,13 @@ endfun
 
 
 " User interface colors {
-call s:h("Normal", s:fg, s:bg, "")
+call s:h("Normal", s:fg, "NONE", "")
 
 call s:h("Cursor", s:bg, s:blue, "")
 call s:h("CursorColumn", "", s:cursor_line, "")
 call s:h("CursorLine", "", s:cursor_line, "")
 
-call s:h("LineNr", s:gutter_fg, s:gutter_bg, "")
+call s:h("LineNr", s:comment_fg, "NONE", "")
 call s:h("CursorLineNr", s:fg, "", "")
 
 call s:h("DiffAdd", s:green, "", "")
@@ -85,8 +83,8 @@ call s:h("WarningMsg", s:red, "", "")
 call s:h("Question", s:purple, "", "")
 
 call s:h("Pmenu", s:fg, s:cursor_line, "")
-call s:h("PmenuSel", s:bg, s:blue, "")
-call s:h("PmenuSbar", "", s:cursor_line, "")
+call s:h("PmenuSel", s:fg, s:selection, "")
+call s:h("PmenuSbar", "", "", "")
 call s:h("PmenuThumb", "", s:comment_fg, "")
 
 call s:h("SpellBad", s:red, "", "")
@@ -94,7 +92,7 @@ call s:h("SpellCap", s:yellow, "", "")
 call s:h("SpellLocal", s:yellow, "", "")
 call s:h("SpellRare", s:yellow, "", "")
 
-call s:h("StatusLine", s:blue, s:cursor_line, "")
+call s:h("StatusLine", s:blue, s:bg, "")
 call s:h("StatusLineNC", s:comment_fg, s:cursor_line, "")
 call s:h("TabLine", s:comment_fg, s:cursor_line, "")
 call s:h("TabLineFill", s:comment_fg, s:cursor_line, "")
@@ -167,45 +165,78 @@ call s:h("Todo", s:purple, "", "")
 
 
 " Git {
-call s:h("gitcommitComment", s:comment_fg, "", "")
-call s:h("gitcommitUnmerged", s:red, "", "")
-call s:h("gitcommitOnBranch", s:fg, "", "")
-call s:h("gitcommitBranch", s:purple, "", "")
-call s:h("gitcommitDiscardedType", s:red, "", "")
-call s:h("gitcommitSelectedType", s:green, "", "")
-call s:h("gitcommitHeader", s:fg, "", "")
-call s:h("gitcommitUntrackedFile", s:cyan, "", "")
-call s:h("gitcommitDiscardedFile", s:red, "", "")
-call s:h("gitcommitSelectedFile", s:green, "", "")
-call s:h("gitcommitUnmergedFile", s:yellow, "", "")
-call s:h("gitcommitFile", s:fg, "", "")
-hi link gitcommitNoBranch gitcommitBranch
-hi link gitcommitUntracked gitcommitComment
-hi link gitcommitDiscarded gitcommitComment
-hi link gitcommitSelected gitcommitComment
-hi link gitcommitDiscardedArrow gitcommitDiscardedFile
-hi link gitcommitSelectedArrow gitcommitSelectedFile
-hi link gitcommitUnmergedArrow gitcommitUnmergedFile
+"call s:h("gitcommitComment", s:comment_fg, "", "")
+"call s:h("gitcommitUnmerged", s:red, "", "")
+"call s:h("gitcommitOnBranch", s:fg, "", "")
+"call s:h("gitcommitBranch", s:purple, "", "")
+"call s:h("gitcommitDiscardedType", s:red, "", "")
+"call s:h("gitcommitSelectedType", s:green, "", "")
+"call s:h("gitcommitHeader", s:fg, "", "")
+"call s:h("gitcommitUntrackedFile", s:cyan, "", "")
+"call s:h("gitcommitDiscardedFile", s:red, "", "")
+"call s:h("gitcommitSelectedFile", s:green, "", "")
+"call s:h("gitcommitUnmergedFile", s:yellow, "", "")
+"call s:h("gitcommitFile", s:fg, "", "")
+"hi link gitcommitNoBranch gitcommitBranch
+"hi link gitcommitUntracked gitcommitComment
+"hi link gitcommitDiscarded gitcommitComment
+"hi link gitcommitSelected gitcommitComment
+"hi link gitcommitDiscardedArrow gitcommitDiscardedFile
+"hi link gitcommitSelectedArrow gitcommitSelectedFile
+"hi link gitcommitUnmergedArrow gitcommitUnmergedFile
 " }
 
 " Fix colors in neovim terminal buffers {
-let g:terminal_color_0 = s:black.gui
-let g:terminal_color_1 = s:red.gui
-let g:terminal_color_2 = s:green.gui
-let g:terminal_color_3 = s:yellow.gui
-let g:terminal_color_4 = s:blue.gui
-let g:terminal_color_5 = s:purple.gui
-let g:terminal_color_6 = s:cyan.gui
-let g:terminal_color_7 = s:white.gui
-let g:terminal_color_8 = s:black.gui
-let g:terminal_color_9 = s:red.gui
-let g:terminal_color_10 = s:green.gui
-let g:terminal_color_11 = s:yellow.gui
-let g:terminal_color_12 = s:blue.gui
-let g:terminal_color_13 = s:purple.gui
-let g:terminal_color_14 = s:cyan.gui
-let g:terminal_color_15 = s:white.gui
-let g:terminal_color_background = s:bg.gui
-let g:terminal_color_foreground = s:fg.gui
+"let g:terminal_color_0 = s:black.gui
+"let g:terminal_color_1 = s:red.gui
+"let g:terminal_color_2 = s:green.gui
+"let g:terminal_color_3 = s:yellow.gui
+"let g:terminal_color_4 = s:blue.gui
+"let g:terminal_color_5 = s:purple.gui
+"let g:terminal_color_6 = s:cyan.gui
+"let g:terminal_color_7 = s:white.gui
+"let g:terminal_color_8 = s:black.gui
+"let g:terminal_color_9 = s:red.gui
+"let g:terminal_color_10 = s:green.gui
+"let g:terminal_color_11 = s:yellow.gui
+"let g:terminal_color_12 = s:blue.gui
+"let g:terminal_color_13 = s:purple.gui
+"let g:terminal_color_14 = s:cyan.gui
+"let g:terminal_color_15 = s:white.gui
+"let g:terminal_color_background = s:bg.gui
+"let g:terminal_color_foreground = s:fg.gui
 
-hi Normal guibg=NONE ctermbg=NONE
+hi! link CmpItemAbbrDeprecated DraculaError
+
+hi! link CmpItemAbbrMatch DraculaCyan
+hi! link CmpItemAbbrMatchFuzzy DraculaCyan
+
+hi! link CmpItemKindText DraculaFg
+hi! link CmpItemKindMethod Function
+hi! link CmpItemKindFunction Function
+hi! link CmpItemKindConstructor DraculaCyan
+hi! link CmpItemKindField DraculaOrange
+hi! link CmpItemKindVariable DraculaPurpleItalic
+hi! link CmpItemKindClass DraculaCyan
+hi! link CmpItemKindInterface DraculaCyan
+hi! link CmpItemKindModule DraculaYellow
+hi! link CmpItemKindProperty DraculaPink
+hi! link CmpItemKindUnit DraculaFg
+hi! link CmpItemKindValue DraculaYellow
+hi! link CmpItemKindEnum DraculaPink
+hi! link CmpItemKindKeyword DraculaPink
+hi! link CmpItemKindSnippet DraculaFg
+hi! link CmpItemKindColor DraculaYellow
+hi! link CmpItemKindFile DraculaYellow
+hi! link CmpItemKindReference DraculaOrange
+hi! link CmpItemKindFolder DraculaYellow
+hi! link CmpItemKindEnumMember DraculaPurple
+hi! link CmpItemKindConstant DraculaPurple
+hi! link CmpItemKindStruct DraculaPink
+hi! link CmpItemKindEvent DraculaFg
+hi! link CmpItemKindOperator DraculaPink
+hi! link CmpItemKindTypeParameter DraculaCyan
+
+hi! link CmpItemMenu Comment
+
+"hi Normal guibg=NONE ctermbg=NONE

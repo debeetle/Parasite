@@ -1,10 +1,11 @@
-#!/usr/bin/bash
-set -eu -o pipefail
-choice=$(pmenu -p '' brightness lock logout reboot shutdown volumn)
+#!/usr/bin/dash
+# set -eu -o pipefail
+# choice=$(pmenu -p '' brightness lock logout reboot shutdown volumn)
+choice=$(printf "brightness\nlock\nlogout\nreboot\nshutdown\nvolumn" | fzy -p '')
 
 case "$choice" in
     lock)
-        exec nohup setsid waylock -log-level error -fork-on-lock -ignore-empty-password -init-color 0x6277a4 -input-color 0x587539 -fail-color 0xf52a65 > /dev/null #&  ##0xffb86c 
+        exec setsid waylock -log-level error -fork-on-lock -ignore-empty-password -init-color 0x111111 -input-color 0x587539 -fail-color 0xf52a65 > /dev/null #&  ##0xffb86c 
         doas /usr/bin/systemctl -f -q suspend-then-hibernate
         ;;
     shutdown) 

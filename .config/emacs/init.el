@@ -24,7 +24,6 @@
 (display-time)
 (setq make-backup-files -1) ;关闭文件自动备份
 (setq inhibit-startup-screen t)           ; Disable startup screen
-(setq initial-scratch-message "")         ; Make *scratch* buffer blank
 (setq ring-bell-function 'ignore)         ; Disable bell sound
 (setq linum-format "%4d ")                ; Line number format
 (setq-default frame-title-format '("%b")) ; Make window title the buffer name
@@ -45,33 +44,32 @@
 
 (require 'package )
 (setq package-enable-at-startup -1)
-(setq package-archives '(("gnu" . "https://mirrors.bfsu.edu.cn/elpa/gnu/")
-			 ("melpa" . "https://mirrors.bfsu.edu.cn/elpa/melpa/")))
+(setq package-archives '(("gnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+			 ("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 (unless package--initialized (package-initialize))
 
 ;;; Setup use-package
-;; (unless (package-installed-p 'use-package)
-;;   (package-refresh-contents)
-;;   (package-install 'use-package))
-;; (eval-when-compile
-;;   (require 'use-package))
-;; (setq use-package-always-ensure t)
+; (unless (package-installed-p 'use-package)
+;   (package-refresh-contents)
+;   (package-install 'use-package))
+(eval-when-compile
+	(require 'use-package))
+(setq use-package-always-ensure t)
+; (use-package rime
+; 	:custom
+; 	(default-input-method "rime"))
 
-(switch-to-buffer "*scratch*")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(current-language-environment "UTF-8")
- '(debug-on-error t)
- '(default-major-mode 'text-mode t)
- '(display-line-numbers-type 'relative)
- '(enable-recursive-minibuffers t)
- '(minibuffer-depth-indicate-mode t)
- '(package-selected-packages
-   '(tree-sitter corfu))
- '(select-enable-clipboard t))
+ '(package-selected-packages '(evil gnuplot indent-bars pdf-tools use-package)))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+
 
 ;; (add-hook 'prog-mode-hook #'show-paren-mode) ;高亮另一个括号
 
@@ -86,15 +84,35 @@
 (setq kill-ring-max 30)
 (setq default-frame-alist '((font . "Source Code Pro-10:weight=medium:slant=normal")))
 
-;(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- ;)
+(require 'evil)
+(evil-mode 1)
 ;(provide 'init)
 ;;(add-to-list 'load-path "~/.config/emacs/site-lisp/emacs-application-framework/")
 ;;(require 'eaf)
 ;;(require 'eaf-browser)
 ;;(require 'eaf-pdf-viewer)
-;(let ((params (frame-parameters)))
+;;(let ((params (frame-parameters)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+(use-package indent-bars
+  :custom
+  (indent-bars-no-descend-lists t) ; no extra bars in continued func arg lists
+  (indent-bars-treesit-support t)
+  (indent-bars-treesit-ignore-blank-lines-types '("module"))
+  ;; Add other languages as needed
+  (indent-bars-treesit-scope '((python function_definition class_definition for_statement
+	  if_statement with_statement while_statement)))
+  ;; Note: wrap may not be needed if no-descend-list is enough
+  ;;(indent-bars-treesit-wrap '((python argument_list parameters ; for python, as an example
+  ;;				      list list_comprehension
+  ;;				      dictionary dictionary_comprehension
+  ;;				      parenthesized_expression subscript)))
+  :hook ((python-base-mode yaml-mode) . indent-bars-mode))
+
+
+(setq initial-scratch-message "")         ; Make *scratch* buffer blank
+(switch-to-buffer "*scratch*")

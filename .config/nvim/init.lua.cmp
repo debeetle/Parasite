@@ -1,0 +1,106 @@
+#!/usr/bin/lua
+-- vim.g.do_filetype_lua = 1
+-- vim.g.did_load_filetypes = 0
+
+vim.cmd([[
+"let g:omni_sql_default_compl_type = 'syntax'
+
+inoremap <silent> <C-V> <Esc>l"+Pli"
+"nnoremap <silent> <M-f> :lua require('fterm').toggle()<CR>
+nnoremap <silent> <C-S-e> :Lexplore<CR>
+inoremap <silent> <C-e> <C-o>A
+"nnoremap <silent> <C-n> :bnext<CR> nnoremap <silent> <C-p> :bprev<CR>
+cnoremap UP PaqUpdate<CR>
+cnoremap <silent> CV :set norelativenumber<CR> :set nonumber<CR>
+cnoremap <silent> UCV :set number<CR> :set relativenumber<CR>
+tnoremap <silent> <M-t> <C-\><C-n><C-w>w
+nnoremap <silent> <M-t> :vsp term://fish<CR>a
+
+]])
+
+-- vim.keymap.set("n","<C-V>",'"+y')
+
+vim.opt.titlestring = "%t"
+
+-- local map = vim.api.nvim_set_keymap
+--map("i", "<C-f>", "<CMD>lua require('FTerm').toggle()<CR>", { silent = true, noremap = true, nowait = true })
+-- map("t", "<M-f>", "<C-\\><C-n><CMD>lua require('fterm').toggle()<CR>", { silent = true, noremap = true, nowait = true })
+-- map('n', '<esc>', ':nohlsearch<cr>', { noremap = true, silent = true })
+
+require("paq")({
+	{ "savq/paq-nvim" },
+	{ "nvimdev/hlsearch.nvim" },
+	{ "nvim-mini/mini.surround" },
+	-- { "nvim-mini/mini.animate" },
+	{ "nvim-mini/mini.align", opt = true },
+	{ "nvim-mini/mini.indentscope" },
+	{ "nvim-mini/mini.pairs" },
+	-- { "nvim-mini/mini.icons" },
+	-- { "nvim-mini/mini.completion", opt = true },
+	{ "nvim-mini/mini.snippets" },
+	{ "nvim-mini/mini.hipatterns", opt = true },
+
+	{ "neovim/nvim-lspconfig" },
+	{ "hrsh7th/nvim-cmp" },
+	{ "hrsh7th/cmp-omni" },
+	{ "abeldekat/cmp-mini-snippets" },
+	{ "hrsh7th/cmp-nvim-lsp" },
+	{ "hrsh7th/cmp-buffer" },
+	{ "hrsh7th/cmp-path" },
+	{ "ray-x/cmp-treesitter" },
+
+	{ "rafamadriz/friendly-snippets" },
+	{ "onsails/lspkind.nvim" },
+	-- { "stevearc/conform.nvim", opt = true },
+	{ "nvimdev/guard.nvim", opt = false },
+
+	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+	-- { "nvim-treesitter/nvim-treesitter-context", opt = true},
+	{ "chomosuke/typst-preview.nvim", opt = true },
+
+	-- { "numToStr/FTerm.nvim" },
+	-- { "hrsh7th/cmp-nvim-lsp-signature-help" },
+	-- { "mfussenegger/nvim-dap" },
+	-- { "theHamsta/nvim-dap-virtual-text" },
+	-- {"folke/twilight.nvim"},
+	-- { "JoosepAlviste/nvim-ts-context-commentstring" },
+})
+
+vim.diagnostic.config({
+	signs = false, --去除行号左边的error标识
+	virtual_text = true,
+	underline = false,
+	virtual_line = { current_line = true },
+	float = {
+		focusable = true,
+	},
+	-- virtual_line = true,
+})
+
+require("ts")
+require("generalplug")
+require("lspset")
+require("lintformat")
+
+vim.api.nvim_create_autocmd("BufNewFile", {
+	pattern = { "*.html", "*.typ" },
+	callback = function(args)
+		local ext = vim.bo[args.buf].filetype
+		local tmpl = "/home/chaos/.config/nvim/templates/" .. ext .. ".tpl"
+		local f = io.open(tmpl, "r")
+		if not f then
+			return
+		end
+		local content = f:read("*a")
+		f:close()
+		vim.snippet.expand(content)
+	end,
+})
+
+-- 将 cmp 初始化移动到 autocmd 延迟加载
+vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
+	callback = function()
+		-- require("lspset")
+		require("nvimcmp")
+	end,
+})

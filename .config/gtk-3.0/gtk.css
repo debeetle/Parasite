@@ -1,21 +1,18 @@
 /* Always use background color */
-GtkWindow {
-    background-color: @theme_bg_color;
-}
+/*GtkWindow {*/
+/*    background-color: @theme_bg_color;*/
+/*}*/
 
 /* Fix tooltip background override */
-.tooltip {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-.tooltip * {
-    background-color: transparent;
-}
+/*.tooltip {*/
+/*    background-color: rgba(0, 0, 0, 0.8);*/
+/*    background-color: transparent;*/
+/*}*/
 
 /* Fix Nautilus desktop window background override */
-NautilusWindow {
-     background-color: transparent; 
-}
+/*NautilusWindow {*/
+/*     background-color: transparent; */
+/*}*/
 
 /* No (default) title bar on wayland */
 headerbar.default-decoration {
@@ -32,7 +29,6 @@ headerbar.default-decoration {
 }
 
 /* rm -rf window shadows */
-window.csd,             /* gtk4? */
-window.csd decoration { /* gtk3 */
-  box-shadow: none;
-}
+/*window.csd, window.csd decoration {*/
+/*  box-shadow: none;*/
+/*}*/

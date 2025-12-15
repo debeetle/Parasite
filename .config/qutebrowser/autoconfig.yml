@@ -6,6 +6,71 @@
 
 config_version: 2
 settings:
+  auto_save.session:
+    global: true
+  bindings.commands:
+    global:
+      caret:
+        <Ctrl+g>: leave-mode
+      command:
+        <Alt+n>: command-history-next
+        <Alt+p>: command-history-prev
+        <Ctrl+Home>: home
+        <Ctrl+Shift+r>: reload -f
+        <Ctrl+Shift+s>: search-prev
+        <Ctrl+Shift+t>: undo
+        <Ctrl+g>: leave-mode
+        <Ctrl+j>: completion-item-focus next
+        <Ctrl+k>: completion-item-focus prev
+        <Ctrl+q>: quit --save
+        <Ctrl+r>: reload
+        <Ctrl+s>: search-next
+        <Ctrl+t>: open -t
+        <Ctrl+w>: tab-close
+      hint:
+        <Ctrl+g>: leave-mode
+      normal:
+        '0': fake-key 0
+        '1': fake-key 1
+        '2': fake-key 2
+        '3': fake-key 3
+        '4': fake-key 4
+        '5': fake-key 5
+        '6': fake-key 6
+        '7': fake-key 7
+        '8': fake-key 8
+        '9': fake-key 9
+        <Alt+Left>: back
+        <Alt+Right>: forward
+        <Ctrl+1>: tab-focus 1
+        <Ctrl+2>: tab-focus 2
+        <Ctrl+3>: tab-focus 3
+        <Ctrl+4>: tab-focus 4
+        <Ctrl+5>: tab-focus 5
+        <Ctrl+6>: tab-focus 6
+        <Ctrl+7>: tab-focus 7
+        <Ctrl+8>: tab-focus 8
+        <Ctrl+9>: tab-focus -1
+        <Ctrl+;>: 'cmd-set-text :'
+        <Ctrl+Home>: home
+        <Ctrl+Shift+Tab>: tab-prev
+        <Ctrl+Shift+l>: cmd-set-text -s :open -t
+        <Ctrl+Shift+m>: hint links spawn mpv {hint-url}
+        <Ctrl+Shift+r>: reload -f
+        <Ctrl+Shift+s>: cmd-set-text ?
+        <Ctrl+Shift+t>: undo
+        <Ctrl+Shift+y>: yank url
+        <Ctrl+Tab>: tab-next
+        <Ctrl+g>: clear-keychain ;; search ;; fullscreen --leave
+        <Ctrl+h>: hint all
+        <Ctrl+j>: scroll-page 0 0.2
+        <Ctrl+k>: scroll-page 0 -0.2
+        <Ctrl+l>: cmd-set-text -s :open
+        <Ctrl+q>: quit --save
+        <Ctrl+r>: reload
+        <Ctrl+s>: cmd-set-text /
+        <Ctrl+t>: open -t
+        <Ctrl+w>: tab-close
   colors.messages.warning.bg:
     global: darkorange
   colors.webpage.darkmode.algorithm:
@@ -14,6 +79,8 @@ settings:
     global: false
   colors.webpage.darkmode.policy.images:
     global: never
+  completion.delay:
+    global: 10
   completion.height:
     global: 40%
   completion.open_categories:
@@ -22,8 +89,16 @@ settings:
     - filesystem
     - quickmarks
     - bookmarks
+  completion.scrollbar.padding:
+    global: 1
+  completion.scrollbar.width:
+    global: 6
+  content.blocking.adblock.lists:
+    global: null
   content.blocking.enabled:
     global: false
+  content.blocking.hosts.lists:
+    global: null
   content.geolocation:
     global: false
   content.javascript.clipboard:
@@ -36,12 +111,21 @@ settings:
       warning: none
   content.notifications.enabled:
     https://blog.csdn.net: false
+    https://www.youtube.com: false
+  content.notifications.presenter:
+    global: libnotify
   content.pdfjs:
     global: true
+  content.print_element_backgrounds:
+    global: false
+  content.proxy:
+    global: none
+  content.register_protocol_handler:
+    https://mail.google.com?extsrc=mailto&url=%25s: false
   downloads.position:
     global: bottom
   downloads.remove_finished:
-    global: 50
+    global: 20
   editor.command:
     global:
     - foot
@@ -68,8 +152,14 @@ settings:
     - -e
     - yazi
     - --choosefile={}
+  fonts.completion.category:
+    global: bold default_size default_family
   fonts.default_size:
-    global: 10pt
+    global: 9pt
+  fonts.downloads:
+    global: default_size default_family
+  fonts.hints:
+    global: bold default_size default_family
   fonts.web.family.fixed:
     global: null
   fonts.web.family.sans_serif:
@@ -84,6 +174,14 @@ settings:
     global: 0
   fonts.web.size.minimum_logical:
     global: 6
+  hints.next_regexes:
+    global:
+    - \bnext\b
+    - \bmore\b
+    - \bnewer\b
+    - \b[>→≫]\b
+    - \b(>>|»)\b
+    - \bcontinue\b
   input.mouse.back_forward_buttons:
     global: false
   logging.level.console:
@@ -105,6 +203,12 @@ settings:
     global: never
   qt.highdpi:
     global: true
+  statusbar.padding:
+    global:
+      bottom: 1
+      left: 0
+      right: 0
+      top: 1
   statusbar.position:
     global: top
   statusbar.show:
@@ -129,10 +233,10 @@ settings:
     global: false
   tabs.padding:
     global:
-      bottom: 3
+      bottom: 0
       left: 8
       right: 8
-      top: 3
+      top: 0
   tabs.position:
     global: bottom
   tabs.select_on_remove:
@@ -146,7 +250,7 @@ settings:
   tabs.undo_stack_size:
     global: 50
   url.default_page:
-    global: file:///home/chaos/garden/startpage.html
+    global: file:///home/chaos/garden/web/startpage/index.html
   url.searchengines:
     global:
       DEFAULT: https://google.com/search?q={}
@@ -155,7 +259,7 @@ settings:
       gh: https://github.com/search?q={}
       wiki: http://wikipedia.com/search?q={}
   url.start_pages:
-    global: file:///home/chaos/garden/startpage.html
+    global: file:///home/chaos/garden/web/startpage/index.html
   window.hide_decoration:
     global: true
   window.title_format:

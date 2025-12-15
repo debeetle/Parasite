@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # vim:fileencoding=utf-8:foldmethod=marker
 
+
 def setup(c):
     palette = {
         "rosewater": "#dc8a78",
@@ -228,9 +229,9 @@ def setup(c):
     c.colors.tabs.indicator.system = "none"
 
     # ## Background color of selected even tabs.
-    c.colors.tabs.selected.even.bg = palette["base"]
+    c.colors.tabs.selected.even.bg = palette["mantle"]
     # ## Background color of selected odd tabs.
-    c.colors.tabs.selected.odd.bg = palette["base"]
+    c.colors.tabs.selected.odd.bg = palette["mantle"]
 
     # ## Foreground color of selected even tabs.
     c.colors.tabs.selected.even.fg = palette["text"]
@@ -250,5 +251,5 @@ def setup(c):
     # }}}
 
     # background color for webpages {{{
-    c.colors.webpage.bg = palette["base"]
+    # c.colors.webpage.bg = palette["base"]
     # }}}

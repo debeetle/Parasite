@@ -1,0 +1,6 @@
+{
+  "Math": { "prefix": "math", "body": "<math>$$$1$$</math>" },
+  "MathBlock": { "prefix": "mathblock", "body": "<math style=\"display: block\" class=\"equation\" id=\"eq$1\">$$$2$$</math>" },
+  "PreCode": { "prefix": "precode", "body": "<pre style=\"--language: '$1'\"><code class=\"language-$2\">$3</code></pre>" },
+  "Re": { "prefix": "re", "body": "<details theme=\"$1\" open><summary></summary>$2</details>" }
+}

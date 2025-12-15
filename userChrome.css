@@ -39,7 +39,7 @@
 /* #PanelUI-button { display: none !important } */
 
 /* Tab close button */
-.tab-close-button { display: none !important }
+.tab-close-button.close-icon { display: none !important }
 
 /* Enable this to show the tab close button when hovering the tab */
 .tabbrowser-tab:hover .tab-close-button { display: -moz-inline-box !important }
@@ -73,7 +73,7 @@
   margin-top  : -37px !important;
   padding-top  : 0 !important;
   padding-bottom  : 0 !important;
-  height      : 35px !important;
+  height      : 34px !important;
 }
 
 
@@ -83,7 +83,7 @@
 }
 
 #TabsToolbar {
-  margin-top: -2px !important;
+  margin-top: -2.109px !important;
   margin-bottom: 0 !important;
   margin-left : var(--navbarWidth) !important;
   margin-right: 0 !important;
@@ -154,3 +154,4 @@
 /* .tab-close-button { */
 /*   transition  : var(--animationSpeed) !important; */
 /* } */
+*|*:any-link { text-decoration: none; }

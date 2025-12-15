@@ -1,5 +1,5 @@
-#!/bin/env zsh
-DefaultSaveDir="$HOME/capture"
+#!/usr/bin/env dash
+DefaultSaveDir="~/capture/.png"
 
 coordinate=$(slurp) || exit
 grim -l 0 -g "$coordinate" || exit
@@ -8,8 +8,8 @@ SavePath=$( zenity \
     --file-selection \
     --save \
     --confirm-overwrite \
-    --file-filter=*.png \
-    --filename="$DefaultSaveDir/.png" \
+    # --file-filter=*.png \
+    --filename="$DefaultSaveDir" \
 ) || exit
 
 case "$SavePath" in

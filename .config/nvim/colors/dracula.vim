@@ -1,4 +1,4 @@
-" Dracula Theme: {{{
+" Dracula Theme: 
 "
 " https://github.com/zenorocha/dracula-theme
 "
@@ -12,9 +12,10 @@
 " @author Derek Sifford <dereksifford@gmail.com>
 " @author Zeno Rocha <hi@zenorocha.com>
 scriptencoding utf8
-" }}}
+" 
+set background=dark
 
-" Configuration: {{{
+" Configuration: 
 
 let g:colors_name = 'dracula'
 
@@ -22,7 +23,7 @@ if !(has('termguicolors') && &termguicolors) && !has('gui_running') && &t_Co != 
   finish
 endif
 
-" Palette: {{{
+" Palette: 
 
 let g:dracula#palette           = {}
 let g:dracula#palette.fg        = ['#F8F8F2', 253]
@@ -65,9 +66,9 @@ let g:dracula#palette.color_13 = '#FF92DF'
 let g:dracula#palette.color_14 = '#A4FFFF'
 let g:dracula#palette.color_15 = '#FFFFFF'
 
-" }}}
+" 
 
-" Palette: {{{2
+" Palette: 
 
 let s:fg        = g:dracula#palette.fg
 
@@ -104,8 +105,8 @@ if has('terminal')
   endfor
 endif
 
-" }}}2
-" User Configuration: {{{2
+" 
+" User Configuration: 
 
 if !exists('g:dracula_bold')
   let g:dracula_bold = 1
@@ -143,8 +144,8 @@ if !exists('g:dracula_high_contrast_diff')
   let g:dracula_high_contrast_diff = 0
 endif
 
-"}}}2
-" Script Helpers: {{{2
+
+" Script Helpers: 
 
 let s:attrs = {
       \ 'bold': g:dracula_bold == 1 ? 'bold' : 0,
@@ -186,8 +187,8 @@ function! s:h(scope, fg, ...) " bg, attr_list, special
   execute join(l:hl_string, ' ')
 endfunction
 
-"}}}2
-" Dracula Highlight Groups: {{{2
+
+" Dracula Highlight Groups: 
 
 call s:h('DraculaBgLight', s:none, s:bglight)
 call s:h('DraculaBgLighter', s:none, s:bglighter)
@@ -256,10 +257,10 @@ endif
 call s:h('DraculaDiffText', s:bg, s:orange)
 call s:h('DraculaInlayHint', s:comment, s:bgdark)
 
-" }}}2
+" 
 
-" }}}
-" User Interface: {{{
+" 
+" User Interface: 
 
 set background=dark
 
@@ -289,7 +290,7 @@ hi! link IncSearch    DraculaOrangeInverse
 call s:h('LineNr', s:comment)
 hi! link MoreMsg      DraculaFgBold
 hi! link NonText      DraculaSubtle
-hi! link Pmenu        DraculaBgDark
+call s:h('Pmenu', s:none, s:none)
 hi! link PmenuSbar    DraculaBgDark
 hi! link PmenuSel     DraculaSelection
 hi! link PmenuThumb   DraculaSelection
@@ -307,8 +308,8 @@ hi! link Visual       DraculaSelection
 hi! link VisualNOS    Visual
 hi! link WarningMsg   DraculaOrangeInverse
 
-" }}}
-" Syntax: {{{
+" 
+" Syntax: 
 
 " Required as some plugins will overwrite
 call s:h('MatchParen', s:green, s:none, [s:attrs.underline])
@@ -344,23 +345,6 @@ if has('nvim')
   hi! link WinSeparator DraculaWinSeparator
   hi! link NormalFloat Pmenu
 
-  if has('nvim-0.9')
-    hi! link  @lsp.type.class DraculaCyan
-    hi! link  @lsp.type.decorator DraculaGreen
-    hi! link  @lsp.type.enum DraculaCyan
-    hi! link  @lsp.type.enumMember DraculaPurple
-    hi! link  @lsp.type.function DraculaGreen
-    hi! link  @lsp.type.interface DraculaCyan
-    hi! link  @lsp.type.macro DraculaCyan
-    hi! link  @lsp.type.method DraculaGreen
-    hi! link  @lsp.type.namespace DraculaCyan
-    hi! link  @lsp.type.parameter DraculaOrangeItalic
-    hi! link  @lsp.type.property DraculaOrange
-    hi! link  @lsp.type.struct DraculaCyan
-    hi! link  @lsp.type.type DraculaCyanItalic
-    hi! link  @lsp.type.typeParameter DraculaPink
-    hi! link  @lsp.type.variable DraculaFg
-  endif
 else
   hi! link SpecialKey DraculaPink
 endif
@@ -414,11 +398,11 @@ hi! link helpCommand DraculaPurple
 hi! link helpExample DraculaGreen
 hi! link helpBacktick Special
 
-" }}}
+" 
 
-" Languages: {{{
+" Languages: 
 
-" CSS: {{{
+" CSS: 
 hi! link cssAttrComma         Delimiter
 hi! link cssAttrRegion        DraculaPink
 hi! link cssAttributeSelector DraculaGreenItalic
@@ -430,9 +414,9 @@ hi! link cssPseudoClass       DraculaPink
 hi! link cssPseudoClassId     DraculaGreenItalic
 hi! link cssUnitDecorators    DraculaPink
 hi! link cssVendor            DraculaGreenItalic
-" }}}
+" 
 
-" Git Commit: {{{
+" Git Commit: 
 " The following two are misnomers. Colors are correct.
 hi! link diffFile    DraculaGreen
 hi! link diffNewFile DraculaRed
@@ -440,17 +424,17 @@ hi! link diffNewFile DraculaRed
 hi! link diffAdded   DraculaGreen
 hi! link diffLine    DraculaCyanItalic
 hi! link diffRemoved DraculaRed
-" }}}
+" 
 
-" HTML: {{{
+" HTML: 
 hi! link htmlTag         DraculaFg
 hi! link htmlArg         DraculaGreenItalic
 hi! link htmlTitle       DraculaFg
 hi! link htmlH1          DraculaFg
 hi! link htmlSpecialChar DraculaPurple
-" }}}
+" 
 
-" JavaScript: {{{
+" JavaScript: 
 hi! link javaScriptBraces   Delimiter
 hi! link javaScriptNumber   Constant
 hi! link javaScriptNull     Constant
@@ -484,14 +468,14 @@ hi! link jsxCloseTag        Type
 hi! link jsxAttrib          DraculaGreenItalic
 hi! link jsxCloseString     Identifier
 hi! link jsxOpenPunct       Identifier
-" }}}
+" 
 
-" JSON: {{{
+" JSON: 
 hi! link jsonKeyword      DraculaCyan
 hi! link jsonKeywordMatch DraculaPink
-" }}}
+" 
 
-" Lua: {{{
+" Lua: 
 hi! link luaFunc  DraculaCyan
 hi! link luaTable DraculaFg
 
@@ -505,9 +489,9 @@ hi! link luaFuncCall     Function
 hi! link luaLocal        Keyword
 hi! link luaSpecialTable Constant
 hi! link luaSpecialValue DraculaCyan
-" }}}
+" 
 
-" Markdown: {{{
+" Markdown: 
 hi! link markdownBlockquote        DraculaCyan
 hi! link markdownBold              DraculaOrangeBold
 hi! link markdownBoldItalic        DraculaOrangeBoldItalic
@@ -547,15 +531,15 @@ hi! link mkdLink        DraculaPink
 hi! link mkdListItem    DraculaCyan
 hi! link mkdRule        DraculaComment
 hi! link mkdUrl         DraculaLink
-" }}}
+" 
 
-" OCaml: {{{
+" OCaml: 
 hi! link ocamlModule  Type
 hi! link ocamlModPath Normal
 hi! link ocamlLabel   DraculaOrangeItalic
-" }}}
+" 
 
-" Perl: {{{
+" Perl: 
 " Regex
 hi! link perlMatchStartEnd       DraculaRed
 
@@ -590,18 +574,18 @@ hi! link perlSubPrototype        DraculaOrangeItalic
 
 " Hash keys
 hi! link perlVarSimpleMemberName DraculaPurple
-" }}}
+" 
 
-" PHP: {{{
+" PHP: 
 hi! link phpClass           Type
 hi! link phpClasses         Type
 hi! link phpDocTags         DraculaCyanItalic
 hi! link phpFunction        Function
 hi! link phpParent          Normal
 hi! link phpSpecialFunction DraculaCyan
-" }}}
+" 
 
-" PlantUML: {{{
+" PlantUML: 
 hi! link plantumlClassPrivate              SpecialKey
 hi! link plantumlClassProtected            DraculaOrange
 hi! link plantumlClassPublic               Function
@@ -611,17 +595,17 @@ hi! link plantumlDirectedOrVerticalArrowRL Constant
 hi! link plantumlHorizontalArrow           Constant
 hi! link plantumlSkinParamKeyword          DraculaCyan
 hi! link plantumlTypeKeyword               Keyword
-" }}}
+" 
 
-" PureScript: {{{
+" PureScript: 
 hi! link purescriptModule Type
 hi! link purescriptImport DraculaCyan
 hi! link purescriptImportAs DraculaCyan
 hi! link purescriptOperator Operator
 hi! link purescriptBacktick Operator
-" }}}
+" 
 
-" Python: {{{
+" Python: 
 hi! link pythonBuiltinObj    Type
 hi! link pythonBuiltinObject Type
 hi! link pythonBuiltinType   Type
@@ -629,9 +613,9 @@ hi! link pythonClassVar      DraculaPurpleItalic
 hi! link pythonExClass       Type
 hi! link pythonNone          Type
 hi! link pythonRun           Comment
-" }}}
+" 
 
-" reStructuredText: {{{
+" reStructuredText: 
 hi! link rstComment                             Comment
 hi! link rstTransition                          Comment
 hi! link rstCodeBlock                           DraculaGreen
@@ -654,9 +638,9 @@ hi! link rstHyperlinkTarget                     Tag
 hi! link rstInlineInternalTargets               Tag
 hi! link rstInterpretedTextOrHyperlinkReference Tag
 hi! link rstTodo                                Todo
-" }}}
+" 
 
-" Ruby: {{{
+" Ruby: 
 if ! exists('g:ruby_operators')
     let g:ruby_operators=1
 endif
@@ -669,13 +653,13 @@ hi! link rubyInstanceVariable       DraculaPurpleItalic
 hi! link rubyInterpolationDelimiter DraculaPink
 hi! link rubyRegexpDelimiter        DraculaRed
 hi! link rubyStringDelimiter        DraculaYellow
-" }}}
+" 
 
-" Rust: {{{
+" Rust: 
 hi! link rustCommentLineDoc Comment
-" }}}
+" 
 
-" Sass: {{{
+" Sass: 
 hi! link sassClass                  cssClassName
 hi! link sassClassChar              cssClassNameDot
 hi! link sassId                     cssIdentifier
@@ -684,16 +668,16 @@ hi! link sassInterpolationDelimiter DraculaPink
 hi! link sassMixinName              Function
 hi! link sassProperty               cssProp
 hi! link sassVariableAssignment     Operator
-" }}}
+" 
 
-" Shell: {{{
+" Shell: 
 hi! link shCommandSub NONE
 hi! link shEscape     DraculaRed
 hi! link shParen      NONE
 hi! link shParenError NONE
-" }}}
+" 
 
-" Tex: {{{
+" Tex: 
 hi! link texBeginEndName  DraculaOrangeItalic
 hi! link texBoldItalStyle DraculaOrangeBoldItalic
 hi! link texBoldStyle     DraculaOrangeBold
@@ -706,9 +690,9 @@ hi! link texMathSymbol    DraculaPurple
 hi! link texSpecialChar   DraculaPurple
 hi! link texSubscripts    DraculaPurple
 hi! link texTitle         DraculaFgBold
-" }}}
+" 
 
-" Typescript: {{{
+" Typescript: 
 hi! link typescriptAliasDeclaration       Type
 hi! link typescriptArrayMethod            Function
 hi! link typescriptArrowFunc              Operator
@@ -763,9 +747,9 @@ hi! link tsxAttrib           DraculaGreenItalic
 hi! link tsxEqual            Operator
 hi! link tsxIntrinsicTagName Keyword
 hi! link tsxTagName          Type
-" }}}
+" 
 
-" Vim: {{{
+" Vim: 
 hi! link vimAutoCmdSfxList     Type
 hi! link vimAutoEventList      Type
 hi! link vimEnvVar             Constant
@@ -776,9 +760,9 @@ hi! link vimSetMod             Keyword
 hi! link vimSetSep             Delimiter
 hi! link vimUserAttrbCmpltFunc Function
 hi! link vimUserFunc           Function
-" }}}
+" 
 
-" XML: {{{
+" XML: 
 hi! link xmlAttrib  DraculaGreenItalic
 hi! link xmlEqual   Operator
 hi! link xmlTag     Delimiter
@@ -788,9 +772,9 @@ hi! link xmlTagName Statement
 syn region xmlTagName
 	\ matchgroup=xmlTag start=+</[^ /!?<>"']\@=+
 	\ matchgroup=xmlTag end=+>+
-" }}}
+" 
 
-" YAML: {{{
+" YAML: 
 hi! link yamlAlias           DraculaGreenItalicUnderline
 hi! link yamlAnchor          DraculaPinkItalic
 hi! link yamlBlockMappingKey DraculaCyan
@@ -798,13 +782,13 @@ hi! link yamlFlowCollection  DraculaPink
 hi! link yamlFlowIndicator   Delimiter
 hi! link yamlNodeTag         DraculaPink
 hi! link yamlPlainScalar     DraculaYellow
-" }}}
+" 
 
-" }}}
+" 
 
-" Plugins: {{{
+" Plugins: 
 
-" junegunn/fzf {{{
+" junegunn/fzf 
 if ! exists('g:fzf_colors')
   let g:fzf_colors = {
     \ 'fg':      ['fg', 'Normal'],
@@ -822,9 +806,9 @@ if ! exists('g:fzf_colors')
     \ 'header':  ['fg', 'Comment'],
     \}
 endif
-" }}}
+" 
 
-" dense-analysis/ale {{{
+" dense-analysis/ale 
 hi! link ALEError              DraculaErrorLine
 hi! link ALEWarning            DraculaWarnLine
 hi! link ALEInfo               DraculaInfoLine
@@ -835,23 +819,23 @@ hi! link ALEInfoSign           DraculaCyan
 
 hi! link ALEVirtualTextError   Comment
 hi! link ALEVirtualTextWarning Comment
-" }}}
+" 
 
-" ctrlpvim/ctrlp.vim: {{{
+" ctrlpvim/ctrlp.vim: 
 hi! link CtrlPMatch     IncSearch
 hi! link CtrlPBufferHid Normal
-" }}}
+" 
 
-" airblade/vim-gitgutter {{{
+" airblade/vim-gitgutter 
 hi! link GitGutterAdd    DiffAdd
 hi! link GitGutterChange DiffChange
 hi! link GitGutterDelete DiffDelete
-" }}}
+" 
 
-" Neovim-only plugins {{{
+" Neovim-only plugins 
 if has('nvim')
 
-  " nvim-treesitter/nvim-treesitter: {{{
+  " nvim-treesitter/nvim-treesitter: 
   " The nvim-treesitter library defines many global highlight groups that are
   " linked to the regular vim syntax highlight groups. We only need to redefine
   " those highlight groups when the defaults do not match the dracula
@@ -890,102 +874,7 @@ if has('nvim')
   " which in turn links to Identifer (white).
   hi! link TSTagAttribute DraculaGreenItalic
 
-  if has('nvim-0.8.1')
-    " # Misc
-    hi! link @punctuation.delimiter Delimiter
-    hi! link @punctuation.bracket DraculaFg
-    hi! link @punctuation.special Special
-    hi! link @punctuation Delimiter
-    " # Constants
-    hi! link @constant Constant
-    hi! link @constant.builtin Constant
-    hi! link @constant.macro Macro
-    hi! link @string.regex @string.special
-    hi! link @string.escape @string.special
-    hi! link @string String
-    hi! link @string.regexp @string.special
-    hi! link @string.special SpecialChar
-    hi! link @string.special.symbol DraculaPurple
-    hi! link @string.special.url Underlined
-    hi! link @symbol DraculaPurple
-    hi! link @annotation DraculaYellow
-    hi! link @attribute DraculaGreenItalic
-    hi! link @namespace Structure
-    hi! link @module Structure
-    hi! link @module.builtin Special
-    " # Functions
-    hi! link @function.builtin DraculaCyan
-    hi! link @funcion.macro Function
-    hi! link @function Function
-    hi! link @parameter DraculaOrangeItalic
-    hi! link @parameter.reference DraculaOrange
-    hi! link @field DraculaOrange
-    hi! link @property DraculaFg
-    hi! link @constructor DraculaCyan
-    " # Keywords
-    hi! link @label DraculaPurpleItalic
-    hi! link @keyword.function DraculaPink
-    hi! link @keyword.operator Operator
-    hi! link @keyword Keyword
-    hi! link @exception DraculaPurple
-    hi! link @operator Operator
-    " # Types
-    hi! link @type Type
-    hi! link @type.builtin Special
-    hi! link @character Character
-    hi! link @character.special SpecialChar
-    hi! link @boolean Boolean
-    hi! link @number Number
-    hi! link @number.float Float
-    " # Variable
-    hi! link @variable DraculaFg
-    hi! link @variable.builtin DraculaPurpleItalic
-    hi! link @variable.parameter DraculaOrangeItalic
-    hi! link @variable.member  DraculaOrange
-    " # Text
-    hi! link @text DraculaFg
-    hi! link @text.strong DraculaFgBold
-    hi! link @text.emphasis DraculaFg
-    hi! link @text.underline Underlined
-    hi! link @text.title DraculaYellow
-    hi! link @text.literal DraculaYellow
-    hi! link @text.uri DraculaYellow
-    hi! link @text.diff.add DiffAdd
-    hi! link @text.diff.delete DiffDelete
-
-    hi! link @markup.strong DraculaFgBold
-    hi! link @markup.italic DraculaFgItalic
-    hi! link @markup.strikethrough DraculaFgStrikethrough
-    hi! link @markup.underline Underlined
-
-    hi! link @markup Special
-    hi! link @markup.heading DraculaYellow
-    hi! link @markup.link Underlined
-    hi! link @markup.link.uri DraculaYellow
-    hi! link @markup.link.label SpecialChar
-    hi! link @markup.raw DraculaYellow
-    hi! link @markup.list Special
-
-    hi! link @comment Comment
-    hi! link @comment.error DiagnosticError
-    hi! link @comment.warning DiagnosticWarn
-    hi! link @comment.note DiagnosticInfo
-    hi! link @comment.todo Todo
-
-    hi! link @diff.plus Added
-    hi! link @diff.minus Removed
-    hi! link @diff.delta Changed
-
-    " # Tags
-    hi! link @tag DraculaCyan
-    hi! link @tag.delimiter DraculaFg
-    " HTML and JSX tag attributes. By default, this group is linked to TSProperty,
-    " which in turn links to Identifer (white).
-    hi! link @tag.attribute DraculaGreenItalic
-  endif
-  " }}}
-
-  " hrsh7th/nvim-cmp {{{
+  " hrsh7th/nvim-cmp 
   hi! link CmpItemAbbrDeprecated DraculaError
 
   hi! link CmpItemAbbrMatch DraculaCyan
@@ -1018,25 +907,25 @@ if has('nvim')
   hi! link CmpItemKindTypeParameter DraculaCyan
 
   hi! link CmpItemMenu Comment
-  " }}}
+  " 
 
-  " lewis6991/gitsigns.nvim {{{
-  hi! link GitSignsAdd      DiffAdd
-  hi! link GitSignsAddLn    DiffAdd
-  hi! link GitSignsAddNr    DiffAdd
-  hi! link GitSignsChange   DiffChange
-  hi! link GitSignsChangeLn DiffChange
-  hi! link GitSignsChangeNr DiffChange
-
-  hi! link GitSignsDelete   DraculaRed
-  hi! link GitSignsDeleteLn DraculaRed
-  hi! link GitSignsDeleteNr DraculaRed
-  " }}}
+  " lewis6991/gitsigns.nvim 
+  "hi! link GitSignsAdd      DiffAdd
+  "hi! link GitSignsAddLn    DiffAdd
+  "hi! link GitSignsAddNr    DiffAdd
+  "hi! link GitSignsChange   DiffChange
+  "hi! link GitSignsChangeLn DiffChange
+  "hi! link GitSignsChangeNr DiffChange
+  "
+  "hi! link GitSignsDelete   DraculaRed
+  "hi! link GitSignsDeleteLn DraculaRed
+  "hi! link GitSignsDeleteNr DraculaRed
+  " 
 
 endif
-" }}}
+" 
 
-" }}}
+" 
 
-" vim: fdm=marker ts=2 sts=2 sw=2 fdl=0 et:
+"---- vim: fdm=marker ts=2 sts=2 sw=2 fdl=0 et:
 hi Normal guibg=NONE ctermbg=NONE
