@@ -9,47 +9,43 @@ map("n", "<C-S-e>", "<Cmd>Lexplore<CR>", { silent = true, noremap = true })
 map("c", "UP", "PaqUpdate<CR>", { noremap = true })
 map("i", "<C-a>", "<C-o>0", { silent = true, noremap = true })
 map("i", "<C-e>", "<C-o>A", { silent = true, noremap = true })
-map("i", "<M-h>", "<left>", { silent = true, noremap = true })
-map("i", "<M-j>", "<down>", { silent = true, noremap = true })
-map("i", "<M-k>", "<up>", { silent = true, noremap = true })
-map("i", "<M-l>", "<right>", { silent = true, noremap = true })
+map("i", "<C-b>", "<left>", { silent = true, noremap = true })
+map("i", "<C-f>", "<right>", { silent = true, noremap = true })
+-- map("i", "<C-n>", "<down>", { silent = true, noremap = true })
+-- map("i", "<C-p>", "<up>", { silent = true, noremap = true })
 
 require("paq")({
 	{ "savq/paq-nvim" },
 	{ "nvimdev/hlsearch.nvim" },
-	{ "nvimdev/guard.nvim", opt = false },
+	{ "nvimdev/guard.nvim" },
 
 	{ "nvim-mini/mini.surround" },
 	{ "nvim-mini/mini.indentscope" },
 	{ "nvim-mini/mini.pairs" },
 	{ "nvim-mini/mini.icons" },
-	{ "nvim-mini/mini.diff", opt = true },
 	{ "nvim-mini/mini.completion" },
 	{ "nvim-mini/mini.snippets" },
-	{ "nvim-mini/mini.hipatterns", opt = true },
-	{ "nvim-mini/mini.align", opt = true },
-	-- { "nvim-mini/mini.animate" },
+	{ "nvim-mini/mini.diff",                         opt = true },
+	{ "nvim-mini/mini.hipatterns",                   opt = true },
+	{ "nvim-mini/mini.align",                        opt = true },
 
 	{ "neovim/nvim-lspconfig" },
+
+	{ "chomosuke/typst-preview.nvim",                opt = true },
+
 	{ "rafamadriz/friendly-snippets" },
-	-- { "stevearc/conform.nvim", opt = true },
-
-	{ "chomosuke/typst-preview.nvim", opt = true },
-
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-	{ "nvim-treesitter/nvim-treesitter-refactor" },
+	{ "nvim-treesitter/nvim-treesitter" },
+	{ "nvim-treesitter/nvim-treesitter-locals" },
+	{ "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
 	-- { "nvim-treesitter/nvim-treesitter-context", opt = true},
 
-	{ "mfussenegger/nvim-dap" },
-	{ "theHamsta/nvim-dap-virtual-text" },
-	-- { "folke/twilight.nvim"},
 	-- { "JoosepAlviste/nvim-ts-context-commentstring" },
 })
 
 require("fterm")
 require("pluginsetup")
-require("minicmp")
 require("lintformat")
+require("minicmp")
 
 vim.diagnostic.config({
 	signs = false, --去除行号左边的error标识
@@ -79,7 +75,6 @@ vim.api.nvim_create_autocmd("BufNewFile", {
 -- -- 将 cmp 初始化移动到 autocmd 延迟加载
 -- vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
 -- 	callback = function()
--- 		require("fterm")
+-- 		require("minicmp")
 -- 	end,
 -- })
---

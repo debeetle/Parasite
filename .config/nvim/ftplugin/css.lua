@@ -16,4 +16,5 @@ vim.lsp.config("cssls", {
 		},
 	},
 })
--- vim.lsp.enable("cssls")
+vim.lsp.enable("cssls")
+vim.treesitter.start()

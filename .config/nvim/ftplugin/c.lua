@@ -8,7 +8,9 @@ vim.lsp.config("clangd", {
 		},
 	},
 	-- init_options = {
-	-- 	fallbackFlags = { "-std=c99" },
+	-- 	clangdFileStatus = true,
+	-- 	fallbackFlags = { "-std=c11", "-I/usr/include", "-I/usr/local/include" },
 	-- },
 })
 -- vim.lsp.enable("clangd")
+vim.treesitter.start()

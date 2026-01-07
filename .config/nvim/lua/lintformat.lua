@@ -22,9 +22,17 @@ local ft = require("guard.filetype")
 -- 	end,
 -- })
 
+-- prettier has to be enable since the lsp didn't work
+ft("html,css,javascript,typescript,json"):fmt({
+	cmd = "prettier",
+	args = { "--print-width", "8192", "--stdin-filepath" },
+	fname = true,
+	stdin = true,
+})
+
 ft("c,cpp"):fmt({
 	cmd = "clang-format",
-	args = { "--style={BasedOnStyle: llvm, ColumnLimit: 0}" },
+	args = { "--style={BasedOnStyle: gnu, ColumnLimit: 0}" },
 	stdin = true,
 })
 -- :lint({
@@ -43,18 +51,12 @@ ft("c,cpp"):fmt({
 -- 	}),
 -- })
 
-ft("html,css,javascript,typescript,json"):fmt({
-	cmd = "prettier",
-	args = { "--stdin-filepath", "--print-width", "8192" },
-	fname = true,
-	stdin = true,
-})
 
-ft("python"):fmt({
-	cmd = "ruff",
-	args = { "format", "-" },
-	stdin = true,
-})
+-- ft("python"):fmt({
+-- 	cmd = "ruff",
+-- 	args = { "format", "-" },
+-- 	stdin = true,
+-- })
 -- :lint({
 -- 	cmd = "ruff",
 -- 	args = {
@@ -121,10 +123,10 @@ ft("python"):fmt({
 -- 	}),
 -- })
 
-ft("sh"):fmt({
-	cmd = "shfmt",
-	stdin = true,
-})
+-- ft("sh"):fmt({
+-- 	cmd = "shfmt",
+-- 	stdin = true,
+-- })
 -- :lint({
 -- 	cmd = "shellcheck",
 -- 	args = { "--format", "json1", "--external-sources" },
@@ -140,15 +142,15 @@ ft("sh"):fmt({
 -- 	}),
 -- })
 
-ft("typst"):fmt({
-	cmd = "typstyle",
-	stdin = true,
-})
-
-ft("fish"):fmt({
-	cmd = "fish_indent",
-	stdin = true,
-})
+-- ft("typst"):fmt({
+-- 	cmd = "typstyle",
+-- 	stdin = true,
+-- })
+--
+-- ft("fish"):fmt({
+-- 	cmd = "fish_indent",
+-- 	stdin = true,
+-- })
 
 -- ft("javascript"):lint({
 -- 	cmd = "npx",

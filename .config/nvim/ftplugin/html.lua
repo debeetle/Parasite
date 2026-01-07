@@ -2,7 +2,7 @@ vim.cmd([[
 	"packadd cmp-path
 	"packadd cmp-treesitter
 	"packadd cmp-nvim-lsp
-	set showbreak=↪   
+	set showbreak=↪
 	]])
 
 -- vim.opt.softtabstop = 2
@@ -25,3 +25,4 @@ vim.lsp.config("html", {
 	},
 })
 vim.lsp.enable("html")
+vim.treesitter.start()

@@ -1,0 +1,1 @@
+/usr/share/asymptote/asy-mode.el

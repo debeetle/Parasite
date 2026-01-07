@@ -25,6 +25,7 @@ riverctl map normal Super Space spawn ~/.config/river/scratchpad
 
 # Alt+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
 riverctl map normal Alt+Shift Return spawn foot
+riverctl map normal Alt+Shift A spawn alacritty
 
 riverctl map normal Alt+Shift F spwan qutebrowser
 riverctl map normal Alt+Shift G spwan emacs

@@ -14,3 +14,4 @@ vim.lsp.config("pyright", {
 })
 vim.lsp.enable("ruff")
 vim.lsp.enable("pyright")
+vim.treesitter.start()

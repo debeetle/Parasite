@@ -86,10 +86,6 @@ vim.opt.wrap = true
 -- vim.opt.winborder = 'rounded'
 -- vim.opt.ttyfast = true
 
-vim.keymap.set('i', 'jk', '<Esc>', {
-  noremap = true, 
-  silent = true, 
-})
 
 EOF
 

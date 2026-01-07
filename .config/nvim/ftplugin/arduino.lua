@@ -37,4 +37,5 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	end,
 })
 
--- vim.lsp.enable("arduino_language_server")
+vim.lsp.enable("arduino_language_server")
+vim.treesitter.start()
