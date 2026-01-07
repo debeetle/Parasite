@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+if lswt | grep -q center; then
+    riverctl toggle-focused-tags 10
+else
+    riverctl spawn "foot -T center"
+fi
