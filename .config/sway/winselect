@@ -1,0 +1,3 @@
+#!/usr/bin/env dash
+window=$(swaymsg -t get_tree | jq -r '.. | select(.type? == "con" and .name != null) | "\(.app_id)"'|fzy)
+swaymsg "[app_id=$window] focus"
