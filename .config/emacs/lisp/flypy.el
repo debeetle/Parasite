@@ -1,3 +1,4 @@
+;;; flypy.el --Emacs config -*- lexical-binding: t -*-
 ;;; flypy.el --- Emacs port of flypy Chinese input method  -*-coding: utf-8;-*-
 
 (quail-define-package

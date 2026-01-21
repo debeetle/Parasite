@@ -3,5 +3,5 @@
 -- 		provideFormatter = false,
 -- 	},
 -- })
-vim.lsp.enable("jsonls")
-vim.treesitter.start()
+-- vim.lsp.enable("jsonls")
+-- vim.treesitter.start()

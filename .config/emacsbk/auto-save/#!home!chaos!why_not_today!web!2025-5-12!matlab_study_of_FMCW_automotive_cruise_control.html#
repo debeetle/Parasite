@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+  <meta charset="UTF-8" name="viewport" http - equiv="Content-Type" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <head>
+    <title>Matlab study of FMCW automotive adaptive cruise control</title>
+    <link rel="stylesheet" type="text/css" href="report.css" />
+    <link rel="stylesheet" type="text/css" href="Temml-0.11.10/dist/Temml-Latin-Modern.css" />
+    <link rel="stylesheet" type="text/css" href="highlight/styles/github.min.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav class="narrownav">a</nav>
+      <h1 id="title">Matlab study of FMCW automotive adaptive cruise control</h1>
+      <hr />
+    </header>
+    <div class="main">
+      <aside>
+        <nav class="contents">
+          <details open>
+            <summary>
+              <h3>
+                <b>Content</b>
+              </h3>
+            </summary>
+            <ul id="content"></ul>
+          </details>
+          <details open>
+            <summary>
+              <h3><b>Appendix</b></h3>
+            </summary>
+            <ul id="appendix">
+              <li>Figure.1</li>
+            </ul>
+          </details>
+        </nav>
+      </aside>
+      <article>
+        <section>
+          <H2 id="intro" style="margin-top: 0">Intro</h2>
+          <p>Automotive Adaptive Cruise Control (ACC) system with Frequency Moduled Continous Wave (FMCW). I found a matlab example performing range and Doppler estimation of a moving vehicle. Compared to pulsed radars, FMCW radars are smaller, use less power. As a consequence, FMCW radars can only monitor a much smaller distance. Note that the radar normally refers to the laser.</p>
+        </section>
+        <section>
+          <h2 id="fmcw_waveform">FMCW Waveform</h2>
+          An automotive Long Range Radar (LRR) system used for ACC constantly estimates the distance between the vehicle mounted on and the vehicle in front of it like <a data-ref-type="figure" data-ref-target="sketch_of_acc" class="fig"></a>.
+          <figure data-key="sketch_of_acc">
+            <img src="./FMCWExample_01.png" />
+            <figcaption>Sketch of ACC</figcaption>
+          </figure>
+          FMCW is commonly used in ACC system. The principle of range measurement can be illustrated in <a data-ref-type="figure" data-ref-target="fmcw_range_measurement" class="fig"></a>.
+          <figure data-key="fmcw_range_measurement">
+            <img src="./linear_fmcw.svg" />
+            <figcaption>FMCW range measurement</figcaption>
+          </figure>
+          The back wave signal is a time-delayed copy of the transmitted signal. And the delay, $\tau$ is related to the range (distance).
+          <cite onclick="toggleAnnotate(this)" type="red"></cite>
+          <div class="annotate red">The <b>range</b> here means the distance, which I learned from LLM. So as in the <a data-ref-type="formula" data-ref-target="range2time" class="eq"></a>.</div>
+          The copy is literally same as the origin signal. At any moment during a sweep, the frequency difference $f_b$ which usually called the beat frequency, is obviously a constant in linear FMCW,
+          <pre><code class="language-matlab">fc = 77e9;
+	      c = 3e8;
+	      lambda = c/fc;</code></pre>
+          In practice, a triangle wave is more common. Because a linear FM should not increase with no end, and serrated FM wave carries less information than the triangle one <a data-ref-type="figure" data-ref-target="triangle_sweep" class="fig"></a>.
+          <figure data-key="triangle_sweep">
+            <img src="./triangle_sweep.svg" />
+            <figcaption>Triangle sweep</figcaption>
+          </figure>
+
+          The sweep time can be computed based on the time needed for the signal to travel the unambiguous maximum range. In general, for a FMCW radar system, the sweep time should be at least five to six times the round trip time. And the factor 5.5 is used in in this example.
+          <pre><code class="language-matlab">range_max = 200;
+	      tm = 5.5 * range2time(range_max, c);</code></pre>
+          Check the matlab document, <code>range2time</code> represents:
+          <math class="formula" data-key="range2time">$$range = \frac {c \cdot time} {2}$$</math>
+          The sweep bandwidth can be determined according to the range resolution and the sweep slope is calculated using sweep bandwidth and sweep time.
+          <pre><code class="language-matlab">range_res = 1;
+	      bw = rangeres2bw(range_res, c);
+	      sweep_slope = bw/tm;</code></pre>
+          Accordingly, here's the algorithm of <code>rangeres2bw</code>:
+          <math data-key="rangeres2bw" class="formula"> $$resolution = \frac { c} {bandwidth \cdot 2} $$ </math>
+
+          <cite onclick="toggleAnnotate(this)" type="red"></cite>
+          <div class="annotate red">
+            <del> Hard warning, this involves so many fields, which based on the Uncertainty Principle. But it can be realized through the Nyquist-Shannon sample therorem. So we basicly have $$\Delta t \Delta \omega\geqslant\frac{1}{2}$$ The $\Delta\omega$ here equals the bandwidth $B$. Then try to distinguish the minimum difference of two targets, which means exactly the resolution. We want the minimum time, take the limit $$\frac{1}{2 \cdot\Delta \omega } $$ multiple it with the propagation speed $c$ to get the distance. </del>
+            <br />
+            However, there's another way to handle this,
+            <span style="color: red"> I couldn't find the picture captured somewhere which records another explaination for the principle of the algorithm. It's sad because I kept it for a long time, but it fade away when I need it. Decide to leave this thing behind and wait it back on its own. While I still have a new one.</span>
+            We already have the flight time equation
+            <a data-ref-type="formula" data-ref-target="range2time" class="eq"></a> above. So for the rectangular pulse, the <b>time</b> can be considered as the inverse of the <b> bandwidth </b>, replace the time with $\displaystyle\frac{1}{bw}$ in <a data-ref-type="formula" data-ref-target="range2time" class="eq"></a>, we get the same anwser as before.
+          </div>
+          There may exists a range resolution broadening factor $b$ beacause of the discrepancy between bandwidth and the frequency variance in rectangular pulse. Range broadening occurs due to data weighting or windowing for side lobe control. Range broadening is the ratio of the actual –3 dB main lobe width with respect to the nominal width. Typical window functions such as Hamming or Hann exhibit range broadening in the range of 1 to 1.5. Eventually we get <a data-ref-type="formula" data-ref-target="bw2res" class="eq"></a>
+          <math data-key="bw2res" class="formula"> $$resolution = \frac { c \cdot b } { bandwidth \cdot 2 } $$ </math>
+          Due to the the occupancy of large bandwidth, blindly setting the the sample rate to twice the bandwidth of FMCW signal often pushes the A/D converter hardware too hard. Consider two ways for addressing this issue:
+          <ul>
+            <li>
+              Let's say we have linear increasing frequency $kt$, where the $\displaystyle k = \frac{B}{T}$ is the slope or gradient of the frequency change. Get the phase through intergal $\displaystyle\int_0^t kt\,dt = \frac{k t^2}{2} $. Transmission signal $\displaystyle\sin\left(\frac{k t^2}{2} \right)$ it is. Mix that with the recieved one, which delays $\tau$, $\displaystyle \sin \left(\frac {k}{2}\cdot (t-\tau)^2 \right)$. Simply multiply them together
+              <math class="formula" data-key="mixfrequency">$\begin{aligned}&\sin(\frac {k}{2}t^2)\cdot \sin\left(\frac {k}{2}(t-\tau)^2\right) \\ = & \:\frac{1}{2}\left[\cos\left(\frac {k}{2}( 2\tau t - \tau^2)\right) - \cos\left(\frac{k}{2}(2t^2 - 2t\tau + \tau^2)\right)\right]\end{aligned}$</math>
+              Get the Beat Frequency $k\tau $ now using a low-pass filter. It means that no matter how high the original signal frequency is, only twice the low beat frequency we will use to sample the recieved signal. It's worth mentioning that in practice, the sensor gets no signal or noise rather than the delay one of the transmitted signal at the first, obviously. But once receiving the signal, there's no difference directly mix the signals.
+              <cite onclick="toggleAnnotate(this)" type="green"></cite>
+              <div class="annotate green">I get a reflect here. Is it necessary to set the first few sample value to zero while no signal is detected in simulation.</div>
+            </li>
+            <li>
+              Another solution is complex sampling. This way can make us use the same sample rate as the bandwidth. Actually you see the formula is becoming diffcult enough for theory explaination, even without a phase bias $\phi$. However using the complex signal $e^{-j\omega t}$ is much easier than the real signal. According to the wiki stuff, complex sampling (i.e. I/Q sampling, or <q>正交采样</q> in Chinese) use the complex numbers to decompose the signal. We already have the knowledge that general signals we use in real world, are in real number field, which can be decomposed to exponential form, like
+              <math class="formula" data-key="exponential_form">$$ S_{N}(t)=\sum_{n=1}^{N}c_{n}e^{j\omega_{signal} t}=\sum _{n=1}^{N}c_{n}e^{j\frac{2\pi}{T_{signal}}t}$$</math>
+              <ul>
+                <li>The $\omega_{signal}$ here is the angular frequency of the signal we want to sample.</li>
+                <li>$c_n$ the coefficient above is a complex number, it'll be real number in the trigonometric form of Fourier series.</li>
+              </ul>
+              It's clear that $\displaystyle{\omega_{signal}=\frac{2\pi}{T_{signal}}}$. Through the Fourier Teansform of the I/Q sampling,
+              <math class="formula" data-key="iq_sample">$\begin{aligned} S_N(t)e^{j\omega_{sample} t} &= S_N(t)\cos(\omega_{sample} t) + jS_N(t)\sin(\omega_{sample} t)\\ &=\sum_{n=1}^{N}c_{n}e^{j(\omega_{signal}+\omega_{sample})t}\end{aligned}$</math>
+              Only for qualitative proof, we obtain unilateral pulse signal $\delta(B) = \delta(\omega_{signal}-\omega_{sample})$. Be careful that the fourier transform of $e^{\pm j\omega_0 t}$ is $2\pi \delta(\omega\mp \omega_0)$. Hence only the unilateral frequency $B=\omega_{signal}-\omega_{sample}$ will be needed for sampling. Note that the low-pass filter, like the frequency mixing FMCW introduced above can be used in the trigonometric form to further reduce the sampling frequency.
+            </li>
+          </ul>
+          In matlab, <code>range2beat</code> is used to calculate the beat frequency of the range.
+          <pre><code class="language-matlab">fr_max = range2beat(range_max, sweep_slope, c);</code></pre>
+          This function computes <math class="formula" data-key="beat_frequency">$$f_{ beat }= \frac{2\cdot range \cdot slope}{c}$$</math>
+          <cite onclick="toggleAnnotate(this)" type="green"></cite>
+          <div class="annotate green">Why would I use <code>range2beat</code> if I've already get the range value. Or why do I care the beat frequency if the distance is known.</div>
+          Presume that the maximum speed of the car is about 230 km/h. The maximum Doppler shift and the maximum beat frequency can be computed as
+          <pre><code class="language-matlab">v_max = 230*1000/3600;
+	      fd_max = speed2dop(2*v_max, lambda);
+	      fb_max = fr_max + fd_max;</code></pre>
+          New function <code>speed2dop</code> explained here. Consider the transmitter the exact same place as the reciever, we can compute the Doppler shift of a target relative to a receiver
+          <math class="formula" data-key="speed2dop">$$\Delta f = \frac{v}{\lambda}$$</math>
+          See that this math is easy. The velocity $v$ defines the radial velocity of the source relative to the receiver, devided by the carrier wavelength to obtain the Doppler shift $\Delta f$ in hertz. In this example, twice the maximum beat frequency and the bandwidth is adopts as sample rate.
+          <pre><code class="language-matlab">fs = max(2*fb_max, bw);</code></pre>
+          Radar parameters table summarized here <a data-ref-type="table" data-ref-target="radar_parameters" class="tab"></a>.
+
+          <cite onclick="toggleAnnotate(this)" type="green"></cite>
+          <div class="annotate green">Noticed that the frequency here hits the gigahertz range, while the ultrasound trasmitter rarely reaches this level. The accuracy and the reliability of this approach should be doubted for a second.</div>
+          <table data-key="radar_parameters">
+            <caption>
+              Radar parameters
+            </caption>
+            <thead>
+              <tr>
+                <th>System parameters</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Operating frequency (GHz)</td>
+                <td>77</td>
+              </tr>
+              <tr>
+                <td>Maximum target range (m)</td>
+                <td>200</td>
+              </tr>
+              <tr>
+                <td>Range resolution (m)</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Maximum target speed (km/h)</td>
+                <td>230</td>
+              </tr>
+              <tr>
+                <td>Sweep time (microseconds)</td>
+                <td>7.33</td>
+              </tr>
+              <tr>
+                <td>Sweep bandwidth (MHz)</td>
+                <td>150</td>
+              </tr>
+              <tr>
+                <td>Maximum beat frequency</td>
+                <td>27.30</td>
+              </tr>
+              <tr>
+                <td>Sample rate (MHz)</td>
+                <td>150</td>
+              </tr>
+            </tbody>
+          </table>
+          Using Matlab Phased Array System Toolbox (PAST), radar-related components're easy to obtain:
+          <pre><code class="language-matlab">waveform = phased.FMCWWaveform('SweepTime', tm, 'SweepBandwidth', bw, 'SampleRate', fs);</code></pre>
+          Demonstrate the complex signal as <a data-ref-type="figure" data-ref-target="fmcw_example" class="fig"></a>.
+          <figure data-key="fmcw_example">
+            <div><img src="FMCWExample_03_Amplitude.svg" /></div>
+            <figcaption>FMCW amplitude</figcaption>
+            <div style="padding: 5px 5px 0px 5px; margin: 0"><img src="FMCWExample_03_Frequency.svg" /></div>
+            <figcaption>FMCW frequency</figcaption>
+          </figure>
+        </section>
+        <section>
+          <h2 id="past">Phased array system toolbox</h2>
+          Followed contents go unrelated with FMCW but the radar or phased array numerical simulation for quick algorithm verification. This experiment assumes a moving car. Compute the radar cross section of a car, based on the distance between the radar and the target car.
+          <pre><code class="language-matlab">car_dist = 43;
+	      car_speed = 96*1000/3600;
+	      car_rcs = db2pow(min(10*log10(car_dist)+5, 20));
+	      cartarget = phased.RadarTarget('MeanRCS', car_rcs, 'PropagationSpeed', c, 'OperatingFrequency', fc);
+	      carmotion = phased.Platform('InitialPosition', [car_dist;0;0.5], 'Velocity', [car_speed;0;0]);</code></pre>
+          Function explaination for <code>db2pow</code>:
+          <math class="formula" data-key="db2pow">$$ power = 10^{ \frac{decibels}{10}} $$</math>
+          It's convenient that apply PAST for phased array algorithm verification, which is not the main point of this article. Next we focus on the two-ray propagation in reality. Here we can define an analyzer
+          <pre><code class="language-matlab">specanalyzer = spectrumAnalyzer('SampleRate', fs, 'Method', 'welch', 'AveragingMethod', 'running', 'PlotAsTwoSidedSpectrum', true, 'FrequencyResolutionMethod', 'rbw', 'Title', 'Spectrum for received and dechirped signal', 'ShowLegend', true);</code></pre>
+          A simulation loop can be ran by
+          <pre><code class="language-matlab" style="white-space: pre">rng(2012);
+	      Nsweep = 64;
+	      xr = complex(zeros(waveform.SampleRate*waveform.SweepTime, Nsweep));
+
+	      for m = 1:Nsweep
+	      % Update radar and target positions
+	      [radar_pos, radar_vel] = radarmotion(waveform.SweepTime);
+	      [tgt_pos,tgt_vel] = carmotion(waveform.SweepTime);
+
+	      % Transmit FMCW waveform
+	      sig = waveform();
+	      txsig = transmitter(sig);
+
+	      % Propagate the signal and reflect off the target
+	      txsig = channel(txsig, radar_pos, tgt_pos, radar_vel, tgt_vel);
+	      txsig = cartarget(txsig);
+
+	      % Dechirp the received radar return
+	      rxsig = receiver(txsig);
+	      dechirpsig = dechirp(txsig, sig);
+
+	      % Visualize the spectrum
+	      specanalyzer(dechirpsig);
+
+	      xr(:,m) = dechirpsig;
+	      end</code></pre>
+          <cite onclick="toggleAnnotate(this)" type="green"></cite>
+          <div class="annotate green">Firstly, these codes are shown here because I'm dumb at the coding, the functions here are actually the object in Matlab, <code>transmitter</code>, <code>cartarget</code>, <code>receiver</code>, etc. They use the PAST, the object instantiates a class, which has some benefits, replaces the middle variable for instance. And the <code>dechirp(txsig, sig)</code> here is just <code>sig .* conj(txsig)</code>. Sadly it does no help with the difficult part. Some observation recorded here. The object can be replaced with <code>step</code> function. For example, <code class="language-matlab">txsig = channel(txsig, radar_pos, tgt_pos, radar_vel, tgt_vel)</code> has the exact same result with <code class="language-matlab">txsig = step(channel, txsig, radar_pos, tgt_pos, radar_vel, tgt_vel)</code>. And never forget this is numerical simulation, with some important parameters. The <code>spectrumAnalyzer</code> visualizes the signal's spectrum. But it's useless if we can't figure out the specific number during the range detection.</div>
+          <figure data-key="spectrum">
+            <div style="padding: 5px 5px 0px 5px"><img src="spectrumanalyzer.svg" /></div>
+            <figcaption>Spectrum for dechirped signal</figcaption>
+          </figure>
+          <cite onclick="toggleAnnotate(this)" type="green"></cite>
+
+          <div class="annotate green">The spectrum here is actually not export from the spectrumAnalyzer function since it's so bad. I use the <code>pwelch</code> function to get the spectrum of <code>dechirpsig</code> data</div>
+          <figure></figure>
+        </section>
+        <section>as</section>
+      </article>
+      <aside>
+        <div class="related">Related</div>
+        <a href="#title"><button type="button" class="back2top">TOP</button></a>
+      </aside>
+    </div>
+    <footer>
+      <hr />
+      <kbd type="button" onclick="showModal()">as</kbd>
+      <button type="button" onclick="showModal()">as</button>
+      email: @chaos.com
+    </footer>
+  </body>
+  <script src="Temml-0.11.10/dist/temml.js"></script>
+  <script src="highlight/highlight.min.js"></script>
+  <script src="manuscript.js" defer></script>
+</html>

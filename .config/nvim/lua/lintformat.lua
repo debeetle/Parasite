@@ -23,12 +23,19 @@ local ft = require("guard.filetype")
 -- })
 
 -- prettier has to be enable since the lsp didn't work
-ft("html,css,javascript,typescript,json"):fmt({
+ft("html,css,javascript,typescript"):fmt({
 	cmd = "prettier",
 	args = { "--print-width", "8192", "--stdin-filepath" },
 	fname = true,
 	stdin = true,
 })
+
+-- ft("json"):fmt({
+-- 	cmd = "prettier",
+-- 	args = { "--print-width", "8192", "--stdin-filepath" },
+-- 	fname = true,
+-- 	stdin = true,
+-- })
 
 ft("c,cpp"):fmt({
 	cmd = "clang-format",

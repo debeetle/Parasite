@@ -61,6 +61,7 @@ vim.api.nvim_create_autocmd("BufNewFile", {
 	pattern = { "*.html", "*.typ" },
 	callback = function(args)
 		local ext = vim.bo[args.buf].filetype
+		-- local ext = vim.fn.fnamemodify(args.file, ":e")
 		local tmpl = "/home/chaos/.config/nvim/templates/" .. ext .. ".tpl"
 		local f = io.open(tmpl, "r")
 		if not f then

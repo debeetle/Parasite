@@ -1,0 +1,45 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/home/" . "chaos/")
+ ("/" . "home/")
+ ("/home/chaos/why_not_today/web/" . "2025-5-12/")
+ ("/home/chaos/why_not_today/" . "web/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/home/chaos/why_not_today/web/2025-5-12/"
+ "/home/chaos/.config/emacs/"
+ "/home/chaos/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "matlab_study_of_FMCW_automotive_cruise_control.html"
+ "init.el"
+ "dzfp_25444000000002012075_东莞市大朗易家智能产品经营部_20250330154540.pdf"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/home/chaos/.config/emacs/" (26946 50643 539331 73000) "ido.last" "ido.last~" "auto-save/" "rime/" "themes/" "init.el" "auto-save-list/" "eln-cache/" "elpa/" "url/" "../" "./")
+
+ ("/home/chaos/why_not_today/web/2025-5-12/" (26946 50643 546997 182000) "#matlab_study_of_FMCW_automotive_cruise_control.html#" "manuscript.js" "report.css" ".git/" "matlab_study_of_FMCW_automotive_cruise_control.html" "triangle_sweep.svg" "linear_fmcw.svg" "triangle wave with doppler.svg" "FMCWExample_03_Frequency.svg" "FMCWExample_03_Amplitude.svg" "FMCWExample_03.png" "Temml-0.11.10/" "fonts/" "highlight/" "1c-light.css" "onelight.css" "fmcw_range_measurement.svg" "temml.js" "FMCWExample_02.png" "FMCWExample_01.png" "../" "./")
+
+ ("/opt/fasthome/Parasite/.config/emacs/" (26946 50476 427249 519000) "ido.last" "ido.last~" "auto-save/" "rime/" "themes/" "init.el" "auto-save-list/" "eln-cache/" "elpa/" "url/" "../" "./")
+
+ ("/home/chaos/.config/" (26946 33961 178589 33000) "emacsbk/" "configstore/" "freerdp/" "unity3d/" "menus/" "kitty/" "glow/" "paperwork2.conf" "Cyberbotics/" "GNS3/" "pcmanfm/" "libfm/" "rss2email.cfg" "QtProject/" "okular.kmessagebox" "pympress" "gnome-session/" ".gsd-keyboard.settings-ported" "ibus/" "Epic/" "gnuradio/" "pyradio/" "okularpartrc" "okularrc" "libvirt/" "epiphany/" "Trolltech.conf" "eog/" "servo/" "distrobox/" "havoc/" "rustdesk/" "godot/" "OpenSCAD/" "sonic-visualiser/" "nvim/" "VirtualBox/" "pip/" "octave/" "swayimg/" "cef_user_data/" "fish/" "gtk-4.0/" "xdg-desktop-portal/" "autostart/" "matplotlib/" "glib-2.0/" "user-dirs.locale" "user-dirs.dirs" "QtProject.conf" "emaildefaults" "procps/" "sway/" "mako/" "mpv/" "FreeCAD/" "inkscape/" "GIMP/" "blender/" "fcitx/" "fcitx5/" "zathura/" "go/" "audacity/" "trizen/" "emacs/" "river/" "fd/" "gtk-3.0/" "qutebrowser/" "dconf/" "pulse/" "chromium/" "zsh/" "htop/" ".fzfrc" "systemd/" "../" "./")
+
+ ("/home/" (26805 25063 208224 5000) "chaos/" "../" "./")
+
+ ("/home/chaos/why_not_today/web/" (26930 48656 18634 200000) "2025-4-28/" "report.css" "2025-5-12/" "2024-10-12/" "2024-10-7/" "2024-9-28/" "noneofmybusiness/" "../" "./")
+
+ ("/home/chaos/why_not_today/" (26653 28149 870968 38000) "web/" "homework/" "researchrelated/" "../" "./")
+
+ ("/home/chaos/" (26945 29627 919982 98000) ".viminfo" ".octaverc" ".profile" ".steampid" ".npmrc" ".wg-easy/" ".nvidia-settings-rc" "digital_25447000000324717231.pdf" "garden/" ".arduino15/" "octave-workspace" "cache.db" ".pyenv/" ".steampath" "learning_backup/" ".mozilla/" "config.json" ".nv/" "trashcan_just_in_case/" "dzfp_25444000000002012075_东莞市大朗易家智能产品经营部_20250330154540.pdf" ".rviz2/" "develop/" "ros2/" ".cmake/" ".java/" "smbdir/" "sonarcar.py" ".gz/" "digital_25447200000175865010.pdf" ".bash_history" ".wget-hsts" ".ros/" ".espressif/" "universe/" "bytedance_paper/" "Psyduck.stl" ".android/" "kernelbuild/" "pyvenv/" ".rustup/" ".npm/" ".pulse-cookie" ".gitconfig" ".aurx/" ".steam/" "sspai2.png" "sspai.png" ".rviz/" "capture/" "Psyduck_Supported.stl" ".ipe/" ".ideamaker-app/" "test.hdr" "llmgguf/" ".hplip/" ".screen/" ".ssh/" "typdf/" ".python_history" "research/" "why_not_today/" "Downloads/" ".pki/" ".cache/" ".local/" ".config/" ".bashrc" ".bash_profile" "../" "./")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t

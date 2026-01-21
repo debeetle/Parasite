@@ -1,6 +1,27 @@
+;;; init.el --Emacs config -*- lexical-binding: t -*-
+;; (require 'package )
+(setq package-archives '(("gnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+						 ("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 (add-to-list 'custom-theme-load-path "/home/chaos/.config/emacs/themes")
-(mapc #'disable-theme custom-enabled-themes)
-(load-theme 'dracula t)
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+;; (defun my/daemon-theme (frame)
+;; (with-selected-frame frame
+;; (mapc #'enable-theme custom-enabled-themes)))
+;; (add-hook 'after-make-frame-functions #'my/daemon-theme)
+
+(defun my/hanfont-scale ()
+  (set-fontset-font t 'han (font-spec :family "STZhongsong"))
+  (setq face-font-rescale-alist '(("STZhongsong" . 0.95))))
+(add-hook 'server-after-make-frame-hook #'my/hanfont-scale)
+(defun my/apply-theme (theme)
+  (mapc #'disable-theme custom-enabled-themes)
+  (load-theme theme t))
+(my/apply-theme 'dracula)
 
 ;; For performance
 ;; (load "server")
@@ -8,9 +29,7 @@
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
 
-(add-hook 'emacs-startup-hook #'(lambda ()
-								  ;; restore after startup
-								  (setq gc-cons-threshold (* 100 1024 1024))))
+(add-hook 'emacs-startup-hook #'(lambda () (setq gc-cons-threshold (* 100 1024 1024)))) ;; restore after startup
 (menu-bar-mode 0)
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
@@ -21,31 +40,30 @@
 (fido-mode t)
 (visual-line-mode t)
 (blink-cursor-mode 0)
-(electric-pair-mode t) ;自动补全括号
-(column-number-mode t) ;显示列号
-(show-paren-mode t)                       ; Show closing parens by default
-(global-auto-revert-mode t)               ; Auto-update buffer if file has changed on disk
+(electric-pair-mode t) ;; auto pair
+(column-number-mode t)
+(show-paren-mode t)                       ;; Show closing parens by default
+(global-auto-revert-mode t)               ;; Auto-update buffer if file has changed on disk
 
-;; (delete-selection-mode t)                 ; Selected text will be overwritten when you start typing
+;; (delete-selection-mode t)                 ;; Selected text will be overwritten when you start typing
 (setq-default cursor-type 'bar)
 
 (setq-default tab-width 4)
-(require 'display-line-numbers)
 (global-display-line-numbers-mode 1)
 (setq display-line-numbers-type 'relative)
 (setq display-line-numbers-current-absolute t)
 (add-hook 'pdf-view-mode-hook #'(lambda () (display-line-numbers-mode 0)))
+(require 'image)
 (add-hook 'image-mode-hook #'(lambda () (display-line-numbers-mode 0)))
 (setq-default mode-line-format
 			  (delete '(vc-mode vc-mode) mode-line-format))
 ;; (setq display-time-day-and-date 1)
 ;; (display-time-mode t)
-(global-set-key (kbd "<C-wheel-up>") 'ignore)
-(global-set-key (kbd "<C-wheel-down>") 'ignore)
-(setq make-backup-files 0) ;关闭文件自动备份
+
+(setq make-backup-files nil) ;关闭文件自动备份
 (setq auto-save-visited-file-name t)
 (setq auto-save-file-name-transforms
-      '((".*" "/home/chaos/.config/emacs/auto-save/" t)))
+	  '((".*" "/home/chaos/.config/emacs/auto-save/" t)))
 (setq inhibit-startup-screen t)           ; Disable startup screen
 (setq initial-scratch-message "")
 (setq ring-bell-function 'ignore)         ; Disable bell sound
@@ -53,34 +71,20 @@
 (setq-default frame-title-format '("%b")) ; Make window title the buffer name
 (fset 'yes-or-no-p 'y-or-n-p)             ; y-or-n-p makes answering questions faster
 (add-hook 'before-save-hook
-		  'delete-trailing-whitespace)    ; Delete trailing whitespace on save
+	      'delete-trailing-whitespace)    ; Delete trailing whitespace on save
 ;; Lockfiles unfortunately cause more pain than benefit
 (setq create-lockfiles -1)
-;; (desktop-save-mode 1)
-(setq locale-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
+
+;; (setq locale-coding-system 'utf-8)
+;; (set-terminal-coding-system 'utf-8)
+;; (set-keyboard-coding-system 'utf-8)
+;; (set-selection-coding-system 'utf-8)
+;; (prefer-coding-system 'utf-8)
 (setq completion-auto-help 'always)
 (setq completion-auto-select 'second-tab)
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 
-(require 'whitespace)
-(require 'package )
-(setq package-archives '(("gnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-						 ("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
-;; (setq package-ignore-packages '(tree-sitter tsc))
-;; (unless package--initialized (package-initialize))
-
-;; Setup use-package
-;; (unless (package-installed-p 'use-package)
-;; (package-refresh-contents)
-;; (package-install 'use-package))
-(eval-when-compile
-  (require 'use-package))
-(setq use-package-always-ensure t)
 ;; (use-package rime
 ;; :custom
 ;; (default-input-method "rime"))
@@ -89,23 +93,19 @@
 
 (setq backup-inhibited t)
 (add-hook 'prog-mode-hook #'hs-minor-mode) ;编程模式下，可以折叠代码块
-
-(global-set-key (kbd "C-;") 'comment-line)
 (setq font-lock-maximum-decoration t)
 (setq scroll-margin 5
-      scroll-conservatively 10000)
+	  scroll-conservatively 10000)
 (transient-mark-mode t)
 (setq kill-ring-max 30)
-;; (setq default-frame-alist '((font . "Source Code Pro-10:weight=medium:slant=normal")))
-(set-face-attribute 'default nil :family "Source Code Pro" :height 100 :weight 'medium)
-(set-fontset-font t 'han (font-spec :family "STZhongsong"))
-(setq face-font-rescale-alist '(("STZhongsong" . 0.95)))
+
+(add-to-list 'default-frame-alist '(font . "Source Code Pro-10:weight=medium"))
+;; (set-face-attribute 'default nil :family "Source Code Pro" :height 102 :weight 'medium)
+
 ;; (switch-to-buffer "*scratch*")
 (require 'ffap)
 (ffap-bindings)
-(require 'eglot)
-(add-to-list 'eglot-server-programs
-			 '(html-mode . ("vscode-html-language-server" "--stdio")))
+
 (add-hook 'html-mode-hook #'eglot-ensure)
 
 (add-to-list 'load-path "/usr/share/asymptote")
@@ -113,26 +113,38 @@
 (autoload 'lasy-mode "asy-mode.el" "hybrid Asymptote/Latex major mode." t)
 (autoload 'asy-insinuate-latex "asy-mode.el" "Asymptote insinuate Latex." t)
 (add-to-list 'auto-mode-alist '("\\.asy$" . asy-mode))
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'simpc-mode)
 (add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . simpc-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.asy\\'" . simpc-mode))
 (require 'flypy)
 (require 'evil)
 (evil-mode 0)
+(add-to-list 'auto-mode-alist '("\\.service\\'" . conf-unix-mode))
+(add-to-list 'auto-mode-alist '("\\.timer\\'" . conf-unix-mode))
+(add-to-list 'auto-mode-alist '("\\.target\\'" . conf-unix-mode))
+(add-to-list 'auto-mode-alist '("\\.mount\\'" . conf-unix-mode))
+(add-to-list 'auto-mode-alist '("\\.automount\\'" . conf-unix-mode))
+(add-to-list 'auto-mode-alist '("\\.slice\\'" . conf-unix-mode))
+(add-to-list 'auto-mode-alist '("\\.socket\\'" . conf-unix-mode))
+(add-to-list 'auto-mode-alist '("\\.path\\'" . conf-unix-mode))
+(add-to-list 'auto-mode-alist '("\\.netdev\\'" . conf-unix-mode))
+(add-to-list 'auto-mode-alist '("\\.network\\'" . conf-unix-mode))
+(add-to-list 'auto-mode-alist '("\\.link\\'" . conf-unix-mode))
 
-;; (provide 'init)
-;;(add-to-list 'load-path "~/.config/emacs/site-lisp/emacs-application-framework/")
-;;(require 'eaf)
-;;(require 'eaf-browser)
-;;(require 'eaf-pdf-viewer)
-;;(let ((params (frame-parameters)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
+
+;; (custom-set-faces
+;; custom-set-faces was added by Custom.
+;; If you edit it by hand, you could mess it up, so be careful.
+;; Your init file should contain only one such instance.
+;; If there is more than one, they won't work right.
+;; )
+(use-package eglot
+  :ensure nil
+  :config
+  ;; (add-to-list 'eglot-server-programs '(simpc-mode . ("clangd")))
+  (add-to-list 'eglot-server-programs
+			 '(html-mode . ("vscode-html-language-server" "--stdio"))))
 
 (use-package eglot-booster
   :after eglot
@@ -140,7 +152,7 @@
 (setq eglot-booster-io-only t)
 (add-to-list 'eglot-server-programs
 			 '(asy-mode . ("asy" "-lsp")))
-;; (add-hook 'asy-mode-hook 'eglot-ensure)
+(add-hook 'asy-mode-hook 'eglot-ensure)
 (use-package prettier-js)
 (add-hook 'html-mode-hook 'prettier-js-mode)
 (add-hook 'js-mode-hook 'prettier-js-mode)
@@ -169,23 +181,26 @@
   :config
   (keymap-set typst-ts-mode-map "C-c C-c" #'typst-ts-tmenu))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("9c6aa7eb1bde73ba1142041e628827492bd05678df4d9097cda21b1ebcb8f8b9"
-	 "fdd5161b0ff03d8bdc2356d0a99dfecdc8c4824ea937d39ae2cd0aee2abea6c6"
-	 default))
- '(package-selected-packages
-   '(corfu eglot-booster evil expand-region flymake-eslint flymake-ruff
-		   flymake-shellcheck indent-bars pdf-tools prettier-js
-		   tree-sitter typst-ts-mode))
- '(package-vc-selected-packages
-   '((eglot-booster :vc-backend Git :url
-					"https://github.com/jdtsmith/eglot-booster"))))
+;; (custom-set-variables
 ;; custom-set-variables was added by Custom.
 ;; If you edit it by hand, you could mess it up, so be careful.
 ;; Your init file should contain only one such instance.
 ;; If there is more than one, they won't work right.
+;;  '(custom-safe-themes
+;;    '("9c6aa7eb1bde73ba1142041e628827492bd05678df4d9097cda21b1ebcb8f8b9"
+;; 	 "fdd5161b0ff03d8bdc2356d0a99dfecdc8c4824ea937d39ae2cd0aee2abea6c6"
+;; 	 default))
+;; '(package-selected-packages
+;; '(corfu eglot-booster evil expand-region flymake-eslint flymake-ruff
+;; flymake-shellcheck indent-bars pdf-tools prettier-js
+;; tree-sitter typst-ts-mode))
+;; '(package-vc-selected-packages
+;; '((eglot-booster :vc-backend Git :url
+;; "https://github.com/jdtsmith/eglot-booster"))))
+;; custom-set-variables was added by Custom.
+;; If you edit it by hand, you could mess it up, so be careful.
+;; Your init file should contain only one such instance.
+;; If there is more than one, they won't work right.
+(global-set-key (kbd "<C-wheel-up>") 'ignore)
+(global-set-key (kbd "<C-wheel-down>") 'ignore)
+(global-set-key (kbd "C-;") 'comment-line)

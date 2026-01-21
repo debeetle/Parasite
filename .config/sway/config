@@ -15,7 +15,7 @@ gaps inner 4
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/garden/wallpaper/dark/rose-1.png fill
+output * bg ~/garden/wallpaper/dark/arxiv_dark.png fill
 # exec fcitx5
 #
 # Example configuration:

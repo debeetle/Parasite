@@ -1,3 +1,4 @@
+;;; simpc.el --Emacs config -*- lexical-binding: t -*-
 (require 'subr-x)
 
 (defvar simpc-mode-syntax-table

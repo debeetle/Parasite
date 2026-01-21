@@ -2,6 +2,13 @@
 
 ;; ----- ido-last-directory-list -----
 (
+ ("/home/chaos/why_not_today/blog/noneofmybusiness/Multiple_integral_using_Monte_Carlo/" . "assets/")
+ ("/home/chaos/why_not_today/blog/researchrelated/" . "FMCW_automotive_cruise_control/")
+ ("/home/chaos/why_not_today/blog/noneofmybusiness/" . "Multiple_integral_using_Monte_Carlo/")
+ ("/home/chaos/why_not_today/blog/" . "noneofmybusiness/")
+ ("/home/chaos/why_not_today/noneofmybusiness/" . "Get_more_Package_disk_space_after_a_fresh_OpenWrt_installation/")
+ ("/home/chaos/why_not_today/researchrelated/" . "FMCW_automotive_cruise_control/")
+ ("/home/chaos/garden/" . "scripts/")
  ("/home/chaos/why_not_today/web/2025-5-12/" . "assets/")
  ("/home/chaos/.config/emacs/" . "themes/")
  ("/home/chaos/.config/" . "emacs/")
@@ -9,46 +16,86 @@
  ("/home/" . "chaos/")
  ("/" . "home/")
  ("/home/chaos/why_not_today/web/" . "2025-5-12/")
- ("/home/chaos/why_not_today/" . "web/")
+ ("/home/chaos/why_not_today/" . "blog/")
 )
 
 ;; ----- ido-work-directory-list -----
 (
+ "/home/chaos/why_not_today/blog/noneofmybusiness/Multiple_integral_using_Monte_Carlo/assets/"
+ "/home/chaos/why_not_today/blog/noneofmybusiness/Multiple_integral_using_Monte_Carlo/"
+ "/home/chaos/.config/emacs/"
+ "/home/chaos/why_not_today/blog/noneofmybusiness/Get_more_Package_disk_space_after_a_fresh_OpenWrt_installation/"
+ "/home/chaos/why_not_today/blog/researchrelated/FMCW_automotive_cruise_control/"
+ "/home/chaos/why_not_today/noneofmybusiness/Get_more_Package_disk_space_after_a_fresh_OpenWrt_installation/"
+ "/home/chaos/why_not_today/researchrelated/FMCW_automotive_cruise_control/"
  "/home/chaos/why_not_today/web/2025-5-12/"
  "/opt/fasthome/Parasite/.config/emacs/"
+ "/home/chaos/smbdir/"
+ "/home/chaos/"
+ "/home/chaos/garden/scripts/"
  "/home/chaos/why_not_today/web/2025-5-12/assets/"
  "/home/chaos/why_not_today/web/2025-5-12/asymptote/"
- "/home/chaos/"
  "/home/chaos/Downloads/"
- "/home/chaos/.config/emacs/"
  "/home/chaos/.config/emacs/themes/"
 )
 
 ;; ----- ido-work-file-list -----
 (
- "manualscript.js"
- "matlab_study_of_FMCW_automotive_cruise_control.html"
+ "multiple_integral.svg"
+ "multiple_integral.asy"
+ "multiple_integral.html"
+ "index.html"
+ "test.asy"
  "init.el"
- "1c-light.css"
- "schmidt.js"
- "schmidt.asy"
- "asygl-1.02.js"
- "perpendicular.asy"
- "V:perpendicular.V"
- "chuizhi.asy"
+ "FMCW_automotive_cruise_control.html"
+ "matlab_study_of_FMCW_automotive_cruise_control.html"
+ "custom.el"
+ "Capacity_of_Finite_State_Channels_With_Feedback_Algorithmic_and_Optimization_Theoretic_Properties.pdf"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/home/chaos/why_not_today/web/2025-5-12/" (26973 51845 79958 499000) "asymptote/" "Cindy/" "manualscript.js" "jsxgraph/" "Temml-0.13.01/" "assets/" "report.css" ".git/" "matlab_study_of_FMCW_automotive_cruise_control.html" "fonts/" "highlight/" "figure/" "../" "./")
+ ("/home/chaos/why_not_today/blog/noneofmybusiness/Multiple_integral_using_Monte_Carlo/assets/" (26992 62408 427014 769000) ".log" "test.html" "multiple_integral.html" "test.svg" "test.asy" "multiple_integral.svg" "multiple_integral.asy" "multiple_integral.js" "../" "./")
 
- ("/home/chaos/.config/emacs/" (26973 47963 751258 190000) "tree-sitter/" "transient/" "init.el" "projects" "lisp/" "ido.last" "ido.last~" "auto-save/" "rime/" "themes/" "auto-save-list/" "eln-cache/" "elpa/" "../" "./")
+ ("/home/chaos/garden/scripts/" (26992 30155 865411 156000) "qutebrowser_testbrowser_webengine.py" "qt6webengine-example.py" "WebKitGTK4-example.py" "pymenu" "pmenu" "zaread.sh" "sparetemd.sh" "spotlight.sh" "screenshotwin.sh" "record.sh" "pv.sh" "prapper.sh" "last_upgrade.sh" "gifpicker.sh" "fmv.sh" "fml.sh" "filepicker.sh" "toggletheme.sh" "colorpicker.sh" "capturestore.sh" "capture.sh" "action.sh" "wmwith.sh" "pmenu_damerau_levenshtein" "no-double-col.py" "pyhttpfile.py" "gifmaker" "mpm" "../" "./")
 
- ("/home/chaos/Downloads/" (26973 9460 905591 926000) "debian-12.11.0-amd64-DVD-1.iso" "manual.pdf" "final_weights.pt" "gif图片下载/" "SIMKAI.TTF" "电子发票 2.pdf" "Temml-0.13.01.zip" "BatvisionV2.zip" "rbc.mov" "font.rar" "gif图片下载.rar" "SHAMANS/" "SHAMANS-20250625T132035Z-1-001.zip" "elsarticle.zip" "su-et-al-2025-bendable-phased-array-ultrasound-transducer-for-imaging-on-curved-surfaces.pdf" "meta-rules-dat/" "技术指南方向-技术领域基金建议书-中山大学-姓名.docx" "技术路线.pptx" "航空航天学院-蒋建平-申报汇总表.xlsx" "副本.rar" "模板 - 0314.docx" "字体（参考）/" "仿生回声定位_张超逸_20241226.pptx" "行程单 2.pdf" "附件4：XX学院2022年稳定支持计划项目2024年度报告.xlsx" "热XXX超声发射技术经费预算_3_14.docx" "10MB_720P_THETESTDATA.COM_mov.mov" "电子发票.pdf" "sample-10s.mp4" "COMSOL62_dvd_Windows_Linux.iso" "副本附件4：XX学院2022年稳定支持计划项目2024年度报告.pdf" "digital_25317200000060785799.pdf" "journal.pcbi.1009784.g002.ppt" "热声效应导航会议记录一_25_03_25.docx" "GenRyuMin2TC-otf.zip" "infrared.png" "GenWanMin2TC-otf.zip" "cavity.mov" "LMCOMSOL_Multiphysics_6.2_SSQ.lic" "中山大学技术服务委托合同202206.docx" "dwm.png" "dwm.webp" "dwmsuckless.png" "nyan-cat.avif" "digital_24447200000228156544.pdf" "Figure (1).ppt" "digital_24117000000566157220.pdf" "tftb-0.2.tar.gz" "中山大学研究生学位论文格式要求.pdf" "sample-20s.mp4" "Figure.ppt" "gifski-1.32.0.zip" "5MB_720P_THETESTDATA.COM_mov.mov" "张超逸.pptx" "mtranserver.zip" "行程单.pdf" "STZHONGS.TTF" "simsun.ttc" "../" "./")
+ ("/home/chaos/smbdir/" (26991 38334 514790 797000) "2025热声年度考核材料.zip" "kwave_sensor.m" "朱钊烨毕设题目.docx" "REINFORCE.py" "附件3-2024-24111811-张超逸-中山大学2025学年研究生奖助学金申请表.doc" "附件1-2024-24111811-张超逸-综合素质测评统计表（个人）.xlsx" "translator.py" "lizhe_comsol/" "study_250428/" "Capacity_of_Finite_State_Channels_With_Feedback_Algorithmic_and_Optimization_Theoretic_Properties.pdf" "Algorithmic_Computability_of_the_Capacity_of_Additive_Colored_Gaussian_Noise_Channels.pdf" "从蝙蝠到无人机：用于自主飞行无人机的仿生声纳系统/" "从蝙蝠到无人机：用于自主飞行无人机的仿生声纳系统.rar" "bat_echolocation_biology.zip" "报增审核确认单.pdf" "bat_echolocation_biology/" "html.json" "Proposal Ph.pdf" "macos backup/" "macbook_air/" "shenzhen_NSFC/" "web/" "typdf/" "附件2 中山大学GF科学研究重点建设项目年度考核报告--航空航天学院-蒋建平_0109_1532.doc" "Arduino/" "physic_model/" "peiyu/" "xuan_model/" "physicist/" "books/" "年度考核-蒋建平.pptx" "schmidt.js" "谦道/" "supersonic_survey_reference/" "附件2 中山大学GF科学研究重点建设项目年度考核报告--航空航天学院-蒋建平_0110_2134.doc" "Parameters.ini2D" "index.html" "年度考核-蒋建平0110_2247.pptx" "2025年热声年度汇报_1110_1900.pptx" "better-thesis/" "slides/" "._.DS_Store" ".DS_Store" "leafear.py" "Papers/" "../" "./")
 
- ("/opt/fasthome/Parasite/.config/emacs/" (26973 47963 751258 190000) "tree-sitter/" "transient/" "init.el" "projects" "lisp/" "ido.last" "ido.last~" "auto-save/" "rime/" "themes/" "auto-save-list/" "eln-cache/" "elpa/" "../" "./")
+ ("/opt/fasthome/Parasite/.config/emacs/" (26992 29915 245784 462000) "eln-cache/" "custom.el" "tree-sitter/" "transient/" "init.el" "projects" "lisp/" "ido.last" "ido.last~" "auto-save/" "rime/" "themes/" "auto-save-list/" "elpa/" "../" "./")
 
- ("/home/chaos/" (26972 29566 750930 937000) ".steampid" ".steampath" ".pulse-cookie" ".gnupg/" ".profile" ".wg-easy/" "digital_25447000000324717231.pdf" "garden/" ".arduino15/" ".pyenv/" ".asy/" "learning_backup/" ".mozilla/" "config.json" ".nv/" "trashcan_just_in_case/" ".rviz2/" "develop/" "ros2/" ".cmake/" ".java/" "smbdir/" "sonarcar.py" ".gz/" "digital_25447200000175865010.pdf" ".bash_history" ".wget-hsts" ".ros/" ".espressif/" "universe/" "bytedance_paper/" "Psyduck.stl" ".android/" "kernelbuild/" "pyvenv/" ".rustup/" ".npm/" ".gitconfig" ".aurx/" ".steam/" "sspai2.png" "sspai.png" ".rviz/" "capture/" "Psyduck_Supported.stl" ".ipe/" ".ideamaker-app/" "llmgguf/" ".hplip/" ".screen/" ".ssh/" "typdf/" ".python_history" "research/" "why_not_today/" "Downloads/" ".pki/" ".cache/" ".local/" ".config/" ".bashrc" ".bash_profile" "../" "./")
+ ("/home/chaos/.config/emacs/" (26992 29915 245784 462000) "eln-cache/" "custom.el" "tree-sitter/" "transient/" "init.el" "projects" "lisp/" "ido.last" "ido.last~" "auto-save/" "rime/" "themes/" "auto-save-list/" "elpa/" "../" "./")
+
+ ("/home/chaos/why_not_today/blog/noneofmybusiness/Multiple_integral_using_Monte_Carlo/" (26991 32493 379731 717000) "assets/" "index.html" "components/" "../" "./")
+
+ ("/home/chaos/Downloads/" (26990 62928 888515 12000) "debian-12.11.0-amd64-DVD-1.iso" "manual.pdf" "final_weights.pt" "gif图片下载/" "SIMKAI.TTF" "电子发票 2.pdf" "Temml-0.13.01.zip" "BatvisionV2.zip" "rbc.mov" "font.rar" "gif图片下载.rar" "SHAMANS/" "SHAMANS-20250625T132035Z-1-001.zip" "elsarticle.zip" "su-et-al-2025-bendable-phased-array-ultrasound-transducer-for-imaging-on-curved-surfaces.pdf" "meta-rules-dat/" "linux-6.18.4.tar.xz" "技术指南方向-技术领域基金建议书-中山大学-姓名.docx" "技术路线.pptx" "航空航天学院-蒋建平-申报汇总表.xlsx" "副本.rar" "模板 - 0314.docx" "字体（参考）/" "仿生回声定位_张超逸_20241226.pptx" "行程单 2.pdf" "附件4：XX学院2022年稳定支持计划项目2024年度报告.xlsx" "热XXX超声发射技术经费预算_3_14.docx" "10MB_720P_THETESTDATA.COM_mov.mov" "电子发票.pdf" "sample-10s.mp4" "COMSOL62_dvd_Windows_Linux.iso" "副本附件4：XX学院2022年稳定支持计划项目2024年度报告.pdf" "digital_25317200000060785799.pdf" "journal.pcbi.1009784.g002.ppt" "热声效应导航会议记录一_25_03_25.docx" "GenRyuMin2TC-otf.zip" "infrared.png" "GenWanMin2TC-otf.zip" "cavity.mov" "LMCOMSOL_Multiphysics_6.2_SSQ.lic" "中山大学技术服务委托合同202206.docx" "dwm.png" "dwm.webp" "dwmsuckless.png" "nyan-cat.avif" "digital_24447200000228156544.pdf" "Figure (1).ppt" "digital_24117000000566157220.pdf" "tftb-0.2.tar.gz" "中山大学研究生学位论文格式要求.pdf" "sample-20s.mp4" "Figure.ppt" "gifski-1.32.0.zip" "5MB_720P_THETESTDATA.COM_mov.mov" "张超逸.pptx" "mtranserver.zip" "行程单.pdf" "STZHONGS.TTF" "simsun.ttc" "../" "./")
+
+ ("/home/chaos/why_not_today/blog/researchrelated/FMCW_automotive_cruise_control/" (26990 12803 529955 853000) "components/" "index.html" "figure/" "assets/" "../" "./")
+
+ ("/home/chaos/" (26990 61408 366235 283000) ".bash_history" ".steampath" ".pulse-cookie" ".gnupg/" ".profile" ".bash_profile" ".steampid" ".wg-easy/" "digital_25447000000324717231.pdf" "garden/" ".arduino15/" ".pyenv/" ".asy/" "learning_backup/" "config.json" ".nv/" "trashcan_just_in_case/" ".rviz2/" "develop/" "ros2/" ".cmake/" ".java/" "smbdir/" "sonarcar.py" ".gz/" "digital_25447200000175865010.pdf" ".wget-hsts" ".ros/" ".espressif/" "universe/" "bytedance_paper/" "Psyduck.stl" ".android/" "kernelbuild/" "pyvenv/" ".rustup/" ".npm/" ".gitconfig" ".aurx/" ".steam/" "sspai2.png" "sspai.png" ".rviz/" "capture/" "Psyduck_Supported.stl" ".ipe/" ".ideamaker-app/" ".hplip/" ".screen/" ".ssh/" "typdf/" ".python_history" "research/" "why_not_today/" "Downloads/" ".pki/" ".cache/" ".local/" ".config/" ".bashrc" "../" "./")
+
+ ("/home/chaos/why_not_today/blog/noneofmybusiness/Multiple_integral_using_Monte_Carlo/components/" (26989 39537 189737 573000) "Temml-0.13.01/" "report.css" "manualscript.js" "jsxgraph/" "highlight/" "fonts/" "Cindy/" "asymptote/" "../" "./")
+
+ ("/home/chaos/why_not_today/blog/noneofmybusiness/Get_more_Package_disk_space_after_a_fresh_OpenWrt_installation/" (26989 40226 517295 973000) "index.html" "../" "./")
+
+ ("/home/chaos/why_not_today/blog/noneofmybusiness/" (26989 40111 831239 843000) "Multiple_integral_using_Monte_Carlo/" "Get_more_Package_disk_space_after_a_fresh_OpenWrt_installation/" "../" "./")
+
+ ("/home/chaos/why_not_today/blog/" (26989 39537 189737 573000) "components/" "2024-10-13/" "noneofmybusiness/" "researchrelated/" ".git/" "../" "./")
+
+ ("/home/chaos/why_not_today/blog/researchrelated/" (26988 39682 542893 455000) "FMCW_automotive_cruise_control/" "../" "./")
+
+ ("/home/chaos/why_not_today/" (26988 39652 595384 722000) "blog/" "web/" "homework/" "../" "./")
+
+ ("/home/chaos/why_not_today/noneofmybusiness/Get_more_Package_disk_space_after_a_fresh_OpenWrt_installation/" (26988 39398 179021 72000) "index.html" "../" "./")
+
+ ("/home/chaos/why_not_today/noneofmybusiness/" (26988 39364 557437 529000) "Get_more_Package_disk_space_after_a_fresh_OpenWrt_installation/" "../" "./")
+
+ ("/home/chaos/why_not_today/researchrelated/" (26988 38752 667295 97000) ".git/" "Temml-0.13.01/" "report.css" "manualscript.js" "jsxgraph/" "highlight/" "fonts/" "Cindy/" "asymptote/" "FMCW_automotive_cruise_control/" "2024-10-13/" "../" "./")
+
+ ("/home/chaos/why_not_today/researchrelated/FMCW_automotive_cruise_control/" (26988 39005 852058 454000) "index.html" "figure/" "assets/" "../" "./")
+
+ ("/home/chaos/.config/" (26985 43554 711288 94000) "environment.d/" "river/" "sway/" "configstore/" "freerdp/" "unity3d/" "menus/" "kitty/" "glow/" "paperwork2.conf" "Cyberbotics/" "GNS3/" "pcmanfm/" "libfm/" "rss2email.cfg" "QtProject/" "okular.kmessagebox" "pympress" "gnome-session/" ".gsd-keyboard.settings-ported" "ibus/" "gnuradio/" "pyradio/" "okularpartrc" "okularrc" "libvirt/" "epiphany/" "Trolltech.conf" "servo/" "distrobox/" "rustdesk/" "godot/" "OpenSCAD/" "sonic-visualiser/" "nvim/" "VirtualBox/" "pip/" "octave/" "swayimg/" "cef_user_data/" "fish/" "gtk-4.0/" "xdg-desktop-portal/" "autostart/" "matplotlib/" "glib-2.0/" "user-dirs.locale" "user-dirs.dirs" "QtProject.conf" "emaildefaults" "procps/" "mako/" "mpv/" "FreeCAD/" "inkscape/" "GIMP/" "blender/" "fcitx/" "fcitx5/" "zathura/" "go/" "audacity/" "trizen/" "emacs/" "fd/" "gtk-3.0/" "qutebrowser/" "dconf/" "pulse/" "chromium/" "zsh/" "htop/" ".fzfrc" "systemd/" "../" "./")
+
+ ("/home/chaos/why_not_today/web/2025-5-12/" (26974 11975 180742 808000) "asymptote/" "Cindy/" "manualscript.js" "jsxgraph/" "Temml-0.13.01/" "assets/" "report.css" ".git/" "matlab_study_of_FMCW_automotive_cruise_control.html" "fonts/" "highlight/" "figure/" "../" "./")
 
  ("/home/chaos/garden/" (26955 26318 487788 973000) "Michasze-surf/" "Gitkubikon-surf/" "HazardChem-surf/" "DGC75-dbus-surf/" "bigtime/" "tty-clock/" "fzy/" "panim/" "plant/" "tinywl/" "wlock/" "mangowc/" "modern-sysu-thesis/" "dwl/" "emenu/" "quark/" "web/" "static-site-scripts/" "qtwebengine/" "saait/" "scron/" "wallpaper/" "scripts/" "../" "./")
 
@@ -66,13 +113,9 @@
 
  ("/opt/fasthome/Parasite/.config/emacs/themes/" (26952 44311 769040 252000) "minilight-theme.el" "hima-theme.el" "dracula-theme.el" "catppuccin-theme.el" "../" "./")
 
- ("/home/chaos/.config/" (26952 42559 35415 876000) "configstore/" "freerdp/" "unity3d/" "menus/" "kitty/" "glow/" "paperwork2.conf" "Cyberbotics/" "GNS3/" "pcmanfm/" "libfm/" "rss2email.cfg" "QtProject/" "okular.kmessagebox" "pympress" "gnome-session/" ".gsd-keyboard.settings-ported" "ibus/" "Epic/" "gnuradio/" "pyradio/" "okularpartrc" "okularrc" "libvirt/" "epiphany/" "Trolltech.conf" "eog/" "servo/" "distrobox/" "havoc/" "rustdesk/" "godot/" "OpenSCAD/" "sonic-visualiser/" "nvim/" "VirtualBox/" "pip/" "octave/" "swayimg/" "cef_user_data/" "fish/" "gtk-4.0/" "xdg-desktop-portal/" "autostart/" "matplotlib/" "glib-2.0/" "user-dirs.locale" "user-dirs.dirs" "QtProject.conf" "emaildefaults" "procps/" "sway/" "mako/" "mpv/" "FreeCAD/" "inkscape/" "GIMP/" "blender/" "fcitx/" "fcitx5/" "zathura/" "go/" "audacity/" "trizen/" "emacs/" "river/" "fd/" "gtk-3.0/" "qutebrowser/" "dconf/" "pulse/" "chromium/" "zsh/" "htop/" ".fzfrc" "systemd/" "../" "./")
-
  ("/home/" (26805 25063 208224 5000) "chaos/" "../" "./")
 
  ("/home/chaos/why_not_today/web/" (26930 48656 18634 200000) "2025-4-28/" "report.css" "2025-5-12/" "2024-10-12/" "2024-10-7/" "2024-9-28/" "noneofmybusiness/" "../" "./")
-
- ("/home/chaos/why_not_today/" (26653 28149 870968 38000) "web/" "homework/" "researchrelated/" "../" "./")
 )
 
 ;; ----- ido-unc-hosts-cache -----
