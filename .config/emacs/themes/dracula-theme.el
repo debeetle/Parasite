@@ -196,7 +196,7 @@ read it before opening a new issue about your will.")
                 (dark-green      "#037a22" "#00af00" "green") ; 40% darker
                 (dark-blue       "#0189cc" "#0087ff" "brightblue")))
       (faces '(;; default / basic faces
-               (cursor :background ,fg3)
+               (cursor :background ,dracula-yellow)
                (default :background ,dracula-bg :foreground ,dracula-fg)
                (default-italic :slant italic)
                (error :foreground ,dracula-red)
@@ -221,15 +221,15 @@ read it before opening a new issue about your will.")
                       (list :weight 'normal :foreground dracula-fg)
                     (list :weight 'bold :foreground dracula-pink)))
                (mode-line :background ,dracula-current
-                          :box (:line-width 1 :color ,dracula-current :style released-button) :inverse-video nil
+                          :box ,dracula-current :inverse-video nil
                           ,@(if dracula-alternate-mode-line-and-minibuffer
                                 (list :foreground fg3)
                               (list :foreground dracula-fg)))
                (mode-line-inactive
                 :background ,dracula-bg :inverse-video nil
                 ,@(if dracula-alternate-mode-line-and-minibuffer
-                      (list :foreground dracula-comment :box `(:line-width 1 :color ,dracula-bg :style released-button))
-                    (list :foreground fg4 :box `(:line-width 1 :color ,bg2 :style released-button))))
+                      (list :foreground dracula-comment :box dracula-bg)
+                    (list :foreground fg4 :box bg2)))
                (read-multiple-choice-face :inherit completions-first-difference)
                (region :background ,dracula-region :extend nil)
                (shadow :foreground ,dracula-comment)
@@ -1083,10 +1083,7 @@ read it before opening a new issue about your will.")
                    whole-theme))
            whole-theme)))
 
-;; (set-face-attribute 'mode-line nil
-                    ;; :box '(:line-width 1 :color "grey40" :style released-button))
-;; (set-face-attribute 'mode-line-inactive nil
-                    ;; :box '(:line-width 1 :color "grey20" :style released-button))
+
 ;;;###autoload
 (when load-file-name
   (add-to-list 'custom-theme-load-path

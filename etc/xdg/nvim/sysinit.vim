@@ -125,6 +125,7 @@ hi! link netrwMarkFile Search
 "autocmd BufRead,BufNewFile *.network,*.dae,*.rules, setlocal filetype=ini
 "autocmd BufRead,BufNewFile *.conf,*.network,*.dae,*.rules setlocal filetype=ini
 autocmd BufRead,BufNewFile *.wbt setlocal filetype=wrl
+autocmd BufNewFile,BufRead *.asy setfiletype asy
 
 "function Gitbranch()
 "    return trim(system("git -C " . expand("%:h") . " branch --show-current 2>/dev/null"))

@@ -1,19 +1,19 @@
 #!/usr/bin/dash
 # set -eu -o pipefail
-# app=$(
+app=$(
 	# pymenu $(printf "alacritty\naudacity\nblender\nchromium\nemacs\nepiphany\nfirefox\nfoot\nfreecad\ngimp\ngodot\nhavoc\nhpc_server\nideamaker\ninkscape\nipe\nkitty\noctave\nokular\nopenscad\nrustdesk\nrviz\nsonic\nsteam\nqutebrowser\nvirtualbox\nwebots\nzathura")
-# 	pymenu "alacritty" "audacity" "blender" "chromium" "emacs" "epiphany" "firefox" "foot" "freecad" "gimp" "godot" "havoc" "hpc_server" "ideamaker" "inkscape" "ipe" "kitty" "octave" "okular" "openscad" "rustdesk" "rviz" "sonic" "steam" "qutebrowser" "virtualbox" "webots" "zathura"
-# )
+	pmenu "audacity" "blender" "chromium" "emacs" "epiphany" "firefox" "foot" "freecad" "gimp" "godot" "hpc_server" "ideamaker" "inkscape" "ipe" "kitty" "octave" "openscad" "rustdesk" "rviz" "sonic" "steam" "qutebrowser" "virtualbox" "webots" "xasy" "zathura"
+)
 
 # app=$(printf "%s\n" \
 # 	alacritty audacity blender chromium emacs epiphany firefox foot freecad gimp godot havoc ideamaker inkscape ipe kitty matlab octave okular openscad rustdesk rviz \
 # 	servo sonic steam qutebrowser virtualbox webots zathura \
 # | fzf --style=minimal --info=hidden --color=gutter:#eeeeee)
 
-app=$(printf "%s\n" \
-	alacritty audacity blender chromium emacs epiphany firefox foot freecad gimp godot havoc hpc_server ideamaker inkscape ipe kitty octave okular openscad rustdesk rviz \
-	sonic steam qutebrowser virtualbox webots zathura |
-	fzy -p "")
+# app=$(printf "%s\n" \
+# 	alacritty audacity blender chromium emacs epiphany firefox foot freecad gimp godot havoc hpc_server ideamaker inkscape ipe kitty octave okular openscad rustdesk rviz \
+# 	sonic steam qutebrowser virtualbox webots zathura |
+# 	fzy -p "")
 
 # exec setsid dash -c "${app}" > /dev/null 2>&1
 # setsid dash -c "${app} &"
@@ -24,21 +24,23 @@ fi
 
 case "${app}" in
 emacs)
-	# setsid dash -c "emacsclient -a '' -c &"
-	setsid dash -c "emacsclient -r &"
+	# setsid dash -c "emacsclient -a '' -c &" # from stackoverflow
+	# setsid dash -c "emacsclient -r &"
+	setsid dash -c "emacsclient -nc" # from archwiki
 	;;
 epiphany)
-	setsid dash -c "GDK_BACKEND=x11 epiphany &" # x11 or empty content
+	# 	setsid dash -c "GDK_BACKEND=x11 epiphany &" # x11 or empty content
+	setsid dash -c "WEBKIT_DISABLE_DMABUF_RENDERER=1 epiphany &"
 	;;
-	# firefox)
-	#        exec setsid dash -c "firefox <&-"
-	#        ;;
+# firefox)
+#        exec setsid dash -c "firefox <&-"
+#        ;;
 foot)
-	setsid dash -c "footclient --log-level none &"
+	setsid dash -c "footclient --log-level=none &"
 	;;
-freecad)
-	setsid dash -c "QT_QPA_PLATFORM=xcb freecad &" # x11 or black content
-	;;
+# freecad)
+# 	setsid dash -c "QT_QPA_PLATFORM=xcb freecad &" # x11 or black content
+# 	;;
 hpc_server)
 	setsid dash -c "xfreerdp3 +f +async-update +async-channels +rfx /frame-ack:0 /cert:tofu /log-level:off /gfx:progressive /gfx:AVC444 /u:chaos /p:bp /v:172.25.4.47 &"
 	;;
@@ -66,7 +68,10 @@ rviz)
 	# setsid dash -c "distrobox enter ubuntu-24-04 -- bash -c 'source /opt/ros/jazzy/setup.bash && ros2 run rviz2 rviz2' &"
 	;;
 sonic)
-	setsid dash -c "sonic-visualiser &"
+	local/share setsid dash -c "sonic-visualiser &"
+	;;
+xasy)
+	setsid dash -c "QT_QPA_PLATFORM=xcb xasy &"
 	;;
 *)
 	# if which "$app" > /dev/null; then

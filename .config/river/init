@@ -1,7 +1,7 @@
 #!/bin/env bash
 
-swaybg -m fill -i "$( find /home/chaos/garden/wallpaper/ | shuf -n 1)" &
-fcitx5 > /dev/null 2>&1 &
+# swaybg -i "$( find /home/chaos/garden/wallpaper/ | shuf -n 1)" &
+# fcitx5 > /dev/null 2>&1 &
 
 riverctl map normal Alt+Shift P spawn spotlight
 riverctl map normal Alt+Ctrl escape spawn center

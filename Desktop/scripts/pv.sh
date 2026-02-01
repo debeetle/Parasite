@@ -75,7 +75,7 @@ else
             #     hexyl -n 4kB "$FILE_PATH" && exit 0
             # else
                 # bat -p --color=always "${FILE_PATH}" && exit 0
-                ccat --bg="dark" --color=always "${FILE_PATH}" && exit 0
+                ccat --bg="light" --color=always "${FILE_PATH}" && exit 0
             # fi
             exit 1;;
     esac

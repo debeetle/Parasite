@@ -16,7 +16,7 @@ require 'nvim-treesitter'.setup({
 	-- },
 	-- indent = { enable = true },
 	-- sync_install = true,
-	-- auto_install = false,
+	auto_install = false,
 	ignore_install = {
 		"c",
 		"lua",
@@ -26,6 +26,8 @@ require 'nvim-treesitter'.setup({
 		"vimdoc",
 		"markdown",
 		"fish",
+		"bash",
+		"zsh",
 		"make",
 		"passwd",
 		-- "ini",

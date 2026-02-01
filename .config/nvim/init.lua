@@ -37,7 +37,7 @@ require("paq")({
 	{ "nvim-treesitter/nvim-treesitter" },
 	{ "nvim-treesitter/nvim-treesitter-locals" },
 	{ "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
-	-- { "nvim-treesitter/nvim-treesitter-context", opt = true},
+	{ "nvim-treesitter/nvim-treesitter-context",     opt = false },
 
 	-- { "JoosepAlviste/nvim-ts-context-commentstring" },
 })
@@ -79,3 +79,6 @@ vim.api.nvim_create_autocmd("BufNewFile", {
 -- 		require("minicmp")
 -- 	end,
 -- })
+
+vim.cmd("hi TreesitterContextBottom gui=underline guisp=Grey")
+vim.cmd("hi TreesitterContextLineNumberBottom gui=underline guisp=Grey")
