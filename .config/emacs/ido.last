@@ -24,8 +24,8 @@
 
 ;; ----- ido-work-directory-list -----
 (
- "/home/chaos/garden/dwl/"
  "/home/chaos/.config/emacs/"
+ "/home/chaos/garden/dwl/"
  "/home/chaos/why_not_today/blog/noneofmybusiness/Multiple_integral_using_Monte_Carlo/"
  "/home/chaos/why_not_today/blog/components/Cindy/"
  "/home/chaos/research/Code/pyvista/"
@@ -48,8 +48,8 @@
 
 ;; ----- ido-work-file-list -----
 (
- "dwl.c"
  "init.el"
+ "dwl.c"
  "config.h"
  "index.html"
  "pyplot.py"
@@ -62,15 +62,15 @@
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/opt/fasthome/Parasite/.config/emacs/" (27007 18753 271904 334000) "user-lisp/" "eshell/" "url/" "ido.last" "eln-cache/" "custom.el" "tree-sitter/" "transient/" "init.el" "projects" "ido.last~" "auto-save/" "rime/" "themes/" "auto-save-list/" "elpa/" "../" "./")
+ ("/opt/fasthome/Parasite/.config/emacs/" (27008 9501 87038 683000) "early-init.el" "recentf" "user-lisp/" "eshell/" "url/" "ido.last" "eln-cache/" "custom.el" "tree-sitter/" "transient/" "init.el" "projects" "ido.last~" "auto-save/" "rime/" "themes/" "auto-save-list/" "elpa/" "../" "./")
 
- ("/home/chaos/.config/emacs/" (27007 18753 271904 334000) "user-lisp/" "eshell/" "url/" "ido.last" "eln-cache/" "custom.el" "tree-sitter/" "transient/" "init.el" "projects" "ido.last~" "auto-save/" "rime/" "themes/" "auto-save-list/" "elpa/" "../" "./")
+ ("/home/chaos/.config/emacs/" (27008 9501 87038 683000) "early-init.el" "recentf" "user-lisp/" "eshell/" "url/" "ido.last" "eln-cache/" "custom.el" "tree-sitter/" "transient/" "init.el" "projects" "ido.last~" "auto-save/" "rime/" "themes/" "auto-save-list/" "elpa/" "../" "./")
+
+ ("/home/chaos/garden/scripts/" (27008 3399 704470 454000) "qutebrowser_testbrowser_webengine.py" "qt6webengine-example.py" "WebKitGTK4-example.py" "pymenu" "pmenu" "zaread.sh" "sparetemd.sh" "spotlight.sh" "screenshotwin.sh" "record.sh" "pv.sh" "prapper.sh" "last_upgrade.sh" "gifpicker.sh" "fmv.sh" "fml.sh" "filepicker.sh" "toggletheme.sh" "colorpicker.sh" "capturestore.sh" "capture.sh" "action.sh" "wmwith.sh" "pmenu_damerau_levenshtein" "no-double-col.py" "pyhttpfile.py" "gifmaker" "mpm" "../" "./")
 
  ("/home/chaos/garden/dwl/" (26995 14951 482713 84000) "dwl.o" "wlr-output-power-management-unstable-v1-protocol.h" "pointer-constraints-unstable-v1-protocol.h" "cursor-shape-v1-protocol.h" "dwl.1" ".git/" "config.h" "dwl.c" "client.h" "dwl" "util.o" "xdg-shell-protocol.h" "wlr-layer-shell-unstable-v1-protocol.h" "patch/" "dwl-ipc-unstable-v2-protocol.c" "Makefile" "config.mk" "util.h" "util.c" "dwl.desktop" ".gitignore" "protocols/" "../" "./")
 
  ("/home/chaos/garden/" (27001 44229 977012 525000) "river/" "qutebrowser/" "spm/" "tpm/" "vortex/" "build/" "sway/" "mangowc/" "soap/" "darkhttpd/" "Michasze-surf/" "Gitkubikon-surf/" "HazardChem-surf/" "DGC75-dbus-surf/" "bigtime/" "tty-clock/" "fzy/" "panim/" "plant/" "tinywl/" "wlock/" "modern-sysu-thesis/" "dwl/" "emenu/" "web/" "static-site-scripts/" "qtwebengine/" "saait/" "scron/" "wallpaper/" "scripts/" "../" "./")
-
- ("/home/chaos/garden/scripts/" (27007 9249 6854 235000) "qutebrowser_testbrowser_webengine.py" "qt6webengine-example.py" "WebKitGTK4-example.py" "pymenu" "pmenu" "zaread.sh" "sparetemd.sh" "spotlight.sh" "screenshotwin.sh" "record.sh" "pv.sh" "prapper.sh" "last_upgrade.sh" "gifpicker.sh" "fmv.sh" "fml.sh" "filepicker.sh" "toggletheme.sh" "colorpicker.sh" "capturestore.sh" "capture.sh" "action.sh" "wmwith.sh" "pmenu_damerau_levenshtein" "no-double-col.py" "pyhttpfile.py" "gifmaker" "mpm" "../" "./")
 
  ("/home/chaos/Downloads/" (27006 13427 167212 535000) "debian-12.11.0-amd64-DVD-1.iso" "shuangpin-chromeos.zip" "manual.pdf" "final_weights.pt" "gif图片下载/" "SIMKAI.TTF" "电子发票 2.pdf" "dist/" "Temml-0.13.01.zip" "BatvisionV2.zip" "rbc.mov" "font.rar" "gif图片下载.rar" "SHAMANS/" "SHAMANS-20250625T132035Z-1-001.zip" "elsarticle.zip" "su-et-al-2025-bendable-phased-array-ultrasound-transducer-for-imaging-on-curved-surfaces.pdf" "meta-rules-dat/" "linux-6.18.4.tar.xz" "技术指南方向-技术领域基金建议书-中山大学-姓名.docx" "技术路线.pptx" "航空航天学院-蒋建平-申报汇总表.xlsx" "副本.rar" "模板 - 0314.docx" "字体（参考）/" "仿生回声定位_张超逸_20241226.pptx" "行程单 2.pdf" "附件4：XX学院2022年稳定支持计划项目2024年度报告.xlsx" "热XXX超声发射技术经费预算_3_14.docx" "10MB_720P_THETESTDATA.COM_mov.mov" "电子发票.pdf" "sample-10s.mp4" "COMSOL62_dvd_Windows_Linux.iso" "副本附件4：XX学院2022年稳定支持计划项目2024年度报告.pdf" "digital_25317200000060785799.pdf" "CindyJS-0.8.43.zip" "journal.pcbi.1009784.g002.ppt" "热声效应导航会议记录一_25_03_25.docx" "GenRyuMin2TC-otf.zip" "infrared.png" "GenWanMin2TC-otf.zip" "cavity.mov" "LMCOMSOL_Multiphysics_6.2_SSQ.lic" "中山大学技术服务委托合同202206.docx" "dwm.png" "dwm.webp" "dwmsuckless.png" "nyan-cat.avif" "digital_24447200000228156544.pdf" "Figure (1).ppt" "digital_24117000000566157220.pdf" "tftb-0.2.tar.gz" "中山大学研究生学位论文格式要求.pdf" "sample-20s.mp4" "Figure.ppt" "gifski-1.32.0.zip" "5MB_720P_THETESTDATA.COM_mov.mov" "张超逸.pptx" "mtranserver.zip" "行程单.pdf" "STZHONGS.TTF" "simsun.ttc" "../" "./")
 

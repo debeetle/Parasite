@@ -1,24 +1,10 @@
 ;;; init.el --Emacs config -*- lexical-binding: t -*-
 ;; (require 'package )
-(setq package-archives '(("gnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-						 ("melpa" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
-
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(when (file-exists-p custom-file)
-  (load custom-file))
-(add-to-list 'load-path (expand-file-name "user-lisp" user-emacs-directory))
-
 
 ;; For performance
-;; (load "server")
-;; (unless (server-running-p) (server-start))
-(setq gc-cons-threshold 100000000)
-(setq read-process-output-max (* 1024 1024)) ;; 1mb
-
-(add-hook 'emacs-startup-hook #'(lambda () (setq gc-cons-threshold (* 100 1024 1024)))) ;; restore after startup
-(menu-bar-mode 0)
-(tool-bar-mode 0)
-(scroll-bar-mode 0)
+(setq mouse-select-window nil)
+(setq select-active-regions nil)
+(setq mouse-drag-copy-region nil)
 (setq id-enable-flex-matching nil)
 (setq indent-tabs-mode t)
 (ido-mode t)
@@ -31,10 +17,8 @@
 (column-number-mode t)
 (show-paren-mode t)                       ;; Show closing parens by default
 (global-auto-revert-mode t)               ;; Auto-update buffer if file has changed on disk
-
 (delete-selection-mode t)                 ;; Selected text will be overwritten when you start typing
 (setq-default cursor-type 'bar)
-
 (setq-default tab-width 4)
 (global-display-line-numbers-mode 1)
 (setq display-line-numbers-type 'relative)
@@ -49,12 +33,13 @@
 (setq make-backup-files nil) ;关闭文件自动备份
 (setq auto-save-visited-file-name t)
 (setq auto-save-file-name-transforms '((".*" "/home/chaos/.config/emacs/auto-save/" t)))
-(setq inhibit-startup-screen t)           ; Disable startup screen
-(setq initial-scratch-message "")
+setq inhibit-startup-screen t)           ; Disable startup screen
+;; (setq initial-scratch-message "")
 (setq ring-bell-function 'ignore)         ; Disable bell sound
 ;; (setq linum-format "%4d ")                ; Line number format
 (setq-default frame-title-format '("%b")) ; Make window title the buffer name
-(fset 'yes-or-no-p 'y-or-n-p)             ; y-or-n-p makes answering questions faster
+(setq read-answer-short t)
+;; (fset 'yes-or-no-p 'y-or-n-p)             ; y-or-n-p makes answering questions faster
 (add-hook 'before-save-hook 'delete-trailing-whitespace)    ; Delete trailing whitespace on save
 ;; Lockfiles unfortunately cause more pain than benefit
 (setq create-lockfiles -1)
@@ -63,7 +48,6 @@
 ;; (set-terminal-coding-system 'utf-8)
 ;; (set-keyboard-coding-system 'utf-8)
 ;; (set-selection-coding-system 'utf-8)
-;; (prefer-coding-system 'utf-8)
 (setq completion-auto-help 'always)
 (setq completion-auto-select 'second-tab)
 (when (fboundp 'windmove-default-keybindings)
@@ -80,6 +64,15 @@
 	  scroll-conservatively 10000)
 (transient-mark-mode t)
 (setq kill-ring-max 30)
+(setq enable-recursive-minibuffers t)
+(setq which-func-update-delay 1.0)
+(setq idle-update-delay which-func-update-delay)
+(setq vc-make-backup-files nil)
+(setq vc-git-diff-switches '("--histogram"))
+
+(setq window-resize-pixelwise nil)
+(setq-default word-wrap t)
+(setq-default cursor-in-non-selected-windows nil)
 
 (add-to-list 'custom-theme-load-path "/home/chaos/.config/emacs/themes")
 ;; (defun my/daemon-theme (frame)
@@ -97,14 +90,8 @@
   (load-theme theme t))
 (my/apply-theme 'dracula)
 
-;; (switch-to-buffer "*scratch*")
 (require 'ffap)
 (ffap-bindings)
-
-;; (require 'simpc-mode)
-;; (add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . simpc-mode))
-
-
 
 ;; (add-to-list 'auto-mode-alist '("\\.service\\'" . conf-unix-mode))
 ;; (add-to-list 'auto-mode-alist '("\\.timer\\'" . conf-unix-mode))
@@ -141,7 +128,9 @@
   (add-to-list 'eglot-server-programs
 			   '(simpc-mode . ("clangd")))
   (setq eglot-events-buffer-size 0)
-  :bind (("C-c f" . eglot-format))
+  (setq eglot-autoshutdown t)
+  (setq jsonrpc-event-hook nil)
+  :bind ("C-c f" . eglot-format)
   )
 
 (use-package eglot-booster
@@ -153,7 +142,6 @@
 (use-package tree-sitter
   :ensure t
   )
-
 
 (use-package corfu
   :ensure t
@@ -185,31 +173,29 @@
   ("C-c e" . evil-mode)
   )
 
-(use-package indent-bars
+(use-package rainbow-delimiters
   :ensure t
-  :custom
-  (indent-bars-no-descend-lists t) ; no extra bars in continued func arg lists
-  (indent-bars-treesit-support t)
-  (indent-bars-treesit-ignore-blank-lines-types '("module"))
-  ;; Add other languages as needed
-  (indent-bars-treesit-scope '((python function_definition class_definition for_statement
-									   if_statement with_statement while_statement)))
-    ;; Note: wrap may not be needed if no-descend-list is enough
-  ;;(indent-bars-treesit-wrap '((python argument_list parameters ; for python, as an example
-  ;;				      list list_comprehension
-  ;;				      dictionary dictionary_comprehension
-  ;;				      parenthesized_expression subscript)))
   ;; :hook
-  ;; ((python-base-mode yaml-mode asy-mode emacs-lisp-mode) . indent-bars-mode)
+  ;; (prog-mode . #'rainbow-delimiters-mode)
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
   )
+
+(use-package indent-guide
+  :ensure t
+  :bind
+  ("C-c i" . indent-guide-global-mode)
+  )
+
 (use-package flypy
-  :ensure nil)
+ :ensure nil
+   )
 
 (use-package simpc-mode
   :ensure nil
   :mode ("\\.[hc]\\(pp\\)?\\'" . simpc-mode)
-  :config
-  (autoload 'simpc-mode "~/.config/emacs/user-lisp/simpc-mode.el" t)
+  ;; :config
+  ;; (autoload 'simpc-mode "~/.config/emacs/user-lisp/simpc-mode.el" t)
   )
 
 (use-package typst-ts-mode
@@ -238,6 +224,17 @@
 									(shell-command rendersvg)))
 								nil t)))
   )
+
+;; (use-package recentf
+;; :init
+;; (recentf-mode 1)
+;; :config
+;; (add-hook 'after-make-frame-functions
+;; (lambda (frame)
+;; (with-selected-frame frame
+;; (when (not (buffer-file-name))
+;; (recentf-open-files)))))
+;; )
 
 (use-package prettier-js
   :ensure t
@@ -284,3 +281,5 @@
 (global-set-key (kbd "<C-wheel-up>") 'ignore)
 (global-set-key (kbd "<C-wheel-down>") 'ignore)
 (global-set-key (kbd "C-;") 'comment-line)
+;; (global-unset-key [double-mouse-1])
+;; (global-unset-key [triple-mouse-1])

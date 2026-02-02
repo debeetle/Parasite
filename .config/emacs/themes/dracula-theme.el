@@ -113,7 +113,6 @@
 ;;; Code:
 (deftheme dracula)
 
-
 ;;;; Configuration options:
 
 (defgroup dracula nil
@@ -169,7 +168,7 @@ There is a lot of discussion behind the 256 colors theme (see URL
 `https://github.com/dracula/emacs/pull/57').  Please take time to
 read it before opening a new issue about your will.")
 
-
+
 ;;;; Theme definition:
 
 ;; Assigment form: VARIABLE COLOR [256-COLOR [TTY-COLOR]]
@@ -917,11 +916,11 @@ read it before opening a new issue about your will.")
                (selectrum-primary-highlight :foreground ,dracula-pink)
                (selectrum-secondary-highlight :foreground ,dracula-green)
                ;; show-paren
-               (show-paren-match-face :background unspecified
-                                      :foreground ,dracula-cyan
-                                      :weight bold)
-               (show-paren-match :background unspecified
-                                 :foreground ,dracula-cyan
+               ;; (show-paren-match-face :background unspecified
+               ;;                        :foreground ,dracula-cyan
+               ;;                        :weight bold)
+               (show-paren-match :background ,dracula-pink
+                                 :foreground unspecified
                                  :weight bold)
                (show-paren-match-expression :inherit match)
                (show-paren-mismatch :inherit font-lock-warning-face)
