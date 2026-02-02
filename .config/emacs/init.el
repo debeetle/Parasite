@@ -10,6 +10,7 @@
 (ido-mode t)
 (ido-everywhere nil)
 (icomplete-mode t)
+(setq icomplete-compute-delay 0.01)
 (fido-mode t)
 (visual-line-mode t)
 (blink-cursor-mode 0)
@@ -33,11 +34,11 @@
 (setq make-backup-files nil) ;关闭文件自动备份
 (setq auto-save-visited-file-name t)
 (setq auto-save-file-name-transforms '((".*" "/home/chaos/.config/emacs/auto-save/" t)))
-setq inhibit-startup-screen t)           ; Disable startup screen
+(setq inhibit-startup-screen t)           ; Disable startup screen
 ;; (setq initial-scratch-message "")
 (setq ring-bell-function 'ignore)         ; Disable bell sound
 ;; (setq linum-format "%4d ")                ; Line number format
-(setq-default frame-title-format '("%b")) ; Make window title the buffer name
+;; (setq-default frame-title-format '("%b")) ; Make window title the buffer name
 (setq read-answer-short t)
 ;; (fset 'yes-or-no-p 'y-or-n-p)             ; y-or-n-p makes answering questions faster
 (add-hook 'before-save-hook 'delete-trailing-whitespace)    ; Delete trailing whitespace on save
@@ -93,25 +94,12 @@ setq inhibit-startup-screen t)           ; Disable startup screen
 (require 'ffap)
 (ffap-bindings)
 
-;; (add-to-list 'auto-mode-alist '("\\.service\\'" . conf-unix-mode))
-;; (add-to-list 'auto-mode-alist '("\\.timer\\'" . conf-unix-mode))
-;; (add-to-list 'auto-mode-alist '("\\.target\\'" . conf-unix-mode))
-;; (add-to-list 'auto-mode-alist '("\\.mount\\'" . conf-unix-mode))
-;; (add-to-list 'auto-mode-alist '("\\.automount\\'" . conf-unix-mode))
-;; (add-to-list 'auto-mode-alist '("\\.slice\\'" . conf-unix-mode))
-;; (add-to-list 'auto-mode-alist '("\\.socket\\'" . conf-unix-mode))
-;; (add-to-list 'auto-mode-alist '("\\.path\\'" . conf-unix-mode))
-;; (add-to-list 'auto-mode-alist '("\\.netdev\\'" . conf-unix-mode))
-;; (add-to-list 'auto-mode-alist '("\\.network\\'" . conf-unix-mode))
-;; (add-to-list 'auto-mode-alist '("\\.link\\'" . conf-unix-mode))
-
 ;; (custom-set-faces
 ;; custom-set-faces was added by Custom.
 ;; If you edit it by hand, you could mess it up, so be careful.
 ;; Your init file should contain only one such instance.
 ;; If there is more than one, they won't work right.
 ;; )
-
 
 (use-package eglot
   :hook
@@ -134,6 +122,7 @@ setq inhibit-startup-screen t)           ; Disable startup screen
   )
 
 (use-package eglot-booster
+  :ensure nil
   :after eglot
   :config
   (eglot-booster-mode)
@@ -188,8 +177,8 @@ setq inhibit-startup-screen t)           ; Disable startup screen
   )
 
 (use-package flypy
- :ensure nil
-   )
+  :ensure nil
+  )
 
 (use-package simpc-mode
   :ensure nil
@@ -245,7 +234,8 @@ setq inhibit-startup-screen t)           ; Disable startup screen
   )
 
 (use-package conf-mode
-  :mode (("\\.service\\'" . conf-unix-mode)
+  :mode (
+		 ("\\.service\\'" . conf-unix-mode)
 		 ("\\.timer\\'" . conf-unix-mode)
 		 ("\\.target\\'" . conf-unix-mode)
 		 ("\\.mount\\'" . conf-unix-mode)
