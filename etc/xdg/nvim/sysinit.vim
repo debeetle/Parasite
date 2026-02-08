@@ -52,6 +52,7 @@ vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.inccommand = "split"
+-- vim.bo.indentexpr = "v.lua.require'nvim-treesitter'.indentexpr()"
 vim.opt.laststatus = 2
 vim.opt.linebreak = true
 vim.opt.lazyredraw = true
